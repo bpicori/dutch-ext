@@ -52,7 +52,7 @@ export class StorageService {
   }
 
   evaluate(challenge: Challenge, answer: string): EvaluateResult {
-    const correct = answer === challenge.correctAnswer;
+    const correct = answer.trim().toLowerCase() === challenge.correctAnswer.trim().toLowerCase();
     const prev = this.progress[challenge.id]
       ?? { correct: 0, attempts: 0, consecutiveStreaks: 0, dontShowUntil: 0 };
 

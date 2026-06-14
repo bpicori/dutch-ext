@@ -1,4 +1,4 @@
-export type ChallengeType = 'de_het' | 'nl_to_en' | 'en_to_nl' | 'listen';
+export type ChallengeType = 'de_het' | 'nl_to_en' | 'en_to_nl' | 'listen' | 'nl_to_en_sentence' | 'en_to_nl_sentence';
 
 export interface Challenge {
   id: string;

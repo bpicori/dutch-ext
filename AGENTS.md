@@ -1,3 +1,5 @@
+WachtNederlands helps learners pass the Dutch inburgering exam through micro-challenges that appear on every new tab.
+
 ## Build
 
 ```bash
@@ -49,6 +51,8 @@ Each challenge is a standalone flashcard with its own SM-2 progress. Tier 2 unlo
 | `nl_to_en` | Dutch word | Three English definitions | 1, 2, 3 |
 | `en_to_nl` | English word | Three Dutch translations | 1, 2, 3 |
 | `listen` | TTS audio (auto-play) | Three Dutch spelling variants | 1, 2, 3 |
+| `nl_to_en_sentence` | Dutch sentence | Three English translations | 1, 2, 3 |
+| `en_to_nl_sentence` | English sentence | Three Dutch translations | 1, 2, 3 |
 
 All types: Space / Enter / Esc = dismiss challenge (focus omnibox).
 

@@ -48,10 +48,40 @@ export class Renderer {
 
     this.bindKeys();
     this.bindClicks();
+
+    if (challenge.type.endsWith('_sentence')) {
+      setTimeout(() => {
+        const input = document.getElementById('typing-input') as HTMLInputElement | null;
+        input?.focus();
+      }, 0);
+    }
   }
 
   showResult(challenge: Challenge, userAnswer: string): void {
     this.unbindKeys();
+
+    const input = document.getElementById('typing-input') as HTMLInputElement | null;
+    if (input) {
+      input.readOnly = true;
+      const submit = document.getElementById('typing-submit');
+      if (submit) (submit as HTMLElement).style.display = 'none';
+
+      const correct = userAnswer.trim().toLowerCase() === challenge.correctAnswer.trim().toLowerCase();
+      if (correct) {
+        input.classList.add('!border-emerald-600', '!text-emerald-100');
+        this.playSuccess();
+      } else {
+        input.classList.add('!border-rose-500', '!text-rose-100', 'animate-shake');
+        const fb = document.getElementById('typing-feedback');
+        if (fb) {
+          const span = fb.querySelector('span:last-child');
+          if (span) span.textContent = challenge.correctAnswer;
+          fb.classList.remove('hidden');
+        }
+        this.playError();
+      }
+      return;
+    }
 
     const buttons = document.querySelectorAll('.choice-btn') as NodeListOf<HTMLElement>;
     const correctAnswer = challenge.correctAnswer;
@@ -101,6 +131,8 @@ export class Renderer {
 
     if (type === 'de_het') {
       footer.textContent = '\u2190 de \u00A0\u00A0|\u00A0\u00A0 het \u2192 \u00A0\u00A0\u00B7\u00A0\u00A0 Space to skip';
+    } else if (type.endsWith('_sentence')) {
+      footer.textContent = 'Type your answer \u00A0\u00B7\u00A0 Enter to submit \u00A0\u00B7\u00A0 Esc to skip';
     } else {
       footer.textContent = '1 \u00A0 2 \u00A0 3 \u00A0\u00A0\u00B7\u00A0\u00A0 Space to skip';
     }
@@ -113,9 +145,12 @@ export class Renderer {
     if (!area) return;
 
     const typeLabel = this.typeLabel(challenge.type);
+    const isTyping = challenge.type.endsWith('_sentence');
     const content = challenge.type === 'de_het'
       ? this.renderDeHet(challenge)
-      : this.renderMultipleChoice(challenge);
+      : isTyping
+        ? this.renderTyping(challenge)
+        : this.renderMultipleChoice(challenge);
 
     area.innerHTML = `
       <div id="challenge" class="animate-fade-in w-full max-w-lg
@@ -139,6 +174,8 @@ export class Renderer {
       case 'nl_to_en': return 'Nederlands \u2192 Engels';
       case 'en_to_nl': return 'Engels \u2192 Nederlands';
       case 'listen': return 'Luisteren';
+      case 'nl_to_en_sentence': return 'Zin: NL \u2192 EN';
+      case 'en_to_nl_sentence': return 'Zin: EN \u2192 NL';
       default: return '';
     }
   }
@@ -185,14 +222,45 @@ export class Renderer {
       </button>
     `).join('');
 
+    const isSentence = challenge.type.endsWith('_sentence');
+    const promptFontSize = isSentence ? 'text-2xl' : 'text-4xl';
+
     const promptHtml = challenge.type === 'listen'
       ? '<div class="mb-6 text-stone-400 text-base text-center">\uD83D\uDD0A Listen and pick the correct spelling</div>'
-      : `<p class="text-4xl font-medium text-stone-100 text-center mb-8 tracking-tight">${challenge.prompt}</p>`;
+      : `<p class="${promptFontSize} font-medium text-stone-100 text-center mb-8 tracking-tight">${challenge.prompt}</p>`;
 
     return `
       ${promptHtml}
       <div class="flex flex-col gap-2.5 items-center">
         ${choicesHtml}
+      </div>
+    `;
+  }
+
+  private renderTyping(challenge: Challenge): string {
+    return `
+      <p class="text-2xl font-medium text-stone-100 text-center mb-8 tracking-tight">
+        ${challenge.prompt}
+      </p>
+      <div class="flex gap-2 max-w-sm mx-auto">
+        <input id="typing-input" type="text" autocomplete="off" spellcheck="false"
+          class="w-full bg-stone-800 border-2 border-stone-700 rounded-2xl px-5 py-3.5
+            text-lg text-stone-200 placeholder-stone-500
+            focus:outline-none focus:border-amber-700/60 focus:ring-0
+            transition-colors duration-200"
+          placeholder="Type your translation...">
+        <button id="typing-submit"
+          class="shrink-0 w-14 h-[3.75rem] bg-stone-800 hover:bg-stone-700
+            border border-stone-700 hover:border-amber-800
+            rounded-2xl text-amber-400 text-xl
+            transition-all duration-200
+            focus:outline-none focus:ring-2 focus:ring-amber-700/50">
+          \u21B5
+        </button>
+      </div>
+      <div id="typing-feedback" class="hidden mt-4 text-sm text-center">
+        <span class="text-stone-500">Correct: </span>
+        <span class="text-emerald-400 font-medium"></span>
       </div>
     `;
   }
@@ -212,12 +280,34 @@ export class Renderer {
   }
 
   private handleKey(e: KeyboardEvent): void {
-    if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
+    const isTyping = !!this.currentType?.endsWith('_sentence');
+
+    if (isTyping && e.key === 'Enter') {
+      e.preventDefault();
+      const input = document.getElementById('typing-input') as HTMLInputElement | null;
+      const answer = input?.value.trim();
+      if (answer && !this.answered) {
+        this.answered = true;
+        if (this.onAnswer) this.onAnswer(answer);
+      }
+      return;
+    }
+
+    if (e.key === 'Escape') {
       e.preventDefault();
       this.unbindKeys();
       if (this.onDismiss) this.onDismiss();
       return;
     }
+
+    if (!isTyping && (e.key === ' ' || e.key === 'Enter')) {
+      e.preventDefault();
+      this.unbindKeys();
+      if (this.onDismiss) this.onDismiss();
+      return;
+    }
+
+    if (isTyping) return;
 
     if (this.answered) return;
 
@@ -249,6 +339,24 @@ export class Renderer {
   // --- clicks ---
 
   private bindClicks(): void {
+    const isTyping = !!this.currentType?.endsWith('_sentence');
+
+    if (isTyping) {
+      const submit = document.getElementById('typing-submit');
+      if (submit) {
+        submit.addEventListener('click', () => {
+          if (this.answered) return;
+          const input = document.getElementById('typing-input') as HTMLInputElement | null;
+          const answer = input?.value.trim();
+          if (answer) {
+            this.answered = true;
+            if (this.onAnswer) this.onAnswer(answer);
+          }
+        });
+      }
+      return;
+    }
+
     const buttons = document.querySelectorAll('.choice-btn');
     buttons.forEach(btn => {
       btn.addEventListener('click', () => {
