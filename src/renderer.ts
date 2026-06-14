@@ -9,6 +9,12 @@ export class Renderer {
   private currentType: string | null = null;
   private answered = false;
   private handler: ((e: KeyboardEvent) => void) | null = null;
+  private currentAudio: string | undefined = undefined;
+  private currentAudioWords: string[] = [];
+  private matchPairs: number[] = [];
+  private matchActive: number = 0;
+  private matchCount: number = 0;
+  private matchShuffle: number[] = [];
 
   renderShell(): void {
     const app = document.getElementById('app');
@@ -37,6 +43,11 @@ export class Renderer {
     this.onDismiss = onDismiss;
     this.currentType = challenge.type;
     this.answered = false;
+    this.currentAudio = challenge.promptAudio;
+    this.currentAudioWords = challenge.audioWords || [];
+    this.matchPairs = [-1, -1, -1, -1];
+    this.matchActive = 0;
+    this.matchCount = 0;
 
     this.clearDom();
     this.renderChallenge(challenge);
@@ -57,8 +68,56 @@ export class Renderer {
     }
   }
 
-  showResult(challenge: Challenge, userAnswer: string): void {
+  showResult(challenge: Challenge, userAnswer: string, onContinue?: () => void): void {
     this.unbindKeys();
+
+    if (challenge.type === 'listen_match') {
+      const allCorrect = this.matchPairs.every((c, i) => c === i);
+      const speakersContainer = document.getElementById('match-speakers');
+      const choicesContainer = document.getElementById('match-choices');
+      const choices = challenge.choices;
+
+      if (speakersContainer && choicesContainer) {
+        const speakerEls = speakersContainer.querySelectorAll('.speaker-btn');
+        const choiceEls = choicesContainer.querySelectorAll('.choice-btn');
+
+        speakerEls.forEach((btn, i) => {
+          const correct = this.matchPairs[i] === i;
+          btn.classList.add(correct ? '!border-emerald-600' : '!border-rose-500');
+        });
+
+        choiceEls.forEach((btn) => {
+          const choiceIdx = parseInt((btn as HTMLElement).dataset.choice || '-1');
+          const speakerIdx = this.matchPairs.indexOf(choiceIdx);
+          if (speakerIdx >= 0) {
+            const correct = speakerIdx === choiceIdx;
+            btn.classList.add(correct ? '!bg-emerald-900/80' : '!bg-rose-900/80');
+            btn.classList.add(correct ? '!border-emerald-600' : '!border-rose-500');
+            btn.classList.add('!text-stone-100');
+            if (!correct) btn.classList.add('animate-shake');
+          }
+        });
+
+        // Show correct answers for wrong matches
+        const wrongPairs = this.matchPairs.filter((c, i) => c !== i);
+        if (wrongPairs.length > 0) {
+          const feedback = document.getElementById('match-feedback');
+          if (feedback) {
+            feedback.innerHTML = this.matchPairs.map((c, i) => {
+              if (c === i) return '';
+              return `<div class="text-sm text-stone-400"><span class="text-rose-400">${this.currentAudioWords[i]}</span> \u2192 <span class="text-emerald-400">${choices[i]}</span></div>`;
+            }).join('');
+            feedback.classList.remove('hidden');
+          }
+        }
+      }
+
+      if (allCorrect) this.playSuccess();
+      else this.playError();
+
+      if (onContinue) this.waitForContinue(onContinue);
+      return;
+    }
 
     const input = document.getElementById('typing-input') as HTMLInputElement | null;
     if (input) {
@@ -80,6 +139,7 @@ export class Renderer {
         }
         this.playError();
       }
+      if (onContinue) this.waitForContinue(onContinue);
       return;
     }
 
@@ -104,6 +164,21 @@ export class Renderer {
     } else {
       this.playError();
     }
+
+    if (onContinue) this.waitForContinue(onContinue);
+  }
+
+  private waitForContinue(cb: () => void): void {
+    const handler = () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('click', onClick);
+      cb();
+    };
+    const onKey = (e: KeyboardEvent) => { e.preventDefault(); handler(); };
+    const onClick = () => handler();
+
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('click', onClick);
   }
 
   clearDom(): void {
@@ -133,6 +208,8 @@ export class Renderer {
       footer.textContent = '\u2190 de \u00A0\u00A0|\u00A0\u00A0 het \u2192 \u00A0\u00A0\u00B7\u00A0\u00A0 Space to skip';
     } else if (type.endsWith('_sentence')) {
       footer.textContent = 'Type your answer \u00A0\u00B7\u00A0 Enter to submit \u00A0\u00B7\u00A0 Esc to skip';
+    } else if (type === 'listen_match') {
+      footer.textContent = '1 \u00A0 2 \u00A0 3 \u00A0 4 \u00A0\u00A0\u00B7\u00A0\u00A0 Space to skip';
     } else {
       footer.textContent = '1 \u00A0 2 \u00A0 3 \u00A0\u00A0\u00B7\u00A0\u00A0 Space to skip';
     }
@@ -148,9 +225,11 @@ export class Renderer {
     const isTyping = challenge.type.endsWith('_sentence');
     const content = challenge.type === 'de_het'
       ? this.renderDeHet(challenge)
-      : isTyping
-        ? this.renderTyping(challenge)
-        : this.renderMultipleChoice(challenge);
+      : challenge.type === 'listen_match'
+        ? this.renderListenMatch(challenge)
+        : isTyping
+          ? this.renderTyping(challenge)
+          : this.renderMultipleChoice(challenge);
 
     area.innerHTML = `
       <div id="challenge" class="animate-fade-in w-full max-w-lg
@@ -174,6 +253,7 @@ export class Renderer {
       case 'nl_to_en': return 'Nederlands \u2192 Engels';
       case 'en_to_nl': return 'Engels \u2192 Nederlands';
       case 'listen': return 'Luisteren';
+      case 'listen_match': return 'Luisteren \u2192 Tekst';
       case 'nl_to_en_sentence': return 'Zin: NL \u2192 EN';
       case 'en_to_nl_sentence': return 'Zin: EN \u2192 NL';
       default: return '';
@@ -265,6 +345,98 @@ export class Renderer {
     `;
   }
 
+  private renderListenMatch(challenge: Challenge): string {
+    const audioWords = challenge.audioWords || [];
+    const choices = challenge.choices;
+
+    this.matchShuffle = [0, 1, 2, 3].sort(() => Math.random() - 0.5);
+
+    const labels = ['1', '2', '3', '4'];
+
+    const speakersHtml = audioWords.map((word, i) => {
+      const matched = this.matchPairs[i] !== -1;
+      return `
+      <div class="flex items-center gap-3 ${matched ? 'opacity-40' : ''}">
+        <button data-speaker="${i}"
+          class="speaker-btn shrink-0 w-12 h-12 bg-stone-800 hover:bg-stone-700
+            border-2 rounded-full text-xl
+            transition-all duration-200 hover:shadow-[0_0_30px_rgba(245,158,11,0.08)]
+            focus:outline-none focus:ring-2 focus:ring-amber-700/50
+            flex items-center justify-center
+            ${i === this.matchActive && !matched ? 'border-amber-600 shadow-[0_0_20px_rgba(245,158,11,0.15)]' : 'border-stone-600 hover:border-amber-800'}"
+          ${matched ? 'disabled' : ''}>
+          \uD83D\uDD0A
+        </button>
+        <span class="text-stone-200 text-lg">${word}</span>
+        ${matched ? `<span class="text-emerald-500 text-sm">\u2192 ${choices[this.matchPairs[i]]}</span>` : ''}
+      </div>
+    `}).join('');
+
+    const choicesHtml = choices.map((choice, idx) => {
+      const displayIdx = this.matchShuffle[idx];
+      const taken = this.matchPairs.includes(displayIdx);
+      return `
+      <button data-choice="${displayIdx}"
+        class="choice-btn w-full min-h-[3rem] px-4 py-2.5
+          bg-stone-800 hover:bg-stone-700
+          border border-stone-700 hover:border-amber-800
+          rounded-2xl text-base text-stone-200
+          transition-all duration-200 hover:shadow-[0_0_30px_rgba(245,158,11,0.06)]
+          focus:outline-none focus:ring-2 focus:ring-amber-700/50
+          flex items-center gap-3 text-left
+          ${taken ? 'opacity-40 pointer-events-none' : ''}">
+        <span class="text-amber-700 text-xs w-4 shrink-0 font-medium">${labels[idx]}</span>
+        <span>${choice}</span>
+      </button>
+    `}).join('');
+
+    return `
+      <p class="text-stone-400 text-sm text-center mb-2">Listen to each word, then pick its match</p>
+      <p class="text-stone-600 text-xs text-center mb-6">${this.matchCount} / 4 matched</p>
+      <div class="flex gap-8">
+        <div class="flex flex-col gap-3" id="match-speakers">
+          ${speakersHtml}
+        </div>
+        <div class="flex-1 flex flex-col gap-2" id="match-choices">
+          ${choicesHtml}
+        </div>
+      </div>
+      <div id="match-feedback" class="hidden mt-4 space-y-1 text-center"></div>
+    `;
+  }
+
+  private refreshListenMatch(): void {
+    const speakersContainer = document.getElementById('match-speakers');
+    const choicesContainer = document.getElementById('match-choices');
+    if (!speakersContainer || !choicesContainer) return;
+
+    const words = this.currentAudioWords || [];
+
+    speakersContainer.querySelectorAll('.speaker-btn').forEach((btn, i) => {
+      const btnEl = btn as HTMLElement;
+      const matched = this.matchPairs[i] !== -1;
+      if (matched) {
+        btnEl.classList.add('opacity-40');
+        btnEl.classList.remove('border-amber-600', 'shadow-[0_0_20px_rgba(245,158,11,0.15)]');
+        btnEl.classList.add('border-stone-600');
+        (btnEl as HTMLButtonElement).disabled = true;
+      } else if (i === this.matchActive) {
+        btnEl.classList.add('border-amber-600', 'shadow-[0_0_20px_rgba(245,158,11,0.15)]');
+        btnEl.classList.remove('border-stone-600', 'hover:border-amber-800');
+      } else {
+        btnEl.classList.remove('border-amber-600', 'shadow-[0_0_20px_rgba(245,158,11,0.15)]');
+        btnEl.classList.add('border-stone-600');
+      }
+    });
+
+    choicesContainer.querySelectorAll('.choice-btn').forEach((btn) => {
+      const choiceIdx = parseInt((btn as HTMLElement).dataset.choice || '-1');
+      if (this.matchPairs.includes(choiceIdx)) {
+        btn.classList.add('opacity-40', 'pointer-events-none');
+      }
+    });
+  }
+
   // --- keyboard ---
 
   private bindKeys(): void {
@@ -324,8 +496,9 @@ export class Renderer {
       return;
     }
 
+    const maxChoice = this.currentType === 'listen_match' ? 4 : 3;
     const num = parseInt(e.key);
-    if (num >= 1 && num <= 3) {
+    if (num >= 1 && num <= maxChoice) {
       e.preventDefault();
       const buttons = document.querySelectorAll('.choice-btn');
       const btn = buttons[num - 1] as HTMLElement | undefined;
@@ -354,6 +527,45 @@ export class Renderer {
           }
         });
       }
+      return;
+    }
+
+    if (this.currentType === 'listen_match') {
+      const speakers = document.querySelectorAll('.speaker-btn');
+      const words = this.currentAudioWords || [];
+      speakers.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (this.answered) return;
+          const idx = parseInt((btn as HTMLElement).dataset.speaker || '0');
+          this.matchActive = idx;
+          if (words[idx]) this.speak(words[idx]);
+          this.refreshListenMatch();
+        });
+      });
+
+      const choices = document.querySelectorAll('.choice-btn');
+      choices.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (this.answered) return;
+          const choiceIdx = parseInt((btn as HTMLElement).dataset.choice || '-1');
+          if (choiceIdx < 0 || this.matchPairs.includes(choiceIdx)) return;
+
+          // Match active speaker to this choice
+          this.matchPairs[this.matchActive] = choiceIdx;
+          this.matchCount++;
+
+          if (this.matchCount >= 4) {
+            this.answered = true;
+            const allCorrect = this.matchPairs.every((c, i) => c === i);
+            if (this.onAnswer) this.onAnswer(allCorrect ? 'ok' : '');
+          } else {
+            // Find next unmatched speaker
+            const next = this.matchPairs.findIndex(p => p === -1);
+            if (next >= 0) this.matchActive = next;
+            this.refreshListenMatch();
+          }
+        });
+      });
       return;
     }
 

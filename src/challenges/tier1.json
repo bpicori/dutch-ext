@@ -14,5 +14,9 @@
   { "id": "ch_14", "type": "nl_to_en_sentence", "prompt": "het huis is groot", "choices": ["the house is big","the garden is big","the house is small"],"correctAnswer": "the house is big",    "xpReward": 15, "tier": 1 },
   { "id": "ch_15", "type": "en_to_nl_sentence", "prompt": "the house is big",  "choices": ["het huis is groot","de tuin is groot","het huis is klein"], "correctAnswer": "het huis is groot",  "xpReward": 15, "tier": 1 },
   { "id": "ch_16", "type": "nl_to_en_sentence", "prompt": "de korting is goed","choices": ["the discount is good","the price is good","the sale is good"],"correctAnswer": "the discount is good", "xpReward": 15, "tier": 1 },
-  { "id": "ch_17", "type": "en_to_nl_sentence", "prompt": "the discount is good","choices": ["de korting is goed","de prijs is goed","de uitverkoop is goed"],"correctAnswer": "de korting is goed","xpReward": 15, "tier": 1 }
+  { "id": "ch_17", "type": "en_to_nl_sentence", "prompt": "the discount is good","choices": ["de korting is goed","de prijs is goed","de uitverkoop is goed"],"correctAnswer": "de korting is goed","xpReward": 15, "tier": 1 },
+
+  { "id": "ch_20", "type": "listen_match", "prompt": "", "audioWords": ["fiets","auto","trein","vliegtuig"],        "choices": ["bicycle","car","train","airplane"],     "correctAnswer": "ok",  "xpReward": 15, "tier": 1 },
+  { "id": "ch_21", "type": "listen_match", "prompt": "", "audioWords": ["huis","tuin","appartement","keuken"],         "choices": ["house","garden","apartment","kitchen"], "correctAnswer": "ok",    "xpReward": 15, "tier": 1 },
+  { "id": "ch_22", "type": "listen_match", "prompt": "", "audioWords": ["korting","prijs","uitverkoop","bon"],         "choices": ["discount","price","sale","receipt"],    "correctAnswer": "ok", "xpReward": 15, "tier": 1 }
 ]

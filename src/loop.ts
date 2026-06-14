@@ -21,8 +21,7 @@ export class GameLoop {
       (answer) => {
         this.storage.evaluate(challenge, answer);
         this.storage.persist();
-        this.renderer.showResult(challenge, answer);
-        setTimeout(() => this.run(), 1000);
+        this.renderer.showResult(challenge, answer, () => this.run());
       },
       () => {
         this.renderer.dismiss();
