@@ -1,0 +1,4 @@
+[
+  { "id": "ch_10", "type": "nl_to_en",  "prompt": "gezellig", "choices": ["cozy / warm atmosphere","angry","expensive"], "correctAnswer": "cozy / warm atmosphere", "xpReward": 10, "tier": 2 },
+  { "id": "ch_11", "type": "listen",    "prompt": "",         "promptAudio": "gezellig", "choices": ["gezellig","gezellug","gezellech"],           "correctAnswer": "gezellig",               "xpReward": 15, "tier": 2 }
+]

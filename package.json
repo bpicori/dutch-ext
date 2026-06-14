@@ -1,0 +1,11 @@
+{
+  "name": "wacht-nederlands",
+  "private": true,
+  "scripts": {
+    "build": "./build.sh"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/chrome": "^0.0.260"
+  }
+}
