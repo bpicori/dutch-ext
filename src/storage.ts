@@ -1,20 +1,4 @@
-import { Challenge, ChallengeProgress, GlobalProgress, EvaluateResult } from './types.js';
-
-const SPACING_MINUTES = [1, 10, 60, 360, 1440, 2880, 5760, 10080, 20160, 43200];
-
-function normalizeAnswer(s: string): string {
-  return s
-    .trim()
-    .toLowerCase()
-    .replace(/[.,!?;:'"]/g, '')
-    .replace(/\s+/g, ' ');
-}
-
-function isAnswerCorrect(challenge: Challenge, answer: string): boolean {
-  const normalized = normalizeAnswer(answer);
-  const candidates = [challenge.correctAnswer, ...(challenge.acceptableAnswers ?? [])];
-  return candidates.some(c => normalizeAnswer(c) === normalized);
-}
+import { Challenge, ChallengeProgress, GlobalProgress } from './types.js';
 
 export class StorageService {
   private deck: Challenge[] = [];
@@ -51,76 +35,12 @@ export class StorageService {
     return this.deck;
   }
 
-  getNextChallenge(): Challenge | null {
-    const now = Date.now();
-    const eligible = this.deck.filter(ch => {
-      const p = this.progress[ch.id];
-      if (!p) return true;
-      return p.dontShowUntil <= now;
-    });
-
-    if (eligible.length > 0) {
-      return eligible[Math.floor(Math.random() * eligible.length)];
-    }
-
-    const sorted = [...this.deck].sort((a, b) => {
-      const da = this.progress[a.id]?.dontShowUntil ?? 0;
-      const db = this.progress[b.id]?.dontShowUntil ?? 0;
-      return da - db;
-    });
-    return sorted[0] ?? null;
+  updateProgress(id: string, cp: ChallengeProgress): void {
+    this.progress = { ...this.progress, [id]: cp };
   }
 
-  evaluate(challenge: Challenge, answer: string): EvaluateResult {
-    const correct = isAnswerCorrect(challenge, answer);
-    const prev = this.progress[challenge.id]
-      ?? { correct: 0, attempts: 0, consecutiveStreaks: 0, dontShowUntil: 0 };
-
-    let next: ChallengeProgress;
-
-    if (correct) {
-      const newStreaks = Math.min(prev.consecutiveStreaks + 1, SPACING_MINUTES.length - 1);
-      next = {
-        correct: prev.correct + 1,
-        attempts: prev.attempts + 1,
-        consecutiveStreaks: newStreaks,
-        dontShowUntil: Date.now() + SPACING_MINUTES[newStreaks] * 60 * 1000,
-      };
-    } else {
-      next = {
-        correct: prev.correct,
-        attempts: prev.attempts + 1,
-        consecutiveStreaks: 0,
-        dontShowUntil: Date.now() + 5 * 60 * 1000,
-      };
-    }
-
-    this.progress = { ...this.progress, [challenge.id]: next };
-    this.global = { ...this.global };
-
-    if (correct) {
-      this.global.xpTotal += challenge.xpReward;
-
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const todayStart = today.getTime();
-
-      const lastDate = new Date(this.global.lastCompletedTimestamp || 0);
-      lastDate.setHours(0, 0, 0, 0);
-      const lastDateStart = lastDate.getTime();
-
-      if (lastDateStart === 0) {
-        this.global.streakDays = 1;
-      } else if (todayStart - lastDateStart === 86400000) {
-        this.global.streakDays = (this.global.streakDays || 0) + 1;
-      } else if (todayStart > lastDateStart) {
-        this.global.streakDays = 1;
-      }
-
-      this.global.lastCompletedTimestamp = Date.now();
-    }
-
-    return { correct, progress: next, global: this.global };
+  updateGlobal(g: GlobalProgress): void {
+    this.global = g;
   }
 
   async persist(): Promise<void> {

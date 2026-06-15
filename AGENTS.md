@@ -21,27 +21,27 @@ No auto-reload on build. Manually click the reload icon on the extension card.
 ## Architecture
 
 ```
-StorageService ──(Challenge)──▶ GameLoop ──(Challenge)──▶ Renderer
-      ▲                                                       │
-      │                                                 (callbacks)
-      └────────────────(evaluate + persist)◀─────────────────┘
+main.ts (owns the loop)
+  ├── StorageService  repository: load deck, read/write progress, chrome.storage.local
+  ├── Orchestrator    stateless algorithms: SM-2, getNextChallenge, evaluate
+  └── Renderer        UI: DOM shell, layouts, keyboard, audio, mic
 ```
 
 | File | Role |
 |------|------|
 | `src/types.ts` | Shared types (interfaces only — erased at compile time) |
-| `src/storage.ts` | Challenge deck, SM-2, grading, `chrome.storage.local` |
+| `src/orchestrator.ts` | SM-2, grading, challenge selection (stateless algorithms) |
+| `src/storage.ts` | Repository: deck loading, `chrome.storage.local` read/write |
 | `src/renderer.ts` | DOM shell, layouts, keyboard, audio, mic |
-| `src/loop.ts` | Orchestrator — wires Storage ↔ Renderer |
-| `src/main.ts` | Entry point |
+| `src/main.ts` | Entry point — creates all three, owns the loop |
 
-The Renderer communicates through callbacks (`onAnswer`, `onDismiss`). Storage owns no DOM. GameLoop owns the pipe.
+Orchestrator is stateless — it receives data from StorageService, computes results, and returns them. main.ts wires all three together, passing state between storage and orchestrator each tick.
 
 ## Challenge data
 
 `src/challenges/examples/` (`example-1.json` through `example-5.json` for now). All files are loaded and concatenated at runtime in `StorageService.init()`.
 
-Each challenge is a standalone flashcard with its own SM-2 progress. `getNextChallenge()` picks a due card (never seen, or `dontShowUntil <= now`); if none are due, it shows the card waiting longest.
+Each challenge is a standalone flashcard with its own SM-2 progress. `Orchestrator.getNextChallenge()` picks a due card (never seen, or `dontShowUntil <= now`); if none are due, it shows the card waiting longest.
 
 Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `orderItems`, `matchLeft`, `matchRight`, `formFields`, `bulletPrompts`, `imageUrl`.
 
@@ -84,7 +84,7 @@ Spacing intervals (minutes): `[1, 10, 60, 360, 1440, 2880, 5760, 10080, 20160, 4
 Correct → `consecutiveStreaks++` → `dontShowUntil = now + spacing[streaks]`.
 Wrong → `consecutiveStreaks = 0` → `dontShowUntil = now + 5 min`.
 
-Logic lives in `StorageService.evaluate()` and `StorageService.getNextChallenge()`.
+Logic lives in `Orchestrator.evaluate()` and `Orchestrator.getNextChallenge()`.
 
 ## Tailwind
 
