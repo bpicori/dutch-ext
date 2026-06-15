@@ -3,3 +3,4 @@ dist/
 tailwindcss
 package-lock.json
 .DS_Store
+tmp/

@@ -1,5 +1,13 @@
 import { StorageService } from './storage.js';
 import { Renderer } from './renderer.js';
+import { ChallengeProgress } from './types.js';
+
+const DEFAULT_PROGRESS: ChallengeProgress = {
+  correct: 0,
+  attempts: 0,
+  consecutiveStreaks: 0,
+  dontShowUntil: 0,
+};
 
 export class GameLoop {
   constructor(
@@ -17,7 +25,14 @@ export class GameLoop {
     const challenge = this.storage.getNextChallenge();
     if (!challenge) return;
 
-    this.renderer.show(challenge,
+    const progress = this.storage.getProgress();
+    this.renderer.show(
+      challenge,
+      {
+        global: this.storage.getGlobal(),
+        cardProgress: progress[challenge.id] ?? DEFAULT_PROGRESS,
+        deck: this.storage.getDeck(),
+      },
       (answer) => {
         this.storage.evaluate(challenge, answer);
         this.storage.persist();

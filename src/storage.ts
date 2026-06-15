@@ -27,6 +27,10 @@ export class StorageService {
     return this.progress;
   }
 
+  getDeck(): Challenge[] {
+    return this.deck;
+  }
+
   getNextChallenge(): Challenge | null {
     const now = Date.now();
     const unlockedTiers = this.getUnlockedTiers();

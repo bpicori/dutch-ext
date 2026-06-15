@@ -68,6 +68,6 @@ Logic lives in `StorageService.evaluate()` and `StorageService.getNextChallenge(
 
 ## Tailwind
 
-Standalone CLI tailwindcss v3.4.17. Config: `tailwind.config.js` scans `./src/**/*.{html,ts}`. Custom animations (fadeIn, slideOut, shake) defined in `src/input.css`.
+Standalone CLI tailwindcss v3.4.17. Config: `tailwind.config.js` scans `./src/**/*.{html,ts}`. Custom animations (fadeIn, slideOut, shake) and glass-card utilities defined in `src/input.css`.
 
-UI uses warm stone + amber palette (`stone-950`, `stone-900`, `amber-300`, etc.). Feedback colors: `emerald` (correct), `rose` (wrong).
+UI uses M3-inspired warm-stone tokens (`background`, `surface-container`, `primary-container`, etc.) with Inter typography. Feedback colors: `secondary-container` (correct), `on-tertiary-container` (wrong).
