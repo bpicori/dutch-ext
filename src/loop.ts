@@ -34,9 +34,9 @@ export class GameLoop {
         deck: this.storage.getDeck(),
       },
       (answer) => {
-        this.storage.evaluate(challenge, answer);
+        const result = this.storage.evaluate(challenge, answer);
         this.storage.persist();
-        this.renderer.showResult(challenge, answer, () => this.run());
+        this.renderer.showResult(challenge, answer, result.correct, () => this.run());
       },
       () => {
         this.renderer.dismiss();

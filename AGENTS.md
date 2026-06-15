@@ -27,35 +27,55 @@ StorageService ──(Challenge)──▶ GameLoop ──(Challenge)──▶ Re
       └────────────────(evaluate + persist)◀─────────────────┘
 ```
 
-| File | Class | Role |
-|------|-------|------|
-| `src/types.ts` | (interfaces only) | Shared types — erased at compile time |
-| `src/storage.ts` | `StorageService` | Challenge deck, SM-2 spaced repetition, `chrome.storage.local` |
-| `src/renderer.ts` | `Renderer` | DOM shell, 4 challenge layouts, keyboard, audio, click handling |
-| `src/loop.ts` | `GameLoop` | Orchestrator — wires Storage ↔ Renderer, runs the loop |
-| `src/main.ts` | entry point | Instantiates all three, calls `loop.start()` |
+| File | Role |
+|------|------|
+| `src/types.ts` | Shared types (interfaces only — erased at compile time) |
+| `src/storage.ts` | Challenge deck, SM-2, grading, `chrome.storage.local` |
+| `src/renderer.ts` | DOM shell, layouts, keyboard, audio, mic |
+| `src/loop.ts` | Orchestrator — wires Storage ↔ Renderer |
+| `src/main.ts` | Entry point |
 
-The Renderer communicates through callbacks (`onAnswer`, `onDismiss`). It owns no data logic. The Storage owns no DOM. The GameLoop owns the pipe.
+The Renderer communicates through callbacks (`onAnswer`, `onDismiss`). Storage owns no DOM. GameLoop owns the pipe.
 
 ## Challenge data
 
-`src/challenges/tier1.json` and `src/challenges/tier2.json`. Loaded at runtime via `fetch(chrome.runtime.getURL('challenges/tierN.json'))` in `StorageService.init()`.
+`src/challenges/tier1.json` through `tier5.json`. Loaded at runtime in `StorageService.init()`.
 
-Each challenge is a standalone flashcard with its own SM-2 progress. Tier 2 unlocks when every tier-1 challenge has been attempted at least once.
+Each challenge is a standalone flashcard with its own SM-2 progress. Tier N unlocks when every tier N−1 card has been attempted at least once.
 
-## Challenge types
+Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `orderItems`, `matchLeft`, `matchRight`, `formFields`, `bulletPrompts`, `imageUrl`.
 
-| Type | Prompt | Choices | Keyboard |
-|------|--------|---------|----------|
-| `de_het` | Large Dutch noun | Two buttons: DE / HET | ← = de, → = het |
-| `nl_to_en` | Dutch word | Three English definitions | 1, 2, 3 |
-| `en_to_nl` | English word | Three Dutch translations | 1, 2, 3 |
-| `listen` | TTS audio (auto-play) | Three Dutch spelling variants | 1, 2, 3 |
-| `listen_match` | 4 Dutch speakers (left) + 4 text matches (right) | Click speaker to hear, then select matching text | 1, 2, 3, 4 |
-| `nl_to_en_sentence` | Dutch sentence | Three English translations | 1, 2, 3 |
-| `en_to_nl_sentence` | English sentence | Three Dutch translations | 1, 2, 3 |
+## Challenge types (22)
 
-All types: Space / Enter / Esc = dismiss challenge (focus omnibox).
+| Type | Layout | Keyboard |
+|------|--------|----------|
+| `de_het` | DE / HET buttons | ← de, → het |
+| `nl_to_en` | 3-choice MCQ | 1, 2, 3 |
+| `en_to_nl` | 3-choice MCQ | 1, 2, 3 |
+| `listen` | TTS + spelling MCQ | 1, 2, 3 |
+| `listen_match` | 4 audio ↔ 4 text pairs | 1–4 play, click match |
+| `nl_to_en_sentence` | 3-choice MCQ | 1, 2, 3 |
+| `en_to_nl_sentence` | 3-choice MCQ | 1, 2, 3 |
+| `read_mcq` | Scrollable text + MCQ | 1, 2, 3 |
+| `knm` | Scenario + MCQ | 1, 2, 3 |
+| `dialogue_reply` | Dialogue + MCQ | 1, 2, 3 |
+| `fill_blank` | Sentence + MCQ | 1, 2, 3 |
+| `verb_form` | Sentence + MCQ | 1, 2, 3 |
+| `preposition` | Sentence + MCQ | 1, 2, 3 |
+| `number_detail` | Context + MCQ | 1, 2, 3 |
+| `listen_mcq` | Question + TTS + MCQ | 1, 2, 3 |
+| `form_fill` | Multi-field form | Enter submit |
+| `write_note` | Bullets + textarea | Enter submit |
+| `complete_sentence` | Type missing word | Enter submit |
+| `plural` | Type plural | Enter submit |
+| `number_listen` | TTS + type number | Enter submit |
+| `read_order` | Reorder list | ↑↓ move, Enter submit |
+| `read_match` | Match two columns | Click pairs |
+| `word_order` | Build sentence from tokens | Click words, Enter submit |
+| `speak_repeat` | TTS + mic record | Hold mic button |
+| `image_describe` | Image + type description | Enter submit |
+
+All types: Space / Esc = dismiss (focus omnibox). MCQ types also dismiss on Enter before answering.
 
 ## SM-2 spacing
 
@@ -70,4 +90,4 @@ Logic lives in `StorageService.evaluate()` and `StorageService.getNextChallenge(
 
 Standalone CLI tailwindcss v3.4.17. Config: `tailwind.config.js` scans `./src/**/*.{html,ts}`. Custom animations (fadeIn, slideOut, shake) and glass-card utilities defined in `src/input.css`.
 
-UI uses M3-inspired warm-stone tokens (`background`, `surface-container`, `primary-container`, etc.) with Inter typography. Feedback colors: `secondary-container` (correct), `on-tertiary-container` (wrong).
+UI uses M3-inspired warm-stone tokens with Inter typography. Feedback colors: `secondary-container` (correct), `on-tertiary-container` (wrong).

@@ -11,7 +11,7 @@ if [ ! -f "$TAILWIND_BIN" ]; then
 fi
 
 rm -rf dist
-mkdir -p dist/icons dist/challenges
+mkdir -p dist/icons dist/challenges dist/images
 
 echo "Compiling TypeScript..."
 npx tsc
@@ -22,6 +22,7 @@ echo "Compiling CSS..."
 cp manifest.json dist/
 cp src/newtab.html dist/
 cp src/challenges/*.json dist/challenges/
+cp -r src/images/* dist/images/ 2>/dev/null || true
 cp icons/*.png dist/icons/ 2>/dev/null || true
 
 echo "Build complete -> dist/"

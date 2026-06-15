@@ -2,17 +2,34 @@ import { Challenge, ChallengeProgress, GlobalProgress, EvaluateResult } from './
 
 const SPACING_MINUTES = [1, 10, 60, 360, 1440, 2880, 5760, 10080, 20160, 43200];
 
+function normalizeAnswer(s: string): string {
+  return s
+    .trim()
+    .toLowerCase()
+    .replace(/[.,!?;:'"]/g, '')
+    .replace(/\s+/g, ' ');
+}
+
+function isAnswerCorrect(challenge: Challenge, answer: string): boolean {
+  const normalized = normalizeAnswer(answer);
+  const candidates = [challenge.correctAnswer, ...(challenge.acceptableAnswers ?? [])];
+  return candidates.some(c => normalizeAnswer(c) === normalized);
+}
+
 export class StorageService {
   private deck: Challenge[] = [];
   private progress: Record<string, ChallengeProgress> = {};
   private global: GlobalProgress = { xpTotal: 0, streakDays: 0, lastCompletedTimestamp: 0 };
 
   async init(): Promise<void> {
-    const [tier1, tier2] = await Promise.all([
+    const [tier1, tier2, tier3, tier4, tier5] = await Promise.all([
       fetch(chrome.runtime.getURL('challenges/tier1.json')).then(r => r.json()),
       fetch(chrome.runtime.getURL('challenges/tier2.json')).then(r => r.json()),
+      fetch(chrome.runtime.getURL('challenges/tier3.json')).then(r => r.json()),
+      fetch(chrome.runtime.getURL('challenges/tier4.json')).then(r => r.json()),
+      fetch(chrome.runtime.getURL('challenges/tier5.json')).then(r => r.json()),
     ]);
-    this.deck = [...tier1, ...tier2] as Challenge[];
+    this.deck = [...tier1, ...tier2, ...tier3, ...tier4, ...tier5] as Challenge[];
 
     const data = await chrome.storage.local.get(['global', 'progress']);
     this.global = data.global || { xpTotal: 0, streakDays: 0, lastCompletedTimestamp: 0 };
@@ -56,7 +73,7 @@ export class StorageService {
   }
 
   evaluate(challenge: Challenge, answer: string): EvaluateResult {
-    const correct = answer.trim().toLowerCase() === challenge.correctAnswer.trim().toLowerCase();
+    const correct = isAnswerCorrect(challenge, answer);
     const prev = this.progress[challenge.id]
       ?? { correct: 0, attempts: 0, consecutiveStreaks: 0, dontShowUntil: 0 };
 
