@@ -23,6 +23,7 @@ cp manifest.json dist/
 cp src/newtab.html dist/
 mkdir -p dist/challenges/examples
 cp src/challenges/examples/*.json dist/challenges/examples/
+find dist/challenges/examples -name '*.json' -exec basename {} \; | jq -R -s 'split("\n") | map(select(length > 0) | "examples/\(.)")' > dist/challenges/manifest.json
 cp -r src/images/* dist/images/ 2>/dev/null || true
 cp icons/*.png dist/icons/ 2>/dev/null || true
 

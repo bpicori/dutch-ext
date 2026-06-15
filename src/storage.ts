@@ -6,15 +6,9 @@ export class StorageService {
   private global: GlobalProgress = { xpTotal: 0, streakDays: 0, lastCompletedTimestamp: 0 };
 
   async init(): Promise<void> {
-    const files = [
-      'examples/example-1.json',
-      'examples/example-2.json',
-      'examples/example-3.json',
-      'examples/example-4.json',
-      'examples/example-5.json',
-    ];
+    const manifest: string[] = await fetch(chrome.runtime.getURL('challenges/manifest.json')).then(r => r.json());
     const parts = await Promise.all(
-      files.map(f => fetch(chrome.runtime.getURL(`challenges/${f}`)).then(r => r.json())),
+      manifest.map(f => fetch(chrome.runtime.getURL(`challenges/${f}`)).then(r => r.json())),
     );
     this.deck = parts.flat() as Challenge[];
 

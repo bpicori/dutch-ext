@@ -10,7 +10,7 @@
   "optional_permissions": ["audioCapture"],
   "web_accessible_resources": [
     {
-      "resources": ["challenges/*.json", "images/*"],
+      "resources": ["challenges/**/*.json", "images/*"],
       "matches": ["<all_urls>"]
     }
   ],
