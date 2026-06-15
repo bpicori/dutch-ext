@@ -22,14 +22,17 @@ export class StorageService {
   private global: GlobalProgress = { xpTotal: 0, streakDays: 0, lastCompletedTimestamp: 0 };
 
   async init(): Promise<void> {
-    const [tier1, tier2, tier3, tier4, tier5] = await Promise.all([
-      fetch(chrome.runtime.getURL('challenges/tier1.json')).then(r => r.json()),
-      fetch(chrome.runtime.getURL('challenges/tier2.json')).then(r => r.json()),
-      fetch(chrome.runtime.getURL('challenges/tier3.json')).then(r => r.json()),
-      fetch(chrome.runtime.getURL('challenges/tier4.json')).then(r => r.json()),
-      fetch(chrome.runtime.getURL('challenges/tier5.json')).then(r => r.json()),
-    ]);
-    this.deck = [...tier1, ...tier2, ...tier3, ...tier4, ...tier5] as Challenge[];
+    const files = [
+      'examples/example-1.json',
+      'examples/example-2.json',
+      'examples/example-3.json',
+      'examples/example-4.json',
+      'examples/example-5.json',
+    ];
+    const parts = await Promise.all(
+      files.map(f => fetch(chrome.runtime.getURL(`challenges/${f}`)).then(r => r.json())),
+    );
+    this.deck = parts.flat() as Challenge[];
 
     const data = await chrome.storage.local.get(['global', 'progress']);
     this.global = data.global || { xpTotal: 0, streakDays: 0, lastCompletedTimestamp: 0 };
@@ -50,26 +53,22 @@ export class StorageService {
 
   getNextChallenge(): Challenge | null {
     const now = Date.now();
-    const unlockedTiers = this.getUnlockedTiers();
-
     const eligible = this.deck.filter(ch => {
-      if (!unlockedTiers.includes(ch.tier)) return false;
       const p = this.progress[ch.id];
       if (!p) return true;
       return p.dontShowUntil <= now;
     });
 
-    if (eligible.length === 0) {
-      const allUnlocked = this.deck.filter(ch => unlockedTiers.includes(ch.tier));
-      allUnlocked.sort((a, b) => {
-        const da = this.progress[a.id]?.dontShowUntil ?? 0;
-        const db = this.progress[b.id]?.dontShowUntil ?? 0;
-        return da - db;
-      });
-      return allUnlocked[0] ?? null;
+    if (eligible.length > 0) {
+      return eligible[Math.floor(Math.random() * eligible.length)];
     }
 
-    return eligible[Math.floor(Math.random() * eligible.length)];
+    const sorted = [...this.deck].sort((a, b) => {
+      const da = this.progress[a.id]?.dontShowUntil ?? 0;
+      const db = this.progress[b.id]?.dontShowUntil ?? 0;
+      return da - db;
+    });
+    return sorted[0] ?? null;
   }
 
   evaluate(challenge: Challenge, answer: string): EvaluateResult {
@@ -129,31 +128,5 @@ export class StorageService {
       global: this.global,
       progress: this.progress,
     });
-  }
-
-  private getUnlockedTiers(): number[] {
-    const unlocked = [1];
-    const tierMap = this.groupByTier();
-    const maxTier = Math.max(...this.deck.map(ch => ch.tier));
-
-    for (let tier = 2; tier <= maxTier; tier++) {
-      const prev = tierMap[tier - 1] || [];
-      const allAttempted = prev.every(ch => {
-        const p = this.progress[ch.id];
-        return p && p.attempts > 0;
-      });
-      if (allAttempted) unlocked.push(tier);
-    }
-
-    return unlocked;
-  }
-
-  private groupByTier(): Record<number, Challenge[]> {
-    const map: Record<number, Challenge[]> = {};
-    for (const ch of this.deck) {
-      if (!map[ch.tier]) map[ch.tier] = [];
-      map[ch.tier].push(ch);
-    }
-    return map;
   }
 }

@@ -21,7 +21,8 @@ echo "Compiling CSS..."
 
 cp manifest.json dist/
 cp src/newtab.html dist/
-cp src/challenges/*.json dist/challenges/
+mkdir -p dist/challenges/examples
+cp src/challenges/examples/*.json dist/challenges/examples/
 cp -r src/images/* dist/images/ 2>/dev/null || true
 cp icons/*.png dist/icons/ 2>/dev/null || true
 

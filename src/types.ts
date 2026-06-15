@@ -28,7 +28,6 @@ export interface Challenge {
   formFields?: FormField[];
   bulletPrompts?: string[];
   xpReward: number;
-  tier: number;
 }
 
 export interface ChallengeProgress {

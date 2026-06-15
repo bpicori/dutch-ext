@@ -3,53 +3,74 @@
     "id": "ch_60",
     "type": "read_order",
     "prompt": "Zet de zinnen in de juiste volgorde:",
-    "orderItems": ["Eerst ga ik douchen.", "Daarna eet ik ontbijt.", "Tot slot ga ik naar werk."],
+    "orderItems": [
+      "Eerst ga ik douchen.",
+      "Daarna eet ik ontbijt.",
+      "Tot slot ga ik naar werk."
+    ],
     "choices": [],
     "correctAnswer": "Eerst ga ik douchen.|Daarna eet ik ontbijt.|Tot slot ga ik naar werk.",
-    "xpReward": 18,
-    "tier": 5
+    "xpReward": 18
   },
   {
     "id": "ch_61",
     "type": "read_order",
     "prompt": "Zet de stappen in de juiste volgorde:",
-    "orderItems": ["Bel de huisarts.", "Maak een afspraak.", "Ga naar de praktijk."],
+    "orderItems": [
+      "Bel de huisarts.",
+      "Maak een afspraak.",
+      "Ga naar de praktijk."
+    ],
     "choices": [],
     "correctAnswer": "Bel de huisarts.|Maak een afspraak.|Ga naar de praktijk.",
-    "xpReward": 18,
-    "tier": 5
+    "xpReward": 18
   },
   {
     "id": "ch_62",
     "type": "read_match",
     "context": "Lisa werkt in een supermarkt. Ze begint om 8 uur en stopt om 16 uur.",
     "prompt": "Match elke vraag met het juiste antwoord:",
-    "matchLeft": ["Waar werkt Lisa?", "Hoe laat begint ze?", "Hoe laat stopt ze?"],
-    "matchRight": ["In een supermarkt", "Om 8 uur", "Om 16 uur"],
+    "matchLeft": [
+      "Waar werkt Lisa?",
+      "Hoe laat begint ze?",
+      "Hoe laat stopt ze?"
+    ],
+    "matchRight": [
+      "In een supermarkt",
+      "Om 8 uur",
+      "Om 16 uur"
+    ],
     "choices": [],
     "correctAnswer": "ok",
-    "xpReward": 18,
-    "tier": 5
+    "xpReward": 18
   },
   {
     "id": "ch_63",
     "type": "word_order",
     "prompt": "Maak een goede zin:",
-    "orderItems": ["de", "fiets", "is", "rood"],
+    "orderItems": [
+      "de",
+      "fiets",
+      "is",
+      "rood"
+    ],
     "choices": [],
     "correctAnswer": "de fiets is rood",
-    "xpReward": 18,
-    "tier": 5
+    "xpReward": 18
   },
   {
     "id": "ch_64",
     "type": "word_order",
     "prompt": "Maak een goede zin:",
-    "orderItems": ["ik", "ga", "naar", "huis"],
+    "orderItems": [
+      "ik",
+      "ga",
+      "naar",
+      "huis"
+    ],
     "choices": [],
     "correctAnswer": "ik ga naar huis",
-    "xpReward": 18,
-    "tier": 5
+    "xpReward": 18
   },
   {
     "id": "ch_65",
@@ -58,9 +79,10 @@
     "promptAudio": "Goedemorgen, hoe gaat het?",
     "choices": [],
     "correctAnswer": "Goedemorgen, hoe gaat het?",
-    "acceptableAnswers": ["goedemorgen hoe gaat het"],
-    "xpReward": 18,
-    "tier": 5
+    "acceptableAnswers": [
+      "goedemorgen hoe gaat het"
+    ],
+    "xpReward": 18
   },
   {
     "id": "ch_66",
@@ -69,8 +91,10 @@
     "imageUrl": "images/supermarket.svg",
     "choices": [],
     "correctAnswer": "Een man koopt brood in de supermarkt.",
-    "acceptableAnswers": ["een man koopt brood", "iemand is in de winkel"],
-    "xpReward": 18,
-    "tier": 5
+    "acceptableAnswers": [
+      "een man koopt brood",
+      "iemand is in de winkel"
+    ],
+    "xpReward": 18
   }
 ]

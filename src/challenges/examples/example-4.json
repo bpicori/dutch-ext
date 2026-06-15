@@ -3,55 +3,73 @@
     "id": "ch_40",
     "type": "fill_blank",
     "prompt": "Ik blijf thuis ___ ik ziek ben.",
-    "choices": ["omdat", "maar", "en"],
+    "choices": [
+      "omdat",
+      "maar",
+      "en"
+    ],
     "correctAnswer": "omdat",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_41",
     "type": "fill_blank",
     "prompt": "___ fiets is rood.",
-    "choices": ["De", "Het", "Een"],
+    "choices": [
+      "De",
+      "Het",
+      "Een"
+    ],
     "correctAnswer": "De",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_42",
     "type": "verb_form",
     "prompt": "Ik ___ elke dag naar mijn werk.",
-    "choices": ["ga", "gaat", "gaan"],
+    "choices": [
+      "ga",
+      "gaat",
+      "gaan"
+    ],
     "correctAnswer": "ga",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_43",
     "type": "verb_form",
     "prompt": "Zij ___ in Amsterdam.",
-    "choices": ["woont", "woon", "wonen"],
+    "choices": [
+      "woont",
+      "woon",
+      "wonen"
+    ],
     "correctAnswer": "woont",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_44",
     "type": "preposition",
     "prompt": "Het boek ligt ___ de tafel.",
-    "choices": ["op", "in", "naar"],
+    "choices": [
+      "op",
+      "in",
+      "naar"
+    ],
     "correctAnswer": "op",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_45",
     "type": "preposition",
     "prompt": "Ik ga ___ de supermarkt.",
-    "choices": ["naar", "op", "uit"],
+    "choices": [
+      "naar",
+      "op",
+      "uit"
+    ],
     "correctAnswer": "naar",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_46",
@@ -59,8 +77,7 @@
     "prompt": "fiets",
     "choices": [],
     "correctAnswer": "fietsen",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_47",
@@ -68,8 +85,7 @@
     "prompt": "huis",
     "choices": [],
     "correctAnswer": "huizen",
-    "xpReward": 12,
-    "tier": 4
+    "xpReward": 12
   },
   {
     "id": "ch_48",
@@ -77,9 +93,10 @@
     "prompt": "Ik ___ een kopje koffie.",
     "choices": [],
     "correctAnswer": "drink",
-    "acceptableAnswers": ["drinkt"],
-    "xpReward": 12,
-    "tier": 4
+    "acceptableAnswers": [
+      "drinkt"
+    ],
+    "xpReward": 12
   },
   {
     "id": "ch_49",
@@ -87,13 +104,20 @@
     "prompt": "Vul het formulier in:",
     "choices": [],
     "formFields": [
-      { "label": "Naam", "answer": "Jan de Vries" },
-      { "label": "Telefoonnummer", "answer": "06-12345678" }
+      {
+        "label": "Naam",
+        "answer": "Jan de Vries"
+      },
+      {
+        "label": "Telefoonnummer",
+        "answer": "06-12345678"
+      }
     ],
     "correctAnswer": "Jan de Vries|06-12345678",
-    "acceptableAnswers": ["jan de vries|06 12345678"],
-    "xpReward": 15,
-    "tier": 4
+    "acceptableAnswers": [
+      "jan de vries|06 12345678"
+    ],
+    "xpReward": 15
   },
   {
     "id": "ch_50",
@@ -106,8 +130,7 @@
     ],
     "choices": [],
     "correctAnswer": "Ik ben twee dagen niet thuis. Kunt u de post pakken? Dank u wel.",
-    "xpReward": 15,
-    "tier": 4
+    "xpReward": 15
   },
   {
     "id": "ch_51",
@@ -116,8 +139,9 @@
     "promptAudio": "vijftien",
     "choices": [],
     "correctAnswer": "15",
-    "acceptableAnswers": ["vijftien"],
-    "xpReward": 15,
-    "tier": 4
+    "acceptableAnswers": [
+      "vijftien"
+    ],
+    "xpReward": 15
   }
 ]

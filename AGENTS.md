@@ -1,4 +1,4 @@
-WachtNederlands helps learners pass the Dutch inburgering exam through micro-challenges that appear on every new tab.
+WachtNederlands helps learners build Dutch through micro-challenges that appear on every new tab.
 
 ## Build
 
@@ -39,13 +39,13 @@ The Renderer communicates through callbacks (`onAnswer`, `onDismiss`). Storage o
 
 ## Challenge data
 
-`src/challenges/tier1.json` through `tier5.json`. Loaded at runtime in `StorageService.init()`.
+`src/challenges/examples/` (`example-1.json` through `example-5.json` for now). All files are loaded and concatenated at runtime in `StorageService.init()`.
 
-Each challenge is a standalone flashcard with its own SM-2 progress. Tier N unlocks when every tier N−1 card has been attempted at least once.
+Each challenge is a standalone flashcard with its own SM-2 progress. `getNextChallenge()` picks a due card (never seen, or `dontShowUntil <= now`); if none are due, it shows the card waiting longest.
 
 Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `orderItems`, `matchLeft`, `matchRight`, `formFields`, `bulletPrompts`, `imageUrl`.
 
-## Challenge types (22)
+## Challenge types (25)
 
 | Type | Layout | Keyboard |
 |------|--------|----------|
