@@ -1,37 +1,52 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-import { applyChoiceResult, kbdChip, normalizeAnswer } from './shared.js';
+import { applyChoiceResult, kbdChip, normalizeAnswer, shuffle } from './shared.js';
 
-function buildHtml(challenge: Challenge): string {
+function escapeAttr(s: string): string {
+  return s.replace(/"/g, '&quot;');
+}
+
+function buildHtml(challenge: Challenge, choices: string[]): string {
+  const choicesHtml = choices
+    .map(
+      (choice, i) => `
+      <button data-answer="${escapeAttr(choice)}" data-index="${i}" type="button"
+        class="choice-btn group flex items-center justify-between w-full p-md bg-surface-container rounded-DEFAULT border border-outline-variant hover:border-primary-container hover:bg-surface-container-high transition-all">
+        <span class="font-body-lg text-body-lg text-on-surface">${choice}</span>
+        <span class="text-label-sm text-on-surface-variant opacity-40 group-hover:opacity-100 transition-opacity">${i + 1}</span>
+      </button>`,
+    )
+    .join('');
+
   return `
     <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
       <div id="challenge" class="glass-card w-full rounded-DEFAULT p-lg flex flex-col items-center gap-lg relative overflow-hidden">
         <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant">
-          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">DE / HET</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">Nederlands \u2192 Engels</span>
         </div>
         <div class="py-xl flex flex-col items-center">
           <h1 class="font-display-word text-display-word text-primary lowercase">${challenge.prompt}</h1>
+          <p class="text-on-surface-variant font-label-sm mt-xs opacity-60">Choose the correct translation</p>
         </div>
-        <div class="w-full grid grid-cols-2 gap-md">
-          <button data-answer="de" type="button" class="choice-btn btn-active group relative flex flex-col items-center justify-center py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant rounded-lg transition-all">
-            <span class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">DE</span>
-          </button>
-          <button data-answer="het" type="button" class="choice-btn btn-active group relative flex flex-col items-center justify-center py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant rounded-lg transition-all">
-            <span class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors">HET</span>
-          </button>
-        </div>
+        <div class="w-full flex flex-col gap-sm">${choicesHtml}</div>
       </div>
       <button id="skip-link" type="button" class="mt-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-widest py-xs">Ik weet het niet zeker</button>
       <div class="mt-xl flex justify-center items-center gap-lg">
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('\u2190')}<span>DE</span></div>
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('\u2192')}<span>HET</span></div>
+        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('1')}<span>Choose</span></div>
+        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('2')}</div>
+        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('3')}</div>
         <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
       </div>
     </div>`;
 }
 
 function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
-  container.innerHTML = buildHtml(challenge);
+  const choices = challenge.choices;
+  if (!choices?.length) {
+    throw new Error(`nl_to_en challenge ${challenge.id} is missing choices`);
+  }
+
+  container.innerHTML = buildHtml(challenge, shuffle(choices));
 
   return new Promise((resolve) => {
     let answered = false;
@@ -62,19 +77,18 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         done({ kind: 'dismiss' });
         return;
       }
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        done({ kind: 'answer', value: 'de' });
-        return;
-      }
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        done({ kind: 'answer', value: 'het' });
-        return;
-      }
       if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
         done({ kind: 'skip' });
+        return;
+      }
+
+      const num = parseInt(e.key, 10);
+      if (num >= 1 && num <= 3) {
+        e.preventDefault();
+        const btn = buttons[num - 1] as HTMLElement | undefined;
+        const answer = btn?.dataset.answer;
+        if (answer) done({ kind: 'answer', value: answer });
       }
     };
 
@@ -100,7 +114,7 @@ function isCorrect(challenge: Challenge, answer: string): boolean {
   return normalizeAnswer(answer) === normalizeAnswer(challenge.correctAnswer);
 }
 
-export const deHetModule: ChallengeModule = {
+export const nlToEnModule: ChallengeModule = {
   present,
   showResult,
   isCorrect,

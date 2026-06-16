@@ -4,5 +4,38 @@
     "type": "de_het",
     "prompt": "fiets",
     "correctAnswer": "de"
+  },
+  {
+    "id": "ch_02",
+    "type": "nl_to_en",
+    "prompt": "fiets",
+    "choices": ["bicycle", "car", "train"],
+    "correctAnswer": "bicycle"
+  },
+  {
+    "id": "ch_03",
+    "type": "de_het",
+    "prompt": "huis",
+    "correctAnswer": "het"
+  },
+  {
+    "id": "ch_04",
+    "type": "nl_to_en",
+    "prompt": "huis",
+    "choices": ["house", "garden", "street"],
+    "correctAnswer": "house"
+  },
+  {
+    "id": "ch_05",
+    "type": "de_het",
+    "prompt": "korting",
+    "correctAnswer": "de"
+  },
+  {
+    "id": "ch_06",
+    "type": "nl_to_en",
+    "prompt": "korting",
+    "choices": ["discount", "receipt", "price"],
+    "correctAnswer": "discount"
   }
 ]

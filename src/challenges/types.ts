@@ -1,6 +1,9 @@
 import { Challenge } from '../types.js';
 
-export type UserResponse = { kind: 'answer'; value: string } | { kind: 'dismiss' };
+export type UserResponse =
+  | { kind: 'answer'; value: string }
+  | { kind: 'skip' }
+  | { kind: 'dismiss' };
 
 export interface ChallengeModule {
   present(container: HTMLElement, challenge: Challenge): Promise<UserResponse>;

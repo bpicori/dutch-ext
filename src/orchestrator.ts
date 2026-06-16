@@ -32,11 +32,12 @@ export class Orchestrator {
       }
 
       const prev = progress[challenge.id] ?? DEFAULT_PROGRESS;
-      const correct = impl.isCorrect(challenge, response.value);
+      const answer = response.kind === 'answer' ? response.value : '';
+      const correct = response.kind === 'answer' && impl.isCorrect(challenge, response.value);
       this.storage.updateProgress(challenge.id, advance(prev, correct));
       await this.storage.persist();
 
-      impl.showResult(area, challenge, response.value, correct);
+      impl.showResult(area, challenge, answer, correct);
       await delay(RESULT_DELAY_MS);
     }
   }
