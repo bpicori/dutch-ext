@@ -6,7 +6,6 @@
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
-  "permissions": ["storage"],
   "web_accessible_resources": [
     {
       "resources": ["challenges/**/*.json"],

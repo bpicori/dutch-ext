@@ -6,15 +6,3 @@ export interface Challenge {
   prompt: string;
   correctAnswer: string;
 }
-
-export interface ChallengeProgress {
-  correct: number;
-  attempts: number;
-  consecutiveStreaks: number;
-  dontShowUntil: number;
-}
-
-export interface EvaluateResult {
-  correct: boolean;
-  progress: ChallengeProgress;
-}

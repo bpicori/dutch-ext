@@ -4,17 +4,5 @@
     "type": "de_het",
     "prompt": "fiets",
     "correctAnswer": "de"
-  },
-  {
-    "id": "ch_04",
-    "type": "de_het",
-    "prompt": "huis",
-    "correctAnswer": "het"
-  },
-  {
-    "id": "ch_07",
-    "type": "de_het",
-    "prompt": "korting",
-    "correctAnswer": "de"
   }
 ]
