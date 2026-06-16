@@ -1,4 +1,4 @@
-export type ChallengeType = 'de_het' | 'nl_to_en';
+export type ChallengeType = 'de_het' | 'nl_to_en' | 'en_to_nl' | 'complete_sentence' | 'plural';
 
 export interface Challenge {
   id: string;
@@ -6,6 +6,7 @@ export interface Challenge {
   prompt: string;
   correctAnswer: string;
   choices?: string[];
+  acceptableAnswers?: string[];
 }
 
 export interface ChallengeProgress {

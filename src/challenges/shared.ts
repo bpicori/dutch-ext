@@ -37,6 +37,30 @@ export function normalizeAnswer(s: string): string {
     .replace(/\s+/g, ' ');
 }
 
+export function matchesAnswer(
+  correctAnswer: string,
+  answer: string,
+  acceptableAnswers: string[] = [],
+): boolean {
+  const normalized = normalizeAnswer(answer);
+  return [correctAnswer, ...acceptableAnswers].some(
+    (candidate) => normalizeAnswer(candidate) === normalized,
+  );
+}
+
+export function highlightDiff(userAnswer: string, correctAnswer: string): string {
+  const userWords = userAnswer.trim().split(/\s+/);
+  const correctWords = correctAnswer.trim().split(/\s+/);
+  return correctWords
+    .map((word, i) => {
+      const u = userWords[i]?.toLowerCase().replace(/[.,!?]/g, '');
+      const c = word.toLowerCase().replace(/[.,!?]/g, '');
+      if (u === c) return word;
+      return `<span class="text-secondary font-bold underline decoration-secondary/30 decoration-2 underline-offset-4">${word}</span>`;
+    })
+    .join(' ');
+}
+
 export function shuffle<T>(items: T[]): T[] {
   const result = [...items];
   for (let i = result.length - 1; i > 0; i--) {
@@ -61,6 +85,38 @@ export function playError(): void {
   const now = ctx.currentTime;
   tone(ctx, 200, now, 0.15, 0.08);
   tone(ctx, 150, now + 0.12, 0.15, 0.06);
+}
+
+export function applyTypingResult(
+  container: HTMLElement,
+  userAnswer: string,
+  correctAnswer: string,
+  correct: boolean,
+): void {
+  const card = container.querySelector('#challenge');
+  const input = container.querySelector('#typing-input') as HTMLInputElement | null;
+  if (!input) return;
+
+  input.readOnly = true;
+  if (correct) {
+    input.classList.add('!border-secondary-container', '!text-secondary-fixed');
+    card?.classList.add('success-glow');
+    playSuccess();
+    return;
+  }
+
+  input.classList.add('!border-on-tertiary-container', '!text-on-tertiary', 'animate-shake');
+  card?.classList.add('error-glow', 'animate-shake');
+  container.querySelector('#typing-error-icon')?.classList.remove('hidden');
+
+  const feedback = container.querySelector('#typing-feedback');
+  if (feedback) {
+    feedback.innerHTML = `
+      <span class="font-label-sm text-label-sm text-on-tertiary-container font-bold uppercase">Correction</span>
+      <p class="font-body-md text-body-md text-on-surface mt-1">${highlightDiff(userAnswer, correctAnswer)}</p>`;
+    feedback.classList.remove('hidden');
+  }
+  playError();
 }
 
 export function applyChoiceResult(
