@@ -1,24 +1,20 @@
-import { Challenge, ChallengeProgress, GlobalProgress } from './types.js';
+import { Challenge, ChallengeProgress } from './types.js';
 
 export class StorageService {
   private deck: Challenge[] = [];
   private progress: Record<string, ChallengeProgress> = {};
-  private global: GlobalProgress = { xpTotal: 0, streakDays: 0, lastCompletedTimestamp: 0 };
 
   async init(): Promise<void> {
-    const manifest: string[] = await fetch(chrome.runtime.getURL('challenges/manifest.json')).then(r => r.json());
+    const manifest: string[] = await fetch(chrome.runtime.getURL('challenges/manifest.json')).then(
+      (r) => r.json(),
+    );
     const parts = await Promise.all(
-      manifest.map(f => fetch(chrome.runtime.getURL(`challenges/${f}`)).then(r => r.json())),
+      manifest.map((f) => fetch(chrome.runtime.getURL(`challenges/${f}`)).then((r) => r.json())),
     );
     this.deck = parts.flat() as Challenge[];
 
-    const data = await chrome.storage.local.get(['global', 'progress']);
-    this.global = data.global || { xpTotal: 0, streakDays: 0, lastCompletedTimestamp: 0 };
+    const data = await chrome.storage.local.get(['progress']);
     this.progress = data.progress || {};
-  }
-
-  getGlobal(): GlobalProgress {
-    return this.global;
   }
 
   getProgress(): Record<string, ChallengeProgress> {
@@ -33,14 +29,7 @@ export class StorageService {
     this.progress = { ...this.progress, [id]: cp };
   }
 
-  updateGlobal(g: GlobalProgress): void {
-    this.global = g;
-  }
-
   async persist(): Promise<void> {
-    await chrome.storage.local.set({
-      global: this.global,
-      progress: this.progress,
-    });
+    await chrome.storage.local.set({ progress: this.progress });
   }
 }

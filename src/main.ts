@@ -18,16 +18,11 @@ function run(): void {
   const progress = storage.getProgress();
   renderer.show(
     challenge,
-    {
-      global: storage.getGlobal(),
-      cardProgress: progress[challenge.id] ?? DEFAULT_PROGRESS,
-      deck: storage.getDeck(),
-    },
+    { cardProgress: progress[challenge.id] ?? DEFAULT_PROGRESS },
     (answer) => {
       const prev = progress[challenge.id] ?? DEFAULT_PROGRESS;
-      const result = orchestrator.evaluate(challenge, answer, prev, storage.getGlobal());
+      const result = orchestrator.evaluate(challenge, answer, prev);
       storage.updateProgress(challenge.id, result.progress);
-      storage.updateGlobal(result.global);
       storage.persist();
       renderer.showResult(challenge, answer, result.correct, () => run());
     },

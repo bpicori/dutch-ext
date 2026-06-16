@@ -15,33 +15,33 @@ Progress (XP, daily streak, per-card mastery) is stored locally in the browser. 
 
 ## Challenge types
 
-| Type | What you practice |
-|------|-------------------|
-| **de / het** | Dutch article for a noun |
-| **Dutch → English** | Word meaning |
-| **Dutch → English (sentence)** | Sentence meaning |
-| **English → Dutch** | Word translation |
-| **English → Dutch (sentence)** | Sentence translation |
-| **Listen** | Recognize spoken Dutch spelling (TTS) |
-| **Listen & match** | Match four spoken Dutch words to English |
-| **Read (MCQ)** | Short Dutch text + comprehension question |
-| **KNM** | Dutch society scenarios — what to do first |
-| **Dialogue reply** | Pick the best conversational response |
-| **Listen (MCQ)** | Question first, then hear a short clip |
-| **Number / detail** | Prices, times, facts from context |
-| **Fill blank** | Choose missing word (connectors, articles) |
-| **Verb form** | Choose correct conjugation |
-| **Preposition** | Choose `in` / `op` / `naar` etc. |
-| **Plural** | Type the plural of a noun |
-| **Complete sentence** | Type a missing word |
-| **Form fill** | Fill in form fields (name, phone, …) |
-| **Write note** | Type a short briefje from bullet prompts |
-| **Number listen** | Hear a number → type it |
-| **Read order** | Put sentences/events in correct order |
-| **Read match** | Match questions to answers from a text |
-| **Word order** | Arrange shuffled words into a Dutch sentence |
-| **Speak repeat** | Hear a phrase → speak it (mic) |
-| **Image describe** | Describe a picture in Dutch |
+| Type                           | What you practice                            |
+| ------------------------------ | -------------------------------------------- |
+| **de / het**                   | Dutch article for a noun                     |
+| **Dutch → English**            | Word meaning                                 |
+| **Dutch → English (sentence)** | Sentence meaning                             |
+| **English → Dutch**            | Word translation                             |
+| **English → Dutch (sentence)** | Sentence translation                         |
+| **Listen**                     | Recognize spoken Dutch spelling (TTS)        |
+| **Listen & match**             | Match four spoken Dutch words to English     |
+| **Read (MCQ)**                 | Short Dutch text + comprehension question    |
+| **KNM**                        | Dutch society scenarios — what to do first   |
+| **Dialogue reply**             | Pick the best conversational response        |
+| **Listen (MCQ)**               | Question first, then hear a short clip       |
+| **Number / detail**            | Prices, times, facts from context            |
+| **Fill blank**                 | Choose missing word (connectors, articles)   |
+| **Verb form**                  | Choose correct conjugation                   |
+| **Preposition**                | Choose `in` / `op` / `naar` etc.             |
+| **Plural**                     | Type the plural of a noun                    |
+| **Complete sentence**          | Type a missing word                          |
+| **Form fill**                  | Fill in form fields (name, phone, …)         |
+| **Write note**                 | Type a short briefje from bullet prompts     |
+| **Number listen**              | Hear a number → type it                      |
+| **Read order**                 | Put sentences/events in correct order        |
+| **Read match**                 | Match questions to answers from a text       |
+| **Word order**                 | Arrange shuffled words into a Dutch sentence |
+| **Speak repeat**               | Hear a phrase → speak it (mic)               |
+| **Image describe**             | Describe a picture in Dutch                  |
 
 ## Learning model
 

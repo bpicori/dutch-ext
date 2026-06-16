@@ -7,10 +7,9 @@
     "newtab": "newtab.html"
   },
   "permissions": ["storage"],
-  "optional_permissions": ["audioCapture"],
   "web_accessible_resources": [
     {
-      "resources": ["challenges/**/*.json", "images/*"],
+      "resources": ["challenges/**/*.json"],
       "matches": ["<all_urls>"]
     }
   ],

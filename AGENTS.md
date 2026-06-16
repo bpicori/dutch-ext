@@ -27,13 +27,13 @@ main.ts (owns the loop)
   └── Renderer        UI: DOM shell, layouts, keyboard, audio, mic
 ```
 
-| File | Role |
-|------|------|
-| `src/types.ts` | Shared types (interfaces only — erased at compile time) |
-| `src/orchestrator.ts` | SM-2, grading, challenge selection (stateless algorithms) |
-| `src/storage.ts` | Repository: deck loading, `chrome.storage.local` read/write |
-| `src/renderer.ts` | DOM shell, layouts, keyboard, audio, mic |
-| `src/main.ts` | Entry point — creates all three, owns the loop |
+| File                  | Role                                                        |
+| --------------------- | ----------------------------------------------------------- |
+| `src/types.ts`        | Shared types (interfaces only — erased at compile time)     |
+| `src/orchestrator.ts` | SM-2, grading, challenge selection (stateless algorithms)   |
+| `src/storage.ts`      | Repository: deck loading, `chrome.storage.local` read/write |
+| `src/renderer.ts`     | DOM shell, layouts, keyboard, audio, mic                    |
+| `src/main.ts`         | Entry point — creates all three, owns the loop              |
 
 Orchestrator is stateless — it receives data from StorageService, computes results, and returns them. main.ts wires all three together, passing state between storage and orchestrator each tick.
 
@@ -47,33 +47,33 @@ Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `order
 
 ## Challenge types (25)
 
-| Type | Layout | Keyboard |
-|------|--------|----------|
-| `de_het` | DE / HET buttons | ← de, → het |
-| `nl_to_en` | 3-choice MCQ | 1, 2, 3 |
-| `en_to_nl` | 3-choice MCQ | 1, 2, 3 |
-| `listen` | TTS + spelling MCQ | 1, 2, 3 |
-| `listen_match` | 4 audio ↔ 4 text pairs | 1–4 play, click match |
-| `nl_to_en_sentence` | 3-choice MCQ | 1, 2, 3 |
-| `en_to_nl_sentence` | 3-choice MCQ | 1, 2, 3 |
-| `read_mcq` | Scrollable text + MCQ | 1, 2, 3 |
-| `knm` | Scenario + MCQ | 1, 2, 3 |
-| `dialogue_reply` | Dialogue + MCQ | 1, 2, 3 |
-| `fill_blank` | Sentence + MCQ | 1, 2, 3 |
-| `verb_form` | Sentence + MCQ | 1, 2, 3 |
-| `preposition` | Sentence + MCQ | 1, 2, 3 |
-| `number_detail` | Context + MCQ | 1, 2, 3 |
-| `listen_mcq` | Question + TTS + MCQ | 1, 2, 3 |
-| `form_fill` | Multi-field form | Enter submit |
-| `write_note` | Bullets + textarea | Enter submit |
-| `complete_sentence` | Type missing word | Enter submit |
-| `plural` | Type plural | Enter submit |
-| `number_listen` | TTS + type number | Enter submit |
-| `read_order` | Reorder list | ↑↓ move, Enter submit |
-| `read_match` | Match two columns | Click pairs |
-| `word_order` | Build sentence from tokens | Click words, Enter submit |
-| `speak_repeat` | TTS + mic record | Hold mic button |
-| `image_describe` | Image + type description | Enter submit |
+| Type                | Layout                     | Keyboard                  |
+| ------------------- | -------------------------- | ------------------------- |
+| `de_het`            | DE / HET buttons           | ← de, → het               |
+| `nl_to_en`          | 3-choice MCQ               | 1, 2, 3                   |
+| `en_to_nl`          | 3-choice MCQ               | 1, 2, 3                   |
+| `listen`            | TTS + spelling MCQ         | 1, 2, 3                   |
+| `listen_match`      | 4 audio ↔ 4 text pairs     | 1–4 play, click match     |
+| `nl_to_en_sentence` | 3-choice MCQ               | 1, 2, 3                   |
+| `en_to_nl_sentence` | 3-choice MCQ               | 1, 2, 3                   |
+| `read_mcq`          | Scrollable text + MCQ      | 1, 2, 3                   |
+| `knm`               | Scenario + MCQ             | 1, 2, 3                   |
+| `dialogue_reply`    | Dialogue + MCQ             | 1, 2, 3                   |
+| `fill_blank`        | Sentence + MCQ             | 1, 2, 3                   |
+| `verb_form`         | Sentence + MCQ             | 1, 2, 3                   |
+| `preposition`       | Sentence + MCQ             | 1, 2, 3                   |
+| `number_detail`     | Context + MCQ              | 1, 2, 3                   |
+| `listen_mcq`        | Question + TTS + MCQ       | 1, 2, 3                   |
+| `form_fill`         | Multi-field form           | Enter submit              |
+| `write_note`        | Bullets + textarea         | Enter submit              |
+| `complete_sentence` | Type missing word          | Enter submit              |
+| `plural`            | Type plural                | Enter submit              |
+| `number_listen`     | TTS + type number          | Enter submit              |
+| `read_order`        | Reorder list               | ↑↓ move, Enter submit     |
+| `read_match`        | Match two columns          | Click pairs               |
+| `word_order`        | Build sentence from tokens | Click words, Enter submit |
+| `speak_repeat`      | TTS + mic record           | Hold mic button           |
+| `image_describe`    | Image + type description   | Enter submit              |
 
 All types: Space / Esc = dismiss (focus omnibox). MCQ types also dismiss on Enter before answering.
 

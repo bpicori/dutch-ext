@@ -2,10 +2,14 @@
   "name": "wacht-nederlands",
   "private": true,
   "scripts": {
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "prettier --check ."
   },
   "devDependencies": {
-    "typescript": "^5.4.0",
-    "@types/chrome": "^0.0.260"
+    "@types/chrome": "^0.0.260",
+    "prettier": "^3.8.4",
+    "typescript": "^5.4.0"
   }
 }

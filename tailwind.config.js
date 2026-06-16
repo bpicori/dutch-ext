@@ -80,8 +80,14 @@ module.exports = {
       fontSize: {
         'headline-md': ['20px', { lineHeight: '28px', fontWeight: '600' }],
         'body-md': ['16px', { lineHeight: '24px', fontWeight: '400' }],
-        'display-word': ['48px', { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '600' }],
-        'display-sentence': ['24px', { lineHeight: '1.4', letterSpacing: '-0.01em', fontWeight: '500' }],
+        'display-word': [
+          '48px',
+          { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '600' },
+        ],
+        'display-sentence': [
+          '24px',
+          { lineHeight: '1.4', letterSpacing: '-0.01em', fontWeight: '500' },
+        ],
         'body-lg': ['18px', { lineHeight: '28px', fontWeight: '400' }],
         'label-sm': ['13px', { lineHeight: '16px', letterSpacing: '0.05em', fontWeight: '500' }],
       },

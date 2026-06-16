@@ -11,7 +11,7 @@ if [ ! -f "$TAILWIND_BIN" ]; then
 fi
 
 rm -rf dist
-mkdir -p dist/icons dist/challenges dist/images
+mkdir -p dist/icons dist/challenges
 
 echo "Compiling TypeScript..."
 npx tsc
@@ -24,7 +24,6 @@ cp src/newtab.html dist/
 mkdir -p dist/challenges/examples
 cp src/challenges/examples/*.json dist/challenges/examples/
 find dist/challenges/examples -name '*.json' -exec basename {} \; | jq -R -s 'split("\n") | map(select(length > 0) | "examples/\(.)")' > dist/challenges/manifest.json
-cp -r src/images/* dist/images/ 2>/dev/null || true
 cp icons/*.png dist/icons/ 2>/dev/null || true
 
 echo "Build complete -> dist/"
