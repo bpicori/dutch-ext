@@ -1,10 +1,30 @@
 import { StorageService } from './storage.js';
 import { getChallenge } from './challenges/index.js';
+import { kbdChip } from './challenges/shared.js';
 import { advance, DEFAULT_PROGRESS, pickNext } from './sm2.js';
 
-const RESULT_DELAY_MS = 1200;
+type ContinueAction = 'continue' | 'dismiss';
 
-const delay = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+function waitForContinue(): Promise<ContinueAction> {
+  return new Promise((resolve) => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        cleanup();
+        resolve('dismiss');
+        return;
+      }
+      if (e.key === ' ' || e.key === 'Enter') {
+        e.preventDefault();
+        cleanup();
+        resolve('continue');
+      }
+    };
+
+    const cleanup = () => document.removeEventListener('keydown', onKey);
+    document.addEventListener('keydown', onKey);
+  });
+}
 
 export class Orchestrator {
   constructor(private storage: StorageService) {}
@@ -38,8 +58,22 @@ export class Orchestrator {
       await this.storage.persist();
 
       impl.showResult(area, challenge, answer, correct);
-      await delay(RESULT_DELAY_MS);
+      this.showContinueHint(area);
+
+      if ((await waitForContinue()) === 'dismiss') {
+        this.dismiss();
+        return;
+      }
     }
+  }
+
+  private showContinueHint(area: HTMLElement): void {
+    const hint = document.createElement('div');
+    hint.id = 'continue-hint';
+    hint.className =
+      'mt-xl flex justify-center items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60';
+    hint.innerHTML = `${kbdChip('Enter')}<span>Next challenge</span>`;
+    area.appendChild(hint);
   }
 
   private renderShell(): void {
