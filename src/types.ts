@@ -1,4 +1,23 @@
-export type ChallengeType = 'de_het' | 'nl_to_en' | 'en_to_nl' | 'complete_sentence' | 'plural';
+export type ChallengeType =
+  | 'de_het'
+  | 'nl_to_en'
+  | 'en_to_nl'
+  | 'nl_to_en_sentence'
+  | 'en_to_nl_sentence'
+  | 'read_mcq'
+  | 'knm'
+  | 'dialogue_reply'
+  | 'fill_blank'
+  | 'verb_form'
+  | 'preposition'
+  | 'number_detail'
+  | 'write_note'
+  | 'complete_sentence'
+  | 'plural'
+  | 'read_order'
+  | 'read_match'
+  | 'word_order'
+  | 'image_describe';
 
 export interface Challenge {
   id: string;
@@ -7,6 +26,14 @@ export interface Challenge {
   correctAnswer: string;
   choices?: string[];
   acceptableAnswers?: string[];
+  context?: string;
+  promptAudio?: string;
+  audioWords?: string[];
+  orderItems?: string[];
+  matchLeft?: string[];
+  matchRight?: string[];
+  imageUrl?: string;
+  bulletPrompts?: string[];
 }
 
 export interface ChallengeProgress {

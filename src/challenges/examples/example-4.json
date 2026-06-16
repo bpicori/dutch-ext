@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ch_40",
+    "type": "fill_blank",
+    "prompt": "Ik blijf thuis ___ ik ziek ben.",
+    "choices": ["omdat", "maar", "en"],
+    "correctAnswer": "omdat"
+  },
+  {
+    "id": "ch_41",
+    "type": "fill_blank",
+    "prompt": "___ fiets is rood.",
+    "choices": ["De", "Het", "Een"],
+    "correctAnswer": "De"
+  },
+  {
+    "id": "ch_42",
+    "type": "verb_form",
+    "prompt": "Ik ___ elke dag naar mijn werk.",
+    "choices": ["ga", "gaat", "gaan"],
+    "correctAnswer": "ga"
+  },
+  {
+    "id": "ch_43",
+    "type": "verb_form",
+    "prompt": "Zij ___ in Amsterdam.",
+    "choices": ["woont", "woon", "wonen"],
+    "correctAnswer": "woont"
+  },
+  {
+    "id": "ch_44",
+    "type": "preposition",
+    "prompt": "Het boek ligt ___ de tafel.",
+    "choices": ["op", "in", "naar"],
+    "correctAnswer": "op"
+  },
+  {
+    "id": "ch_45",
+    "type": "preposition",
+    "prompt": "Ik ga ___ de supermarkt.",
+    "choices": ["naar", "op", "uit"],
+    "correctAnswer": "naar"
+  },
+  {
+    "id": "ch_46",
+    "type": "plural",
+    "prompt": "fiets",
+    "correctAnswer": "fietsen"
+  },
+  {
+    "id": "ch_47",
+    "type": "plural",
+    "prompt": "huis",
+    "correctAnswer": "huizen"
+  },
+  {
+    "id": "ch_48",
+    "type": "complete_sentence",
+    "prompt": "Ik ___ een kopje koffie.",
+    "correctAnswer": "drink",
+    "acceptableAnswers": ["drinkt"]
+  },
+  {
+    "id": "ch_50",
+    "type": "write_note",
+    "prompt": "Schrijf een briefje voor je buurman:",
+    "bulletPrompts": [
+      "Je bent twee dagen niet thuis",
+      "Vraag of hij de post kan pakken",
+      "Bedank hem"
+    ],
+    "correctAnswer": "Ik ben twee dagen niet thuis. Kunt u de post pakken? Dank u wel."
+  }
+]

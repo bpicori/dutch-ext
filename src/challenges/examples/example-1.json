@@ -3,6 +3,7 @@
     "id": "ch_01",
     "type": "de_het",
     "prompt": "fiets",
+    "choices": ["de", "het"],
     "correctAnswer": "de"
   },
   {
@@ -21,68 +22,86 @@
   },
   {
     "id": "ch_04",
-    "type": "plural",
-    "prompt": "fiets",
-    "correctAnswer": "fietsen"
-  },
-  {
-    "id": "ch_05",
     "type": "de_het",
     "prompt": "huis",
+    "choices": ["de", "het"],
     "correctAnswer": "het"
   },
   {
-    "id": "ch_06",
+    "id": "ch_05",
     "type": "nl_to_en",
     "prompt": "huis",
-    "choices": ["house", "garden", "street"],
+    "choices": ["house", "garden", "apartment"],
     "correctAnswer": "house"
   },
   {
-    "id": "ch_07",
+    "id": "ch_06",
     "type": "en_to_nl",
     "prompt": "house",
-    "choices": ["huis", "tuin", "straat"],
+    "choices": ["huis", "tuin", "appartement"],
     "correctAnswer": "huis"
   },
   {
-    "id": "ch_08",
-    "type": "plural",
-    "prompt": "huis",
-    "correctAnswer": "huizen"
-  },
-  {
-    "id": "ch_09",
-    "type": "complete_sentence",
-    "prompt": "Ik ___ een kopje koffie.",
-    "correctAnswer": "drink",
-    "acceptableAnswers": ["drinkt"]
-  },
-  {
-    "id": "ch_10",
+    "id": "ch_07",
     "type": "de_het",
     "prompt": "korting",
+    "choices": ["de", "het"],
     "correctAnswer": "de"
   },
   {
-    "id": "ch_11",
+    "id": "ch_08",
     "type": "nl_to_en",
     "prompt": "korting",
-    "choices": ["discount", "receipt", "price"],
+    "choices": ["discount", "price", "sale"],
     "correctAnswer": "discount"
   },
   {
-    "id": "ch_12",
+    "id": "ch_09",
     "type": "en_to_nl",
     "prompt": "discount",
-    "choices": ["korting", "bon", "prijs"],
+    "choices": ["korting", "prijs", "uitverkoop"],
     "correctAnswer": "korting"
   },
   {
+    "id": "ch_12",
+    "type": "nl_to_en_sentence",
+    "prompt": "de fiets is rood",
+    "choices": ["the bicycle is red", "the car is red", "the bicycle is blue"],
+    "correctAnswer": "the bicycle is red"
+  },
+  {
     "id": "ch_13",
-    "type": "complete_sentence",
-    "prompt": "De winkel is ___ om acht uur.",
-    "correctAnswer": "open",
-    "acceptableAnswers": ["geopend"]
+    "type": "en_to_nl_sentence",
+    "prompt": "the bicycle is red",
+    "choices": ["de fiets is rood", "de auto is rood", "de fiets is blauw"],
+    "correctAnswer": "de fiets is rood"
+  },
+  {
+    "id": "ch_14",
+    "type": "nl_to_en_sentence",
+    "prompt": "het huis is groot",
+    "choices": ["the house is big", "the garden is big", "the house is small"],
+    "correctAnswer": "the house is big"
+  },
+  {
+    "id": "ch_15",
+    "type": "en_to_nl_sentence",
+    "prompt": "the house is big",
+    "choices": ["het huis is groot", "de tuin is groot", "het huis is klein"],
+    "correctAnswer": "het huis is groot"
+  },
+  {
+    "id": "ch_16",
+    "type": "nl_to_en_sentence",
+    "prompt": "de korting is goed",
+    "choices": ["the discount is good", "the price is good", "the sale is good"],
+    "correctAnswer": "the discount is good"
+  },
+  {
+    "id": "ch_17",
+    "type": "en_to_nl_sentence",
+    "prompt": "the discount is good",
+    "choices": ["de korting is goed", "de prijs is goed", "de uitverkoop is goed"],
+    "correctAnswer": "de korting is goed"
   }
 ]
