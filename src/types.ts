@@ -13,8 +13,3 @@ export interface ChallengeProgress {
   consecutiveStreaks: number;
   dontShowUntil: number;
 }
-
-export interface EvaluateResult {
-  correct: boolean;
-  progress: ChallengeProgress;
-}

@@ -1,17 +1,6 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-
-function normalizeAnswer(s: string): string {
-  return s
-    .trim()
-    .toLowerCase()
-    .replace(/[.,!?;:'"]/g, '')
-    .replace(/\s+/g, ' ');
-}
-
-function kbdChip(label: string): string {
-  return `<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2 py-1 rounded border border-outline-variant">${label}</span>`;
-}
+import { applyChoiceResult, kbdChip, normalizeAnswer } from './shared.js';
 
 function buildHtml(challenge: Challenge): string {
   return `
@@ -39,44 +28,6 @@ function buildHtml(challenge: Challenge): string {
         <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
       </div>
     </div>`;
-}
-
-function playSuccess(): void {
-  const ctx = new (
-    window.AudioContext ||
-    (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
-  )();
-  const now = ctx.currentTime;
-  [523.25, 659.25, 783.99].forEach((freq, i) => tone(ctx, freq, now + i * 0.09, 0.12, 0.08));
-}
-
-function playError(): void {
-  const ctx = new (
-    window.AudioContext ||
-    (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
-  )();
-  const now = ctx.currentTime;
-  tone(ctx, 200, now, 0.15, 0.08);
-  tone(ctx, 150, now + 0.12, 0.15, 0.06);
-}
-
-function tone(
-  ctx: AudioContext,
-  freq: number,
-  startTime: number,
-  duration: number,
-  vol: number,
-): void {
-  const osc = ctx.createOscillator();
-  const gain = ctx.createGain();
-  osc.type = 'sine';
-  osc.frequency.value = freq;
-  gain.gain.setValueAtTime(vol, startTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start(startTime);
-  osc.stop(startTime + duration + 0.01);
 }
 
 function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
@@ -137,40 +88,12 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
 }
 
 function showResult(
-  _container: HTMLElement,
+  container: HTMLElement,
   challenge: Challenge,
   userAnswer: string,
   correct: boolean,
 ): void {
-  const buttons = document.querySelectorAll('.choice-btn') as NodeListOf<HTMLElement>;
-  const card = document.getElementById('challenge');
-  buttons.forEach((btn) => {
-    const answer = btn.dataset.answer;
-    btn.style.pointerEvents = 'none';
-    if (answer === challenge.correctAnswer) {
-      btn.classList.add(
-        '!bg-secondary-container',
-        '!border-secondary-container',
-        '!text-on-secondary-container',
-      );
-    } else if (answer === userAnswer) {
-      btn.classList.add(
-        '!bg-on-tertiary/10',
-        '!border-on-tertiary-container',
-        '!text-on-surface',
-        'animate-shake',
-      );
-    } else {
-      btn.classList.add('opacity-40');
-    }
-  });
-  if (correct) {
-    card?.classList.add('success-glow');
-    playSuccess();
-  } else {
-    card?.classList.add('error-glow');
-    playError();
-  }
+  applyChoiceResult(container, challenge.correctAnswer, userAnswer, correct);
 }
 
 function isCorrect(challenge: Challenge, answer: string): boolean {
