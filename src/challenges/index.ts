@@ -1,9 +1,7 @@
 import { ChallengeType } from '../types.js';
 import { ChallengeModule } from './types.js';
-import { completeSentenceModule } from './complete-sentence.js';
 import { deHetModule } from './de-het.js';
 import { enToNlModule } from './en-to-nl.js';
-import { imageDescribeModule } from './image-describe.js';
 import {
   dialogueReplyModule,
   enToNlSentenceModule,
@@ -16,11 +14,9 @@ import {
   verbFormModule,
 } from './mcq.js';
 import { nlToEnModule } from './nl-to-en.js';
-import { pluralModule } from './plural.js';
 import { readMatchModule } from './read-match.js';
 import { readOrderModule } from './read-order.js';
 import { wordOrderModule } from './word-order.js';
-import { writeNoteModule } from './write-note.js';
 
 const Registry: Record<ChallengeType, ChallengeModule> = {
   de_het: deHetModule,
@@ -35,13 +31,9 @@ const Registry: Record<ChallengeType, ChallengeModule> = {
   verb_form: verbFormModule,
   preposition: prepositionModule,
   number_detail: numberDetailModule,
-  write_note: writeNoteModule,
-  complete_sentence: completeSentenceModule,
-  plural: pluralModule,
   read_order: readOrderModule,
   read_match: readMatchModule,
   word_order: wordOrderModule,
-  image_describe: imageDescribeModule,
 };
 
 export function getChallenge(type: ChallengeType): ChallengeModule {

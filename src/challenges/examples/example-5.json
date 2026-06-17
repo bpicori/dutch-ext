@@ -35,13 +35,5 @@
     "prompt": "Maak een goede zin:",
     "orderItems": ["ik", "ga", "naar", "huis"],
     "correctAnswer": "ik ga naar huis"
-  },
-  {
-    "id": "ch_66",
-    "type": "image_describe",
-    "prompt": "Beschrijf wat je ziet in één zin:",
-    "imageUrl": "images/supermarket.svg",
-    "correctAnswer": "Een man koopt brood in de supermarkt.",
-    "acceptableAnswers": ["een man koopt brood", "iemand is in de winkel"]
   }
 ]

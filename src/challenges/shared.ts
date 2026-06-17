@@ -97,12 +97,6 @@ export const MCQ_FOOTER_HTML = `
     <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
   </div>`;
 
-export const TYPING_FOOTER_HTML = `
-  <div class="mt-xl flex justify-center items-center gap-lg">
-    <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Enter')}<span>Submit</span></div>
-    <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
-  </div>`;
-
 export function playSuccess(): void {
   const ctx = getAudioContext();
   const now = ctx.currentTime;
@@ -114,65 +108,6 @@ export function playError(): void {
   const now = ctx.currentTime;
   tone(ctx, 200, now, 0.15, 0.08);
   tone(ctx, 150, now + 0.12, 0.15, 0.06);
-}
-
-export function applyTypingResult(
-  container: HTMLElement,
-  userAnswer: string,
-  correctAnswer: string,
-  correct: boolean,
-): void {
-  const card = container.querySelector('#challenge');
-  const input = container.querySelector('#typing-input') as HTMLInputElement | null;
-  if (!input) return;
-
-  input.readOnly = true;
-  if (correct) {
-    input.classList.add('!border-secondary-container', '!text-secondary-fixed');
-    card?.classList.add('success-glow');
-    playSuccess();
-    return;
-  }
-
-  input.classList.add('!border-on-tertiary-container', '!text-on-tertiary', 'animate-shake');
-  card?.classList.add('error-glow', 'animate-shake');
-  container.querySelector('#typing-error-icon')?.classList.remove('hidden');
-
-  const feedback = container.querySelector('#typing-feedback');
-  if (feedback) {
-    feedback.innerHTML = `
-      <span class="font-label-sm text-label-sm text-on-tertiary-container font-bold uppercase">Correction</span>
-      <p class="font-body-md text-body-md text-on-surface mt-1">${highlightDiff(userAnswer, correctAnswer)}</p>`;
-    feedback.classList.remove('hidden');
-  }
-  playError();
-}
-
-export function applyTextareaResult(
-  container: HTMLElement,
-  correctAnswer: string,
-  correct: boolean,
-): void {
-  const input = container.querySelector('#write-note-input') as HTMLTextAreaElement | null;
-  const card = container.querySelector('#challenge');
-  if (!input) return;
-  input.readOnly = true;
-  if (correct) {
-    input.classList.add('!border-secondary-container');
-    card?.classList.add('success-glow');
-    playSuccess();
-    return;
-  }
-  input.classList.add('!border-on-tertiary-container', 'animate-shake');
-  card?.classList.add('error-glow', 'animate-shake');
-  const feedback = container.querySelector('#typing-feedback');
-  if (feedback) {
-    feedback.innerHTML = `
-      <span class="font-label-sm text-label-sm text-on-tertiary-container font-bold uppercase">Model answer</span>
-      <p class="font-body-md text-body-md text-on-surface mt-1">${correctAnswer}</p>`;
-    feedback.classList.remove('hidden');
-  }
-  playError();
 }
 
 export function applyOrderResult(
@@ -360,74 +295,6 @@ export function bindMcqPresent(container: HTMLElement): Promise<import('./types.
     skipLink?.addEventListener('click', onSkip);
     buttons.forEach((btn) => btn.addEventListener('click', onChoice));
     replayBtn?.addEventListener('click', onReplay);
-    document.addEventListener('keydown', onKey);
-  });
-}
-
-export function bindTypingPresent(
-  container: HTMLElement,
-  inputSelector: string,
-): Promise<import('./types.js').UserResponse> {
-  return new Promise((resolve) => {
-    let answered = false;
-    const input = container.querySelector(inputSelector) as HTMLInputElement | HTMLTextAreaElement;
-    input?.focus();
-
-    const cleanup = () => {
-      document.removeEventListener('keydown', onKey);
-      skipLink?.removeEventListener('click', onSkip);
-      input?.removeEventListener('keydown', onInputKey as EventListener);
-      replayBtn?.removeEventListener('click', onReplay);
-    };
-
-    const done = (response: import('./types.js').UserResponse) => {
-      if (answered) return;
-      answered = true;
-      cleanup();
-      resolve(response);
-    };
-
-    const submit = () => {
-      const value = input?.value.trim();
-      if (!value) return;
-      done({ kind: 'answer', value });
-    };
-
-    const onSkip = () => done({ kind: 'skip' });
-    const onReplay = () => {
-      const audio = container.dataset.promptAudio;
-      if (audio) speak(audio);
-    };
-
-    const onInputKey = (e: KeyboardEvent) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submit();
-        return;
-      }
-      if (e.key === ' ') {
-        e.preventDefault();
-        done({ kind: 'skip' });
-      }
-    };
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        done({ kind: 'dismiss' });
-        return;
-      }
-      if (e.key === ' ') {
-        e.preventDefault();
-        done({ kind: 'skip' });
-      }
-    };
-
-    const skipLink = container.querySelector('#skip-link');
-    const replayBtn = container.querySelector('#replay-audio');
-    skipLink?.addEventListener('click', onSkip);
-    replayBtn?.addEventListener('click', onReplay);
-    input?.addEventListener('keydown', onInputKey as EventListener);
     document.addEventListener('keydown', onKey);
   });
 }

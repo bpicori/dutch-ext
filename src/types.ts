@@ -11,13 +11,9 @@ export type ChallengeType =
   | 'verb_form'
   | 'preposition'
   | 'number_detail'
-  | 'write_note'
-  | 'complete_sentence'
-  | 'plural'
   | 'read_order'
   | 'read_match'
-  | 'word_order'
-  | 'image_describe';
+  | 'word_order';
 
 export interface Challenge {
   id: string;
@@ -32,8 +28,6 @@ export interface Challenge {
   orderItems?: string[];
   matchLeft?: string[];
   matchRight?: string[];
-  imageUrl?: string;
-  bulletPrompts?: string[];
 }
 
 export interface ChallengeProgress {

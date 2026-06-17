@@ -40,35 +40,5 @@
     "prompt": "Ik ga ___ de supermarkt.",
     "choices": ["naar", "op", "uit"],
     "correctAnswer": "naar"
-  },
-  {
-    "id": "ch_46",
-    "type": "plural",
-    "prompt": "fiets",
-    "correctAnswer": "fietsen"
-  },
-  {
-    "id": "ch_47",
-    "type": "plural",
-    "prompt": "huis",
-    "correctAnswer": "huizen"
-  },
-  {
-    "id": "ch_48",
-    "type": "complete_sentence",
-    "prompt": "Ik ___ een kopje koffie.",
-    "correctAnswer": "drink",
-    "acceptableAnswers": ["drinkt"]
-  },
-  {
-    "id": "ch_50",
-    "type": "write_note",
-    "prompt": "Schrijf een briefje voor je buurman:",
-    "bulletPrompts": [
-      "Je bent twee dagen niet thuis",
-      "Vraag of hij de post kan pakken",
-      "Bedank hem"
-    ],
-    "correctAnswer": "Ik ben twee dagen niet thuis. Kunt u de post pakken? Dank u wel."
   }
 ]
