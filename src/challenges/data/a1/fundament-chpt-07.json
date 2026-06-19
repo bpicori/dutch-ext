@@ -3,75 +3,40 @@
     "id": "a1.fundament-chpt07.geen-geld.fill_blank",
     "type": "fill_blank",
     "prompt": "Ik heb ___ geld.",
-    "choices": [
-      "geen",
-      "niet",
-      "wel"
-    ],
+    "choices": ["geen", "niet", "wel"],
     "correctAnswer": "geen",
-    "tags": [
-      "fundament",
-      "chpt-07"
-    ]
+    "tags": ["fundament", "chpt-07"]
   },
   {
     "id": "a1.fundament-chpt07.geen-koffie.fill_blank",
     "type": "fill_blank",
     "prompt": "Zij drinkt ___ koffie.",
-    "choices": [
-      "geen",
-      "niet",
-      "wel"
-    ],
+    "choices": ["geen", "niet", "wel"],
     "correctAnswer": "geen",
-    "tags": [
-      "fundament",
-      "chpt-07"
-    ]
+    "tags": ["fundament", "chpt-07"]
   },
   {
     "id": "a1.fundament-chpt07.niet-einde.fill_blank",
     "type": "fill_blank",
     "prompt": "'Niet' komt meestal aan het ___ van de zin.",
-    "choices": [
-      "einde",
-      "begin",
-      "midden"
-    ],
+    "choices": ["einde", "begin", "midden"],
     "correctAnswer": "einde",
-    "tags": [
-      "fundament",
-      "chpt-07"
-    ]
+    "tags": ["fundament", "chpt-07"]
   },
   {
     "id": "a1.fundament-chpt07.niet-geen.fill_blank",
     "type": "fill_blank",
     "prompt": "We maken ontkenningen met 'geen' en ___",
-    "choices": [
-      "niet",
-      "wel",
-      "altijd"
-    ],
+    "choices": ["niet", "wel", "altijd"],
     "correctAnswer": "niet",
-    "tags": [
-      "fundament",
-      "chpt-07"
-    ]
+    "tags": ["fundament", "chpt-07"]
   },
   {
     "id": "a1.fundament-chpt07.niet-moe.fill_blank",
     "type": "fill_blank",
     "prompt": "Hij is ___ moe.",
-    "choices": [
-      "niet",
-      "geen",
-      "wel"
-    ],
+    "choices": ["niet", "geen", "wel"],
     "correctAnswer": "niet",
-    "tags": [
-      "fundament",
-      "chpt-07"
-    ]
+    "tags": ["fundament", "chpt-07"]
   }
 ]

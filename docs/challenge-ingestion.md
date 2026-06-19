@@ -6,10 +6,10 @@ Pipeline to turn A1 textbook PDFs in `tmp/` into TabTaal challenge JSON.
 
 ## Sources
 
-| Slug | PDF | Level | Topic prefix |
-| ---- | --- | ----- | ------------ |
-| `het-fundament` | `tmp/Het-Fundament-c2025QR.pdf` | a1 | `fundament` |
-| `kom-maar-binnen` | `tmp/Kom-maar-binnen_2025.pdf` | a1 | `kmb` |
+| Slug              | PDF                             | Level | Topic prefix |
+| ----------------- | ------------------------------- | ----- | ------------ |
+| `het-fundament`   | `tmp/Het-Fundament-c2025QR.pdf` | a1    | `fundament`  |
+| `kom-maar-binnen` | `tmp/Kom-maar-binnen_2025.pdf`  | a1    | `kmb`        |
 
 Agents maintain a local `content/sources.json` with chapter index and status (`extracted` | `drafted` | `approved` | `merged`).
 

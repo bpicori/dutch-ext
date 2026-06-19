@@ -11,7 +11,11 @@
     "id": "a1.kmb-chpt03.wie-gaat-mee.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Hé jongens, ik wil volgende week naar de stad gaan. Wie gaat er mee?",
-    "choices": ["Ik wil graag naar de stad, Maria.", "Ik werk deze week 40 uur.", "De bus is om twee uur."],
+    "choices": [
+      "Ik wil graag naar de stad, Maria.",
+      "Ik werk deze week 40 uur.",
+      "De bus is om twee uur."
+    ],
     "correctAnswer": "Ik wil graag naar de stad, Maria.",
     "tags": ["kmb", "chpt-03"]
   },
@@ -53,7 +57,11 @@
     "type": "read_mcq",
     "context": "Pablo sport op donderdag 's ochtends. 's Middags is hij thuis met zijn kinderen. Van vrijdag tot zondag gaat hij een weekend naar Groningen.",
     "prompt": "Wat doet Pablo op donderdagmiddag?",
-    "choices": ["Hij is thuis met zijn kinderen", "Hij sport 's ochtends", "Hij gaat naar Groningen"],
+    "choices": [
+      "Hij is thuis met zijn kinderen",
+      "Hij sport 's ochtends",
+      "Hij gaat naar Groningen"
+    ],
     "correctAnswer": "Hij is thuis met zijn kinderen",
     "tags": ["kmb", "chpt-03"]
   },

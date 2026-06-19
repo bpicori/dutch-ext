@@ -3,61 +3,32 @@
     "id": "a1.fundament-chpt23.er-zijn.word_order",
     "type": "word_order",
     "prompt": "Maak een zin:",
-    "orderItems": [
-      "er",
-      "zijn",
-      "veel",
-      "mensen"
-    ],
+    "orderItems": ["er", "zijn", "veel", "mensen"],
     "correctAnswer": "er zijn veel mensen",
-    "tags": [
-      "fundament",
-      "chpt-23"
-    ]
+    "tags": ["fundament", "chpt-23"]
   },
   {
     "id": "a1.fundament-chpt23.er-man.fill_blank",
     "type": "fill_blank",
     "prompt": "___ is een man aan de deur.",
-    "choices": [
-      "Er",
-      "Het",
-      "De"
-    ],
+    "choices": ["Er", "Het", "De"],
     "correctAnswer": "Er",
-    "tags": [
-      "fundament",
-      "chpt-23"
-    ]
+    "tags": ["fundament", "chpt-23"]
   },
   {
     "id": "a1.fundament-chpt23.er-subject.fill_blank",
     "type": "fill_blank",
     "prompt": "'Er' kan een indefiniet ___ introduceren.",
-    "choices": [
-      "subject",
-      "object",
-      "werkwoord"
-    ],
+    "choices": ["subject", "object", "werkwoord"],
     "correctAnswer": "subject",
-    "tags": [
-      "fundament",
-      "chpt-23"
-    ]
+    "tags": ["fundament", "chpt-23"]
   },
   {
     "id": "a1.fundament-chpt23.er-woon.fill_blank",
     "type": "fill_blank",
     "prompt": "Ik woon in Amsterdam. Ik woon ___",
-    "choices": [
-      "er",
-      "het",
-      "de"
-    ],
+    "choices": ["er", "het", "de"],
     "correctAnswer": "er",
-    "tags": [
-      "fundament",
-      "chpt-23"
-    ]
+    "tags": ["fundament", "chpt-23"]
   }
 ]

@@ -24,9 +24,10 @@ function metadataFromPath(filePath: string): { level?: ChallengeLevel; topic?: s
   const levelMatch = filePath.match(/^data\/([^/]+)\//);
   const topicMatch = filePath.match(/\/([^/]+)\.json$/);
   const levelSlug = levelMatch?.[1];
-  const level = levelSlug && LEVELS.has(levelSlug as ChallengeLevel)
-    ? (levelSlug as ChallengeLevel)
-    : undefined;
+  const level =
+    levelSlug && LEVELS.has(levelSlug as ChallengeLevel)
+      ? (levelSlug as ChallengeLevel)
+      : undefined;
   const topic = topicMatch?.[1];
   return { level, topic };
 }

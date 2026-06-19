@@ -3,7 +3,11 @@
     "id": "a1.kmb-chpt10.koningsdag-vraag.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Wie kan mij iets vertellen over Koningsdag?",
-    "choices": ["Koningsdag! Dat is misschien wel mijn favoriete Nederlandse feest.", "In de winter is het koud.", "Ik ben aan het studeren."],
+    "choices": [
+      "Koningsdag! Dat is misschien wel mijn favoriete Nederlandse feest.",
+      "In de winter is het koud.",
+      "Ik ben aan het studeren."
+    ],
     "correctAnswer": "Koningsdag! Dat is misschien wel mijn favoriete Nederlandse feest.",
     "tags": ["kmb", "chpt-10"]
   },
@@ -11,7 +15,11 @@
     "id": "a1.kmb-chpt10.wat-doen-mensen.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "En wat doen mensen op Koningsdag?",
-    "choices": ["Sommige mensen verkopen hun oude spullen op een kleedjesmarkt.", "Het regent de hele dag.", "De lente begint op 21 maart."],
+    "choices": [
+      "Sommige mensen verkopen hun oude spullen op een kleedjesmarkt.",
+      "Het regent de hele dag.",
+      "De lente begint op 21 maart."
+    ],
     "correctAnswer": "Sommige mensen verkopen hun oude spullen op een kleedjesmarkt.",
     "tags": ["kmb", "chpt-10"]
   },
@@ -19,7 +27,11 @@
     "id": "a1.kmb-chpt10.betekenis-naam.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Wat betekent de naam 'Koningsdag' eigenlijk?",
-    "choices": ["De verjaardag van de koning is op 27 april. Daarom viert iedereen feest.", "Het is altijd koud in de winter.", "Sinterklaas komt op 5 december."],
+    "choices": [
+      "De verjaardag van de koning is op 27 april. Daarom viert iedereen feest.",
+      "Het is altijd koud in de winter.",
+      "Sinterklaas komt op 5 december."
+    ],
     "correctAnswer": "De verjaardag van de koning is op 27 april. Daarom viert iedereen feest.",
     "tags": ["kmb", "chpt-10"]
   },
@@ -27,7 +39,11 @@
     "id": "a1.kmb-chpt10.regent-het.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Regent het de hele dag?",
-    "choices": ["Ja, het regent de hele dag.", "Ja, ik ben aan het spelen.", "Ja, ik heb gedronken."],
+    "choices": [
+      "Ja, het regent de hele dag.",
+      "Ja, ik ben aan het spelen.",
+      "Ja, ik heb gedronken."
+    ],
     "correctAnswer": "Ja, het regent de hele dag.",
     "tags": ["kmb", "chpt-10"]
   },
@@ -43,7 +59,11 @@
     "id": "a1.kmb-chpt10.koningsdag-waarom.knm",
     "type": "knm",
     "prompt": "Waarom vieren Nederlanders Koningsdag?",
-    "choices": ["Het is de verjaardag van koning Willem-Alexander", "Het is de eerste dag van de lente", "Het is de dag van Dodenherdenking"],
+    "choices": [
+      "Het is de verjaardag van koning Willem-Alexander",
+      "Het is de eerste dag van de lente",
+      "Het is de dag van Dodenherdenking"
+    ],
     "correctAnswer": "Het is de verjaardag van koning Willem-Alexander",
     "tags": ["kmb", "chpt-10"]
   },
@@ -51,7 +71,11 @@
     "id": "a1.kmb-chpt10.koningsdag-activiteit.knm",
     "type": "knm",
     "prompt": "Wat doen veel mensen op Koningsdag?",
-    "choices": ["Naar de kleedjesmarkt gaan of spullen verkopen", "Naar het strand zwemmen", "Sinterklaas verwachten"],
+    "choices": [
+      "Naar de kleedjesmarkt gaan of spullen verkopen",
+      "Naar het strand zwemmen",
+      "Sinterklaas verwachten"
+    ],
     "correctAnswer": "Naar de kleedjesmarkt gaan of spullen verkopen",
     "tags": ["kmb", "chpt-10"]
   },

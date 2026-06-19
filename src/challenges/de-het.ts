@@ -1,11 +1,6 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-import {
-  challengeLabel,
-  challengeLayout,
-  dutchPromptWord,
-  kbdFooter,
-} from '../ui/primitives.js';
+import { challengeLabel, challengeLayout, dutchPromptWord, kbdFooter } from '../ui/primitives.js';
 import { applyChoiceResult, bindChallengeSession, normalizeAnswer } from './shared.js';
 
 function buildHtml(challenge: Challenge): string {
@@ -54,7 +49,9 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
     };
 
     container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
-    container.querySelectorAll('.choice-btn').forEach((btn) => btn.addEventListener('click', onChoice));
+    container
+      .querySelectorAll('.choice-btn')
+      .forEach((btn) => btn.addEventListener('click', onChoice));
   });
 }
 

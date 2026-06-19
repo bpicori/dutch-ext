@@ -3,7 +3,11 @@
     "id": "a1.kmb-chpt09.gereserveerd.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Heeft u gereserveerd?",
-    "choices": ["Ja, ik heb gereserveerd op de naam Jansen.", "Nee, ik ben de eigenaar.", "Het regent vandaag."],
+    "choices": [
+      "Ja, ik heb gereserveerd op de naam Jansen.",
+      "Nee, ik ben de eigenaar.",
+      "Het regent vandaag."
+    ],
     "correctAnswer": "Ja, ik heb gereserveerd op de naam Jansen.",
     "tags": ["kmb", "chpt-09"]
   },
@@ -19,7 +23,11 @@
     "id": "a1.kmb-chpt09.wat-is-hutspot.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Mag ik iets vragen? Wat is hutspot?",
-    "choices": ["Dat is een stamppot met wortel, ui en aardappel.", "Ik wil graag een glas witte wijn.", "Komt u binnen! Welkom."],
+    "choices": [
+      "Dat is een stamppot met wortel, ui en aardappel.",
+      "Ik wil graag een glas witte wijn.",
+      "Komt u binnen! Welkom."
+    ],
     "correctAnswer": "Dat is een stamppot met wortel, ui en aardappel.",
     "tags": ["kmb", "chpt-09"]
   },
@@ -27,7 +35,11 @@
     "id": "a1.kmb-chpt09.bestellen.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Wat wilt u bestellen?",
-    "choices": ["Ik wil graag de groentesoep.", "Ja, alles is naar wens.", "Kan ik uw tas aannemen?"],
+    "choices": [
+      "Ik wil graag de groentesoep.",
+      "Ja, alles is naar wens.",
+      "Kan ik uw tas aannemen?"
+    ],
     "correctAnswer": "Ik wil graag de groentesoep.",
     "tags": ["kmb", "chpt-09"]
   },
@@ -35,7 +47,11 @@
     "id": "a1.kmb-chpt09.rekening.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Mag ik de rekening alstublieft?",
-    "choices": ["Natuurlijk, ik breng de rekening.", "Wilt u een tafel bij het raam?", "Dat heb ik nog nooit gegeten."],
+    "choices": [
+      "Natuurlijk, ik breng de rekening.",
+      "Wilt u een tafel bij het raam?",
+      "Dat heb ik nog nooit gegeten."
+    ],
     "correctAnswer": "Natuurlijk, ik breng de rekening.",
     "tags": ["kmb", "chpt-09"]
   },
@@ -59,7 +75,11 @@
     "id": "a1.kmb-chpt09.tafelmanieren-wachten.knm",
     "type": "knm",
     "prompt": "Iedereen aan tafel heeft eten. Wat doe je?",
-    "choices": ["Wacht tot iedereen eten heeft", "Begin meteen te eten", "Ga naar de wc tijdens het eten"],
+    "choices": [
+      "Wacht tot iedereen eten heeft",
+      "Begin meteen te eten",
+      "Ga naar de wc tijdens het eten"
+    ],
     "correctAnswer": "Wacht tot iedereen eten heeft",
     "tags": ["kmb", "chpt-09"]
   },
@@ -67,7 +87,11 @@
     "id": "a1.kmb-chpt09.restaurant-reserveren.knm",
     "type": "knm",
     "prompt": "Je wilt vanavond naar restaurant De Vliegende Hollander. Wat is verstandig?",
-    "choices": ["Reserveren op je naam", "Naar binnen lopen zonder te vragen", "Je jas zelf aan de kapstok hangen zonder te vragen"],
+    "choices": [
+      "Reserveren op je naam",
+      "Naar binnen lopen zonder te vragen",
+      "Je jas zelf aan de kapstok hangen zonder te vragen"
+    ],
     "correctAnswer": "Reserveren op je naam",
     "tags": ["kmb", "chpt-09"]
   },

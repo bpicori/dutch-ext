@@ -45,7 +45,11 @@
     "id": "a1.kmb-chpt05.zebrapad.knm",
     "type": "knm",
     "prompt": "Je wilt oversteken bij het zebrapad. Wat doe je eerst?",
-    "choices": ["Kijk naar links, dan rechts, dan weer links", "Loop snel zonder te kijken", "Wacht tot het stoplicht groen is"],
+    "choices": [
+      "Kijk naar links, dan rechts, dan weer links",
+      "Loop snel zonder te kijken",
+      "Wacht tot het stoplicht groen is"
+    ],
     "correctAnswer": "Kijk naar links, dan rechts, dan weer links",
     "tags": ["kmb", "chpt-05"]
   },

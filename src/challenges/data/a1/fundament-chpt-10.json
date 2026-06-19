@@ -3,75 +3,40 @@
     "id": "a1.fundament-chpt10.ik-ga.fill_blank",
     "type": "fill_blank",
     "prompt": "___ ga naar school.",
-    "choices": [
-      "Ik",
-      "Mij",
-      "Mijn"
-    ],
+    "choices": ["Ik", "Mij", "Mijn"],
     "correctAnswer": "Ik",
-    "tags": [
-      "fundament",
-      "chpt-10"
-    ]
+    "tags": ["fundament", "chpt-10"]
   },
   {
     "id": "a1.fundament-chpt10.mij-boek.fill_blank",
     "type": "fill_blank",
     "prompt": "Geef ___ het boek.",
-    "choices": [
-      "mij",
-      "ik",
-      "mijn"
-    ],
+    "choices": ["mij", "ik", "mijn"],
     "correctAnswer": "mij",
-    "tags": [
-      "fundament",
-      "chpt-10"
-    ]
+    "tags": ["fundament", "chpt-10"]
   },
   {
     "id": "a1.fundament-chpt10.mijn-fiets.fill_blank",
     "type": "fill_blank",
     "prompt": "Dat is ___ fiets.",
-    "choices": [
-      "mijn",
-      "mij",
-      "ik"
-    ],
+    "choices": ["mijn", "mij", "ik"],
     "correctAnswer": "mijn",
-    "tags": [
-      "fundament",
-      "chpt-10"
-    ]
+    "tags": ["fundament", "chpt-10"]
   },
   {
     "id": "a1.fundament-chpt10.van-hem.fill_blank",
     "type": "fill_blank",
     "prompt": "Het boek is van ___",
-    "choices": [
-      "hem",
-      "hij",
-      "zijn"
-    ],
+    "choices": ["hem", "hij", "zijn"],
     "correctAnswer": "hem",
-    "tags": [
-      "fundament",
-      "chpt-10"
-    ]
+    "tags": ["fundament", "chpt-10"]
   },
   {
     "id": "a1.fundament-chpt10.wij-werken.fill_blank",
     "type": "fill_blank",
     "prompt": "___ werken in Amsterdam.",
-    "choices": [
-      "Wij",
-      "Ons",
-      "Onze"
-    ],
+    "choices": ["Wij", "Ons", "Onze"],
     "correctAnswer": "Wij",
-    "tags": [
-      "fundament",
-      "chpt-10"
-    ]
+    "tags": ["fundament", "chpt-10"]
   }
 ]

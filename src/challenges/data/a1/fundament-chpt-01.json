@@ -3,165 +3,88 @@
     "id": "a1.fundament-chpt01.beetje.nl_to_en",
     "type": "nl_to_en",
     "prompt": "beetje",
-    "choices": [
-      "a little bit",
-      "auto",
-      "trein"
-    ],
+    "choices": ["a little bit", "auto", "trein"],
     "correctAnswer": "a little bit",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.broer.nl_to_en",
     "type": "nl_to_en",
     "prompt": "broer",
-    "choices": [
-      "brother",
-      "auto",
-      "trein"
-    ],
+    "choices": ["brother", "auto", "trein"],
     "correctAnswer": "brother",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.huis.nl_to_en",
     "type": "nl_to_en",
     "prompt": "huis",
-    "choices": [
-      "house",
-      "auto",
-      "trein"
-    ],
+    "choices": ["house", "auto", "trein"],
     "correctAnswer": "house",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.ij-voorbeeld.fill_blank",
     "type": "fill_blank",
     "prompt": "De klank 'ij' zit in het woord t___d",
-    "choices": [
-      "ijd",
-      "aal",
-      "ee"
-    ],
+    "choices": ["ijd", "aal", "ee"],
     "correctAnswer": "ijd",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.keuken.nl_to_en",
     "type": "nl_to_en",
     "prompt": "keuken",
-    "choices": [
-      "kitchen",
-      "auto",
-      "trein"
-    ],
+    "choices": ["kitchen", "auto", "trein"],
     "correctAnswer": "kitchen",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.korte-klank.fill_blank",
     "type": "fill_blank",
     "prompt": "Vul aan: sapp___ (meervoud van sap)",
-    "choices": [
-      "en",
-      "el",
-      "ing"
-    ],
+    "choices": ["en", "el", "ing"],
     "correctAnswer": "en",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.koud.nl_to_en",
     "type": "nl_to_en",
     "prompt": "koud",
-    "choices": [
-      "cold",
-      "auto",
-      "trein"
-    ],
+    "choices": ["cold", "auto", "trein"],
     "correctAnswer": "cold",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.lange-klank-roos.fill_blank",
     "type": "fill_blank",
     "prompt": "Een lange klank bij dubbele klinker: r___s",
-    "choices": [
-      "oo",
-      "o",
-      "oe"
-    ],
+    "choices": ["oo", "o", "oe"],
     "correctAnswer": "oo",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.pauze.nl_to_en",
     "type": "nl_to_en",
     "prompt": "pauze",
-    "choices": [
-      "break",
-      "auto",
-      "trein"
-    ],
+    "choices": ["break", "auto", "trein"],
     "correctAnswer": "break",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.tuin.nl_to_en",
     "type": "nl_to_en",
     "prompt": "tuin",
-    "choices": [
-      "garden",
-      "auto",
-      "trein"
-    ],
+    "choices": ["garden", "auto", "trein"],
     "correctAnswer": "garden",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   },
   {
     "id": "a1.fundament-chpt01.tweeklank.nl_to_en",
     "type": "nl_to_en",
     "prompt": "tweeklank",
-    "choices": [
-      "diphthong",
-      "auto",
-      "trein"
-    ],
+    "choices": ["diphthong", "auto", "trein"],
     "correctAnswer": "diphthong",
-    "tags": [
-      "fundament",
-      "chpt-01"
-    ]
+    "tags": ["fundament", "chpt-01"]
   }
 ]

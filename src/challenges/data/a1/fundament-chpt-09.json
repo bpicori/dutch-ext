@@ -3,60 +3,32 @@
     "id": "a1.fundament-chpt09.bijvoeglijk.fill_blank",
     "type": "fill_blank",
     "prompt": "Bijvoeglijke naamwoorden vertellen hoe iets ___",
-    "choices": [
-      "is",
-      "was",
-      "zijn"
-    ],
+    "choices": ["is", "was", "zijn"],
     "correctAnswer": "is",
-    "tags": [
-      "fundament",
-      "chpt-09"
-    ]
+    "tags": ["fundament", "chpt-09"]
   },
   {
     "id": "a1.fundament-chpt09.dun-dunne.fill_blank",
     "type": "fill_blank",
     "prompt": "Een dun boek; na -n wordt het ___",
-    "choices": [
-      "dunne",
-      "dun",
-      "duns"
-    ],
+    "choices": ["dunne", "dun", "duns"],
     "correctAnswer": "dunne",
-    "tags": [
-      "fundament",
-      "chpt-09"
-    ]
+    "tags": ["fundament", "chpt-09"]
   },
   {
     "id": "a1.fundament-chpt09.fiets-rood.fill_blank",
     "type": "fill_blank",
     "prompt": "De fiets is ___",
-    "choices": [
-      "rood",
-      "rode",
-      "roods"
-    ],
+    "choices": ["rood", "rode", "roods"],
     "correctAnswer": "rood",
-    "tags": [
-      "fundament",
-      "chpt-09"
-    ]
+    "tags": ["fundament", "chpt-09"]
   },
   {
     "id": "a1.fundament-chpt09.wit-witte.fill_blank",
     "type": "fill_blank",
     "prompt": "Bij 'wit' + het woord: het ___ huis",
-    "choices": [
-      "witte",
-      "wit",
-      "wits"
-    ],
+    "choices": ["witte", "wit", "wits"],
     "correctAnswer": "witte",
-    "tags": [
-      "fundament",
-      "chpt-09"
-    ]
+    "tags": ["fundament", "chpt-09"]
   }
 ]

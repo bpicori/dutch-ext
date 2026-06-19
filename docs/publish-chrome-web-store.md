@@ -43,14 +43,14 @@ cd dist && zip -r ../tabtaal.zip . && cd ..
 
 ### Pre-upload checklist
 
-| Item | TabTaal |
-| ---- | ------- |
-| `manifest.json` name | `TabTaal` |
-| `version` | Bump on every resubmit (e.g. `0.1.0` → `0.1.1`) |
-| `description` | ≤ 132 characters |
-| Icons | 16 / 48 / 128 px in `dist/icons/` |
-| New tab override | Works when loaded unpacked |
-| Challenge types | Spot-check via ⌘D debug panel |
+| Item                 | TabTaal                                         |
+| -------------------- | ----------------------------------------------- |
+| `manifest.json` name | `TabTaal`                                       |
+| `version`            | Bump on every resubmit (e.g. `0.1.0` → `0.1.1`) |
+| `description`        | ≤ 132 characters                                |
+| Icons                | 16 / 48 / 128 px in `dist/icons/`               |
+| New tab override     | Works when loaded unpacked                      |
+| Challenge types      | Spot-check via ⌘D debug panel                   |
 
 If upload fails with **"Cannot parse the manifest"**, check for JSON comments, trailing commas, or invalid fields.
 
@@ -101,10 +101,10 @@ Expand on [DESCRIPTION.md](../DESCRIPTION.md). Cover:
 
 ### Promo images (optional)
 
-| Asset | Size |
-| ----- | ---- |
-| Small promo tile | 440×280 |
-| Marquee | 1400×560 |
+| Asset            | Size     |
+| ---------------- | -------- |
+| Small promo tile | 440×280  |
+| Marquee          | 1400×560 |
 
 ### URLs
 
@@ -228,9 +228,9 @@ The Web Store build does not auto-reload. For local work: `chrome://extensions` 
 
 ## Useful links
 
-| Resource | URL |
-| -------- | --- |
-| Developer Dashboard | https://chrome.google.com/webstore/devconsole |
-| Program policies | https://developer.chrome.com/docs/webstore/program-policies |
-| Update an existing item | https://developer.chrome.com/docs/webstore/update |
-| Cancel a review | https://developer.chrome.com/docs/webstore/cancel-review |
+| Resource                | URL                                                         |
+| ----------------------- | ----------------------------------------------------------- |
+| Developer Dashboard     | https://chrome.google.com/webstore/devconsole               |
+| Program policies        | https://developer.chrome.com/docs/webstore/program-policies |
+| Update an existing item | https://developer.chrome.com/docs/webstore/update           |
+| Cancel a review         | https://developer.chrome.com/docs/webstore/cancel-review    |

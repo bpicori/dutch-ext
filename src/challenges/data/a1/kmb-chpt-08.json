@@ -51,7 +51,11 @@
     "id": "a1.kmb-chpt08.kom-binnen.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Hoi Monique, kom binnen!",
-    "choices": ["Dankjewel. Hier is het lekker warm.", "Tot ziens en beterschap.", "Ik heb hoofdpijn."],
+    "choices": [
+      "Dankjewel. Hier is het lekker warm.",
+      "Tot ziens en beterschap.",
+      "Ik heb hoofdpijn."
+    ],
     "correctAnswer": "Dankjewel. Hier is het lekker warm.",
     "tags": ["kmb", "chpt-08"]
   },

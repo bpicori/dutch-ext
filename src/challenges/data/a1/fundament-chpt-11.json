@@ -3,60 +3,32 @@
     "id": "a1.fundament-chpt11.betrekkelijk-dat.fill_blank",
     "type": "fill_blank",
     "prompt": "Het boek ___ ik lees is interessant.",
-    "choices": [
-      "dat",
-      "die",
-      "wie"
-    ],
+    "choices": ["dat", "die", "wie"],
     "correctAnswer": "dat",
-    "tags": [
-      "fundament",
-      "chpt-11"
-    ]
+    "tags": ["fundament", "chpt-11"]
   },
   {
     "id": "a1.fundament-chpt11.betrekkelijk-die.fill_blank",
     "type": "fill_blank",
     "prompt": "De man ___ daar woont is mijn buurman.",
-    "choices": [
-      "die",
-      "dat",
-      "wie"
-    ],
+    "choices": ["die", "dat", "wie"],
     "correctAnswer": "die",
-    "tags": [
-      "fundament",
-      "chpt-11"
-    ]
+    "tags": ["fundament", "chpt-11"]
   },
   {
     "id": "a1.fundament-chpt11.dat-huis.fill_blank",
     "type": "fill_blank",
     "prompt": "___ huis daar is groot.",
-    "choices": [
-      "Dat",
-      "Die",
-      "Het"
-    ],
+    "choices": ["Dat", "Die", "Het"],
     "correctAnswer": "Dat",
-    "tags": [
-      "fundament",
-      "chpt-11"
-    ]
+    "tags": ["fundament", "chpt-11"]
   },
   {
     "id": "a1.fundament-chpt11.die-fiets.fill_blank",
     "type": "fill_blank",
     "prompt": "___ fiets daar is rood.",
-    "choices": [
-      "Die",
-      "Dat",
-      "Het"
-    ],
+    "choices": ["Die", "Dat", "Het"],
     "correctAnswer": "Die",
-    "tags": [
-      "fundament",
-      "chpt-11"
-    ]
+    "tags": ["fundament", "chpt-11"]
   }
 ]

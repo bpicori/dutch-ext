@@ -26,10 +26,10 @@ See [docs/challenge-ingestion.md](../../docs/challenge-ingestion.md) and [docs/c
 
 ## Outputs
 
-| File | Content |
-| ---- | ------- |
-| `*.review.json` | Verdict, issues, kept/dropped |
-| `*.approved.json` | 10–20 card JSON array |
+| File              | Content                       |
+| ----------------- | ----------------------------- |
+| `*.review.json`   | Verdict, issues, kept/dropped |
+| `*.approved.json` | 10–20 card JSON array         |
 
 ## Selection priority
 

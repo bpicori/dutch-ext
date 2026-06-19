@@ -26,10 +26,7 @@ src/challenges/
 [`src/challenges/manifest.json`](../src/challenges/manifest.json) is the source of truth. Add a new file path when you add a topic:
 
 ```json
-[
-  "data/a1/vocab-basics.json",
-  "data/a1/reading-practical.json"
-]
+["data/a1/vocab-basics.json", "data/a1/reading-practical.json"]
 ```
 
 Curated (not auto-globbed) so WIP files stay out of the build and PRs show exactly what ships.
@@ -52,12 +49,12 @@ Each topic file is a **JSON array** of challenge objects:
 
 ### Naming rules
 
-| Rule | Example |
-| ---- | ------- |
-| Level folder | `a1`, `a2`, `b1` |
-| Topic file | kebab-case: `vocab-basics.json`, `knm-health.json` |
-| Target size | ~20–80 cards per file; split when topics diverge |
-| Mixed types | OK — e.g. `read_mcq` + `fill_blank` in one shopping unit |
+| Rule         | Example                                                  |
+| ------------ | -------------------------------------------------------- |
+| Level folder | `a1`, `a2`, `b1`                                         |
+| Topic file   | kebab-case: `vocab-basics.json`, `knm-health.json`       |
+| Target size  | ~20–80 cards per file; split when topics diverge         |
+| Mixed types  | OK — e.g. `read_mcq` + `fill_blank` in one shopping unit |
 
 ## ID scheme
 
@@ -81,22 +78,22 @@ When multiple cards share a lemma, suffix with the challenge type: `.de_het`, `.
 
 Authors can omit these; the app fills `level` and `topic` from the file path at load time.
 
-| Field | Source | Example |
-| ----- | ------ | ------- |
-| `level` | `data/{level}/` folder | `"a1"` |
-| `topic` | filename stem | `"vocab-basics"` |
-| `tags` | author-defined | `["shopping", "time"]` |
+| Field   | Source                 | Example                |
+| ------- | ---------------------- | ---------------------- |
+| `level` | `data/{level}/` folder | `"a1"`                 |
+| `topic` | filename stem          | `"vocab-basics"`       |
+| `tags`  | author-defined         | `["shopping", "time"]` |
 
 ## Required fields by type
 
 All types: `id`, `type`, `prompt`, `correctAnswer`.
 
-| Type(s) | Extra required fields |
-| ------- | --------------------- |
-| `de_het` | `choices` (2) |
-| MCQ types (`nl_to_en`, `en_to_nl`, `read_mcq`, `knm`, `dialogue_reply`, `fill_blank`, `verb_form`, `preposition`, `number_detail`) | `choices` (3) |
-| `read_order`, `word_order` | `orderItems` (2+) |
-| `read_match` | `matchLeft`, `matchRight` (equal length) |
+| Type(s)                                                                                                                            | Extra required fields                    |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| `de_het`                                                                                                                           | `choices` (2)                            |
+| MCQ types (`nl_to_en`, `en_to_nl`, `read_mcq`, `knm`, `dialogue_reply`, `fill_blank`, `verb_form`, `preposition`, `number_detail`) | `choices` (3)                            |
+| `read_order`, `word_order`                                                                                                         | `orderItems` (2+)                        |
+| `read_match`                                                                                                                       | `matchLeft`, `matchRight` (equal length) |
 
 ### Optional fields (any type)
 

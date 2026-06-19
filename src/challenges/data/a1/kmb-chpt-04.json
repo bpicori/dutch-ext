@@ -3,7 +3,11 @@
     "id": "a1.kmb-chpt04.bus-te-laat.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Hoi Monique, met Maria. Waar ben je?",
-    "choices": ["Sorry! Mijn bus is te laat. Ik ben om kwart over twee in de stad.", "Ik wil graag thee.", "Tot volgende week!"],
+    "choices": [
+      "Sorry! Mijn bus is te laat. Ik ben om kwart over twee in de stad.",
+      "Ik wil graag thee.",
+      "Tot volgende week!"
+    ],
     "correctAnswer": "Sorry! Mijn bus is te laat. Ik ben om kwart over twee in de stad.",
     "tags": ["kmb", "chpt-04"]
   },
@@ -19,7 +23,11 @@
     "id": "a1.kmb-chpt04.markt-kopen.dialogue_reply",
     "type": "dialogue_reply",
     "prompt": "Wat wil jij doen? Wil je iets drinken? Of wil je iets kopen?",
-    "choices": ["Ik wil graag een paar dingen kopen op de markt.", "Mijn bus is te laat.", "Ik ga om half vijf naar de sportschool."],
+    "choices": [
+      "Ik wil graag een paar dingen kopen op de markt.",
+      "Mijn bus is te laat.",
+      "Ik ga om half vijf naar de sportschool."
+    ],
     "correctAnswer": "Ik wil graag een paar dingen kopen op de markt.",
     "tags": ["kmb", "chpt-04"]
   },

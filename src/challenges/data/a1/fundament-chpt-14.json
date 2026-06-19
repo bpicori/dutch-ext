@@ -3,75 +3,40 @@
     "id": "a1.fundament-chpt14.dus.fill_blank",
     "type": "fill_blank",
     "prompt": "Het regent, ___ ik neem een paraplu.",
-    "choices": [
-      "dus",
-      "of",
-      "maar"
-    ],
+    "choices": ["dus", "of", "maar"],
     "correctAnswer": "dus",
-    "tags": [
-      "fundament",
-      "chpt-14"
-    ]
+    "tags": ["fundament", "chpt-14"]
   },
   {
     "id": "a1.fundament-chpt14.neven-onders.fill_blank",
     "type": "fill_blank",
     "prompt": "Nevenschikkend: ik én jij. Onderschikkend: ___ ik ziek ben.",
-    "choices": [
-      "omdat",
-      "en",
-      "of"
-    ],
+    "choices": ["omdat", "en", "of"],
     "correctAnswer": "omdat",
-    "tags": [
-      "fundament",
-      "chpt-14"
-    ]
+    "tags": ["fundament", "chpt-14"]
   },
   {
     "id": "a1.fundament-chpt14.of.fill_blank",
     "type": "fill_blank",
     "prompt": "Wil je thee ___ koffie?",
-    "choices": [
-      "of",
-      "en",
-      "maar"
-    ],
+    "choices": ["of", "en", "maar"],
     "correctAnswer": "of",
-    "tags": [
-      "fundament",
-      "chpt-14"
-    ]
+    "tags": ["fundament", "chpt-14"]
   },
   {
     "id": "a1.fundament-chpt14.omdat.fill_blank",
     "type": "fill_blank",
     "prompt": "Ik blijf thuis ___ ik ziek ben.",
-    "choices": [
-      "omdat",
-      "maar",
-      "en"
-    ],
+    "choices": ["omdat", "maar", "en"],
     "correctAnswer": "omdat",
-    "tags": [
-      "fundament",
-      "chpt-14"
-    ]
+    "tags": ["fundament", "chpt-14"]
   },
   {
     "id": "a1.fundament-chpt14.want.fill_blank",
     "type": "fill_blank",
     "prompt": "Ik wil naar huis, ___ ik ben moe.",
-    "choices": [
-      "want",
-      "of",
-      "dus"
-    ],
+    "choices": ["want", "of", "dus"],
     "correctAnswer": "want",
-    "tags": [
-      "fundament",
-      "chpt-14"
-    ]
+    "tags": ["fundament", "chpt-14"]
   }
 ]

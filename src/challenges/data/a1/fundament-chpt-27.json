@@ -3,240 +3,128 @@
     "id": "a1.fundament-chpt27.beginnen.verb_form",
     "type": "verb_form",
     "prompt": "De les ___ om negen uur.",
-    "choices": [
-      "begint",
-      "begin",
-      "begon"
-    ],
+    "choices": ["begint", "begin", "begon"],
     "correctAnswer": "begint",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.begrijpen.verb_form",
     "type": "verb_form",
     "prompt": "Ik ___ de vraag.",
-    "choices": [
-      "begrijp",
-      "begrijpt",
-      "begreep"
-    ],
+    "choices": ["begrijp", "begrijpt", "begreep"],
     "correctAnswer": "begrijp",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.blijven.verb_form",
     "type": "verb_form",
     "prompt": "Anna ___ thuis.",
-    "choices": [
-      "blijft",
-      "blijf",
-      "bleef"
-    ],
+    "choices": ["blijft", "blijf", "bleef"],
     "correctAnswer": "blijft",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.doen.verb_form",
     "type": "verb_form",
     "prompt": "Hij ___ dat goed.",
-    "choices": [
-      "doet",
-      "doe",
-      "deden"
-    ],
+    "choices": ["doet", "doe", "deden"],
     "correctAnswer": "doet",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.gaan.verb_form",
     "type": "verb_form",
     "prompt": "Jij ___ naar huis.",
-    "choices": [
-      "gaat",
-      "ga",
-      "ging"
-    ],
+    "choices": ["gaat", "ga", "ging"],
     "correctAnswer": "gaat",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.hebben.verb_form",
     "type": "verb_form",
     "prompt": "Wij ___ tijd.",
-    "choices": [
-      "hebben",
-      "heeft",
-      "had"
-    ],
+    "choices": ["hebben", "heeft", "had"],
     "correctAnswer": "hebben",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.komen.verb_form",
     "type": "verb_form",
     "prompt": "Eva ___ morgen.",
-    "choices": [
-      "komt",
-      "kom",
-      "kwam"
-    ],
+    "choices": ["komt", "kom", "kwam"],
     "correctAnswer": "komt",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.kunnen.verb_form",
     "type": "verb_form",
     "prompt": "Ik ___ Nederlands spreken.",
-    "choices": [
-      "kan",
-      "kunnen",
-      "kon"
-    ],
+    "choices": ["kan", "kunnen", "kon"],
     "correctAnswer": "kan",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.liggen.verb_form",
     "type": "verb_form",
     "prompt": "De pen ___ op de tafel.",
-    "choices": [
-      "ligt",
-      "lig",
-      "lag"
-    ],
+    "choices": ["ligt", "lig", "lag"],
     "correctAnswer": "ligt",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.moeten.verb_form",
     "type": "verb_form",
     "prompt": "Ik ___ werken.",
-    "choices": [
-      "moet",
-      "moeten",
-      "mocht"
-    ],
+    "choices": ["moet", "moeten", "mocht"],
     "correctAnswer": "moet",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.staan.verb_form",
     "type": "verb_form",
     "prompt": "Het boek ___ op tafel.",
-    "choices": [
-      "staat",
-      "sta",
-      "stond"
-    ],
+    "choices": ["staat", "sta", "stond"],
     "correctAnswer": "staat",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.weten.verb_form",
     "type": "verb_form",
     "prompt": "Ik ___ het antwoord.",
-    "choices": [
-      "weet",
-      "weten",
-      "wist"
-    ],
+    "choices": ["weet", "weten", "wist"],
     "correctAnswer": "weet",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.willen.verb_form",
     "type": "verb_form",
     "prompt": "Wij ___ koffie.",
-    "choices": [
-      "willen",
-      "wil",
-      "wilde"
-    ],
+    "choices": ["willen", "wil", "wilde"],
     "correctAnswer": "willen",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.zeggen.verb_form",
     "type": "verb_form",
     "prompt": "Hij ___ de waarheid.",
-    "choices": [
-      "zegt",
-      "zeg",
-      "zei"
-    ],
+    "choices": ["zegt", "zeg", "zei"],
     "correctAnswer": "zegt",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.zien.verb_form",
     "type": "verb_form",
     "prompt": "Ik ___ je graag.",
-    "choices": [
-      "zie",
-      "ziet",
-      "zag"
-    ],
+    "choices": ["zie", "ziet", "zag"],
     "correctAnswer": "zie",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   },
   {
     "id": "a1.fundament-chpt27.zijn.verb_form",
     "type": "verb_form",
     "prompt": "Ik ___ moe.",
-    "choices": [
-      "ben",
-      "is",
-      "waren"
-    ],
+    "choices": ["ben", "is", "waren"],
     "correctAnswer": "ben",
-    "tags": [
-      "fundament",
-      "chpt-27"
-    ]
+    "tags": ["fundament", "chpt-27"]
   }
 ]

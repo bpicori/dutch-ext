@@ -35,23 +35,23 @@ main.ts (bootstrap)
   └── challenges/index.ts    registry (single source of truth for ChallengeType)
 ```
 
-| File | Role |
-| ---- | ---- |
-| `src/main.ts` | Async bootstrap — `init()` then `Orchestrator.start()` |
-| `src/orchestrator.ts` | Session loop: `playRound` → present, grade, save, continue/dismiss |
-| `src/sm2.ts` | Spaced repetition: `pickNext`, `advance`, `DEFAULT_PROGRESS` |
-| `src/storage.ts` | Load deck from manifest JSON; `saveProgress()` writes to `chrome.storage.local` |
-| `src/shell.ts` | App shell HTML, debug empty state, continue hint |
-| `src/types.ts` | Domain types: `Challenge`, `ChallengeProgress`; re-exports `ChallengeType` |
-| `src/challenges/index.ts` | Registry + `getChallenge()`; defines `ChallengeType` |
-| `src/challenges/types.ts` | Runtime types: `ChallengeModule`, `UserResponse` |
-| `src/challenges/shared.ts` | Audio, grading helpers, `bindMcqPresent`, `bindChallengeSession`, result styling |
-| `src/challenges/mcq.ts` | `createMcqModule` factory (11 MCQ-based types) |
-| `src/challenges/de-het.ts` | Binary de/het choice |
-| `src/challenges/read-order.ts` | Drag-to-reorder list |
-| `src/challenges/read-match.ts` | Match two columns |
-| `src/challenges/word-order.ts` | Click words to build a sentence |
-| `src/debug.ts` | Debug panel — ⌘D toggles, pick a type to force random card from that type |
+| File                           | Role                                                                             |
+| ------------------------------ | -------------------------------------------------------------------------------- |
+| `src/main.ts`                  | Async bootstrap — `init()` then `Orchestrator.start()`                           |
+| `src/orchestrator.ts`          | Session loop: `playRound` → present, grade, save, continue/dismiss               |
+| `src/sm2.ts`                   | Spaced repetition: `pickNext`, `advance`, `DEFAULT_PROGRESS`                     |
+| `src/storage.ts`               | Load deck from manifest JSON; `saveProgress()` writes to `chrome.storage.local`  |
+| `src/shell.ts`                 | App shell HTML, debug empty state, continue hint                                 |
+| `src/types.ts`                 | Domain types: `Challenge`, `ChallengeProgress`; re-exports `ChallengeType`       |
+| `src/challenges/index.ts`      | Registry + `getChallenge()`; defines `ChallengeType`                             |
+| `src/challenges/types.ts`      | Runtime types: `ChallengeModule`, `UserResponse`                                 |
+| `src/challenges/shared.ts`     | Audio, grading helpers, `bindMcqPresent`, `bindChallengeSession`, result styling |
+| `src/challenges/mcq.ts`        | `createMcqModule` factory (11 MCQ-based types)                                   |
+| `src/challenges/de-het.ts`     | Binary de/het choice                                                             |
+| `src/challenges/read-order.ts` | Drag-to-reorder list                                                             |
+| `src/challenges/read-match.ts` | Match two columns                                                                |
+| `src/challenges/word-order.ts` | Click words to build a sentence                                                  |
+| `src/debug.ts`                 | Debug panel — ⌘D toggles, pick a type to force random card from that type        |
 
 Each challenge module implements `ChallengeModule`: `present()` → `UserResponse`, `showResult()`, `isCorrect()`. MCQ types use `createMcqModule`; interactive types use `bindChallengeSession` for keyboard handling.
 
@@ -71,23 +71,23 @@ Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `order
 
 ### Implemented (15)
 
-| Type | Module | Layout | Keyboard |
-| ---- | ------ | ------ | -------- |
-| `de_het` | `de-het.ts` | DE / HET buttons | ← de, → het, Space skip |
-| `nl_to_en` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
-| `en_to_nl` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
-| `nl_to_en_sentence` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
-| `en_to_nl_sentence` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
-| `read_mcq` | `mcq.ts` | Scrollable text + MCQ | 1, 2, 3, Space/Enter skip |
-| `knm` | `mcq.ts` | Scenario + MCQ | 1, 2, 3, Space/Enter skip |
-| `dialogue_reply` | `mcq.ts` | Dialogue + MCQ | 1, 2, 3, Space/Enter skip |
-| `fill_blank` | `mcq.ts` | Sentence + MCQ | 1, 2, 3, Space/Enter skip |
-| `verb_form` | `mcq.ts` | Sentence + MCQ | 1, 2, 3, Space/Enter skip |
-| `preposition` | `mcq.ts` | Sentence + MCQ | 1, 2, 3, Space/Enter skip |
-| `number_detail` | `mcq.ts` | Context + MCQ | 1, 2, 3, Space/Enter skip |
-| `read_order` | `read-order.ts` | Drag-to-reorder list | Drag reorder, Enter submit, Space skip |
-| `read_match` | `read-match.ts` | Match two columns | 1–N select row, click match, Space/Enter skip |
-| `word_order` | `word-order.ts` | Build sentence from tokens | Click words, Enter submit, Space skip |
+| Type                | Module          | Layout                     | Keyboard                                      |
+| ------------------- | --------------- | -------------------------- | --------------------------------------------- |
+| `de_het`            | `de-het.ts`     | DE / HET buttons           | ← de, → het, Space skip                       |
+| `nl_to_en`          | `mcq.ts`        | 3-choice MCQ               | 1, 2, 3, Space/Enter skip                     |
+| `en_to_nl`          | `mcq.ts`        | 3-choice MCQ               | 1, 2, 3, Space/Enter skip                     |
+| `nl_to_en_sentence` | `mcq.ts`        | 3-choice MCQ               | 1, 2, 3, Space/Enter skip                     |
+| `en_to_nl_sentence` | `mcq.ts`        | 3-choice MCQ               | 1, 2, 3, Space/Enter skip                     |
+| `read_mcq`          | `mcq.ts`        | Scrollable text + MCQ      | 1, 2, 3, Space/Enter skip                     |
+| `knm`               | `mcq.ts`        | Scenario + MCQ             | 1, 2, 3, Space/Enter skip                     |
+| `dialogue_reply`    | `mcq.ts`        | Dialogue + MCQ             | 1, 2, 3, Space/Enter skip                     |
+| `fill_blank`        | `mcq.ts`        | Sentence + MCQ             | 1, 2, 3, Space/Enter skip                     |
+| `verb_form`         | `mcq.ts`        | Sentence + MCQ             | 1, 2, 3, Space/Enter skip                     |
+| `preposition`       | `mcq.ts`        | Sentence + MCQ             | 1, 2, 3, Space/Enter skip                     |
+| `number_detail`     | `mcq.ts`        | Context + MCQ              | 1, 2, 3, Space/Enter skip                     |
+| `read_order`        | `read-order.ts` | Drag-to-reorder list       | Drag reorder, Enter submit, Space skip        |
+| `read_match`        | `read-match.ts` | Match two columns          | 1–N select row, click match, Space/Enter skip |
+| `word_order`        | `word-order.ts` | Build sentence from tokens | Click words, Enter submit, Space skip         |
 
 All types: **Escape** dismisses (focus omnibox). After answering: **Enter** or click outside → next challenge; **Escape** dismisses.
 
@@ -114,22 +114,22 @@ Three layers: **tokens** → **CSS components** → **TS primitives**.
 
 Aesthetic: **calm new-tab atmosphere** (soft radial gradients on `canvas`) + **flashcard-native** interaction (`.flashcard` / `.challenge-card`, flat borders, subtle shadow) + **editorial Dutch prompts** (Lora serif via `.type-prompt-word` / `.type-prompt-sentence`; Inter for UI).
 
-| Layer | File | Role |
-| ----- | ---- | ---- |
-| Tokens | `tailwind.config.js` | Semantic palette (`canvas`, `card`, `ink`, `muted`, `accent`, `success`, `error`, `border`), spacing, `max-w-challenge` (400px), Lora + Inter |
+| Layer      | File                                | Role                                                                                                                                              |
+| ---------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tokens     | `tailwind.config.js`                | Semantic palette (`canvas`, `card`, `ink`, `muted`, `accent`, `success`, `error`, `border`), spacing, `max-w-challenge` (400px), Lora + Inter     |
 | Components | `src/input.css` `@layer components` | `.flashcard`, `.challenge-card`, `.challenge-label`, `.choice-btn`, `.btn-primary`, `.skip-link`, `.kbd-footer`, `.type-prompt-*`, `.type-body-*` |
-| Primitives | `src/ui/primitives.ts` | HTML builders: `challengeLayout`, `challengeLabel`, `dutchPromptWord`, `dutchPromptSentence`, `choiceButton`, `kbdFooter`, `primaryButton`, etc. |
+| Primitives | `src/ui/primitives.ts`              | HTML builders: `challengeLayout`, `challengeLabel`, `dutchPromptWord`, `dutchPromptSentence`, `choiceButton`, `kbdFooter`, `primaryButton`, etc.  |
 
 ### Token roles
 
-| Role | Tokens |
-| ---- | ------ |
-| Canvas | `canvas`, `background` |
-| Card | `card`, `card-hover` |
-| Text | `ink`, `muted` |
-| Accent | `accent`, `accent-dim` |
+| Role            | Tokens                                         |
+| --------------- | ---------------------------------------------- |
+| Canvas          | `canvas`, `background`                         |
+| Card            | `card`, `card-hover`                           |
+| Text            | `ink`, `muted`                                 |
+| Accent          | `accent`, `accent-dim`                         |
 | Success / error | `success`, `success-dim`, `error`, `error-dim` |
-| Border | `border`, `border-strong` |
+| Border          | `border`, `border-strong`                      |
 
 Legacy M3 class names (`on-surface`, `primary-container`, etc.) remain as aliases for gradual migration.
 

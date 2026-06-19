@@ -41,7 +41,12 @@ function renderSummaryGrid(stats: ComputedStats): string {
 function renderCardCounts(counts: ComputedStats['cardCounts']): string {
   const segments = [
     { key: 'new', label: 'New', count: counts.new, color: 'stats-segment--new' },
-    { key: 'learning', label: 'Learning', count: counts.learning, color: 'stats-segment--learning' },
+    {
+      key: 'learning',
+      label: 'Learning',
+      count: counts.learning,
+      color: 'stats-segment--learning',
+    },
     { key: 'young', label: 'Young', count: counts.young, color: 'stats-segment--young' },
     { key: 'mature', label: 'Mature', count: counts.mature, color: 'stats-segment--mature' },
   ];

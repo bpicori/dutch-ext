@@ -3,60 +3,32 @@
     "id": "a1.fundament-chpt19.zich-scheeren.word_order",
     "type": "word_order",
     "prompt": "Maak een zin:",
-    "orderItems": [
-      "hij",
-      "scheert",
-      "zich"
-    ],
+    "orderItems": ["hij", "scheert", "zich"],
     "correctAnswer": "hij scheert zich",
-    "tags": [
-      "fundament",
-      "chpt-19"
-    ]
+    "tags": ["fundament", "chpt-19"]
   },
   {
     "id": "a1.fundament-chpt19.zich-aankleden.verb_form",
     "type": "verb_form",
     "prompt": "Zij ___ zich snel aan.",
-    "choices": [
-      "kleedt",
-      "kleed",
-      "kleden"
-    ],
+    "choices": ["kleedt", "kleed", "kleden"],
     "correctAnswer": "kleedt",
-    "tags": [
-      "fundament",
-      "chpt-19"
-    ]
+    "tags": ["fundament", "chpt-19"]
   },
   {
     "id": "a1.fundament-chpt19.zich-wassen.verb_form",
     "type": "verb_form",
     "prompt": "Ik ___ me elke ochtend.",
-    "choices": [
-      "was",
-      "wassen",
-      "wast"
-    ],
+    "choices": ["was", "wassen", "wast"],
     "correctAnswer": "was",
-    "tags": [
-      "fundament",
-      "chpt-19"
-    ]
+    "tags": ["fundament", "chpt-19"]
   },
   {
     "id": "a1.fundament-chpt19.wederkerend.fill_blank",
     "type": "fill_blank",
     "prompt": "Wederkerende werkwoorden gebruiken een wederkerend ___",
-    "choices": [
-      "voornaamwoord",
-      "lidwoord",
-      "werkwoord"
-    ],
+    "choices": ["voornaamwoord", "lidwoord", "werkwoord"],
     "correctAnswer": "voornaamwoord",
-    "tags": [
-      "fundament",
-      "chpt-19"
-    ]
+    "tags": ["fundament", "chpt-19"]
   }
 ]

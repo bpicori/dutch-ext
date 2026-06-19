@@ -62,7 +62,11 @@
     "type": "read_mcq",
     "context": "Pedro: Ik heb al twee weken buikpijn.\nDokter: Alweer? Ik ga u onderzoeken.\nIk geef u een verwijsbrief voor het ziekenhuis.\nPedro: Dank u wel dokter. Ik zal een afspraak maken met de specialist.",
     "prompt": "Wat geeft de dokter aan Pedro?",
-    "choices": ["Een verwijsbrief voor het ziekenhuis", "Een recept voor medicijnen", "Een afspraak bij de fysiotherapeut"],
+    "choices": [
+      "Een verwijsbrief voor het ziekenhuis",
+      "Een recept voor medicijnen",
+      "Een afspraak bij de fysiotherapeut"
+    ],
     "correctAnswer": "Een verwijsbrief voor het ziekenhuis",
     "tags": ["kmb", "chpt-07"]
   },
@@ -86,7 +90,11 @@
     "id": "a1.kmb-chpt07.fysio.knm",
     "type": "knm",
     "prompt": "Je hebt rugpijn. De dokter zegt: ga naar de fysiotherapeut. Heb je een verwijsbrief nodig?",
-    "choices": ["Nee, je kunt zelf een afspraak maken", "Ja, altijd een verwijsbrief", "Nee, ga naar de apotheek"],
+    "choices": [
+      "Nee, je kunt zelf een afspraak maken",
+      "Ja, altijd een verwijsbrief",
+      "Nee, ga naar de apotheek"
+    ],
     "correctAnswer": "Nee, je kunt zelf een afspraak maken",
     "tags": ["kmb", "chpt-07"]
   },

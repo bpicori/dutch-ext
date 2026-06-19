@@ -3,210 +3,120 @@
     "id": "a1.fundament-chpt25.aanbod.de_het",
     "type": "de_het",
     "prompt": "aanbod",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.aandeel.de_het",
     "type": "de_het",
     "prompt": "aandeel",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.aandenken.de_het",
     "type": "de_het",
     "prompt": "aandenken",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.aantal.de_het",
     "type": "de_het",
     "prompt": "aantal",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.abonnement.de_het",
     "type": "de_het",
     "prompt": "abonnement",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.accent.de_het",
     "type": "de_het",
     "prompt": "accent",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.adres.de_het",
     "type": "de_het",
     "prompt": "adres",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.advies.de_het",
     "type": "de_het",
     "prompt": "advies",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.afscheid.de_het",
     "type": "de_het",
     "prompt": "afscheid",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.afval.de_het",
     "type": "de_het",
     "prompt": "afval",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.akkoord.de_het",
     "type": "de_het",
     "prompt": "akkoord",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.alarm.de_het",
     "type": "de_het",
     "prompt": "alarm",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.album.de_het",
     "type": "de_het",
     "prompt": "album",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.alfabet.de_het",
     "type": "de_het",
     "prompt": "alfabet",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   },
   {
     "id": "a1.fundament-chpt25.alibi.de_het",
     "type": "de_het",
     "prompt": "alibi",
-    "choices": [
-      "de",
-      "het"
-    ],
+    "choices": ["de", "het"],
     "correctAnswer": "het",
-    "tags": [
-      "fundament",
-      "chpt-25"
-    ]
+    "tags": ["fundament", "chpt-25"]
   }
 ]

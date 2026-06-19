@@ -10,7 +10,8 @@ function formatTypeLabel(type: ChallengeType): string {
 
 export class DebugMode {
   enabled = sessionStorage.getItem(STORAGE_ENABLED) === '1';
-  selectedType: ChallengeType | null = (sessionStorage.getItem(STORAGE_TYPE) as ChallengeType) || null;
+  selectedType: ChallengeType | null =
+    (sessionStorage.getItem(STORAGE_TYPE) as ChallengeType) || null;
 
   constructor(private getDeck: () => Challenge[]) {}
 
