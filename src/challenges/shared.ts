@@ -110,6 +110,18 @@ export function playError(): void {
   tone(ctx, 150, now + 0.12, 0.15, 0.06);
 }
 
+function applyCardGlow(card: Element | null, correct: boolean, shake = false): void {
+  if (!card) return;
+  if (correct) {
+    card.classList.add('success-glow');
+    playSuccess();
+    return;
+  }
+  card.classList.add('error-glow');
+  if (shake) card.classList.add('animate-shake');
+  playError();
+}
+
 export function applyOrderResult(
   container: HTMLElement,
   correctAnswer: string,
@@ -124,18 +136,13 @@ export function applyOrderResult(
   });
   const submitBtn = container.querySelector('#order-submit') as HTMLButtonElement | null;
   if (submitBtn) submitBtn.disabled = true;
-  if (correct) {
-    card?.classList.add('success-glow');
-    playSuccess();
-    return;
-  }
-  card?.classList.add('error-glow', 'animate-shake');
+  applyCardGlow(card, correct, true);
+  if (correct) return;
   const feedback = container.querySelector('#order-feedback');
   if (feedback) {
     feedback.innerHTML = `<p class="text-sm text-on-surface-variant">Correct order: <span class="text-secondary">${correctAnswer.split('|').join(' \u2192 ')}</span></p>`;
     feedback.classList.remove('hidden');
   }
-  playError();
 }
 
 export function applyWordOrderResult(container: HTMLElement, correct: boolean): void {
@@ -144,53 +151,16 @@ export function applyWordOrderResult(container: HTMLElement, correct: boolean): 
     (el as HTMLButtonElement).style.pointerEvents = 'none';
     (el as HTMLButtonElement).disabled = true;
   });
-  if (correct) {
-    card?.classList.add('success-glow');
-    playSuccess();
-  } else {
-    card?.classList.add('error-glow', 'animate-shake');
-    playError();
-  }
+  applyCardGlow(card, correct, true);
 }
 
-export function applySpeakResult(
-  container: HTMLElement,
-  userAnswer: string,
-  correctAnswer: string,
-  correct: boolean,
-): void {
-  const card = container.querySelector('#challenge');
-  const transcript = container.querySelector('#speak-transcript');
-  if (transcript) transcript.textContent = userAnswer || '(no speech detected)';
-  if (correct) {
-    card?.classList.add('success-glow');
-    playSuccess();
-    return;
-  }
-  card?.classList.add('error-glow', 'animate-shake');
-  const feedback = container.querySelector('#typing-feedback');
-  if (feedback) {
-    feedback.innerHTML = `<span class="font-label-sm text-label-sm text-on-tertiary-container font-bold uppercase">Expected</span>
-      <p class="font-body-md text-body-md text-on-surface mt-1">${correctAnswer}</p>`;
-    feedback.classList.remove('hidden');
-  }
-  playError();
-}
-
-export function applyMatchResult(
-  container: HTMLElement,
-  matchPairs: number[],
-  listenMatch: boolean,
-): void {
+export function applyMatchResult(container: HTMLElement, matchPairs: number[]): void {
   const allCorrect = matchPairs.every((c, i) => c === i);
-  const card = container.querySelector(listenMatch ? '#match-card' : '#challenge');
-  if (card) {
-    card.classList.add(allCorrect ? 'success-glow' : 'error-glow');
-    if (!allCorrect) card.classList.add('animate-shake');
-  }
+  const card = container.querySelector('#challenge');
+  applyCardGlow(card, allCorrect, true);
 
-  const leftSel = listenMatch ? '#match-speakers .speaker-btn' : '#read-match-left .match-left-btn';
-  const rightSel = listenMatch ? '#match-choices .choice-btn' : '#read-match-right .choice-btn';
+  const leftSel = '#read-match-left .match-left-btn';
+  const rightSel = '#read-match-right .choice-btn';
 
   container.querySelectorAll(leftSel).forEach((btn, i) => {
     btn.classList.add(
@@ -221,13 +191,11 @@ export function applyMatchResult(
   });
 
   container.querySelector('#match-lines')!.innerHTML = '';
-  if (allCorrect) playSuccess();
-  else playError();
 }
 
 export function updateMatchLines(container: HTMLElement, matchPairs: number[]): void {
   const svg = container.querySelector('#match-lines');
-  const card = container.querySelector('#match-card') || container.querySelector('#challenge');
+  const card = container.querySelector('#challenge');
   if (!svg || !card) return;
 
   const cardRect = card.getBoundingClientRect();
@@ -342,11 +310,5 @@ export function applyChoiceResult(
     }
   });
 
-  if (correct) {
-    card?.classList.add('success-glow');
-    playSuccess();
-  } else {
-    card?.classList.add('error-glow');
-    playError();
-  }
+  applyCardGlow(card, correct);
 }

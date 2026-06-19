@@ -164,7 +164,7 @@ function showResult(
   const matchPairs: number[] = wrapper?.dataset.matchPairs
     ? JSON.parse(wrapper.dataset.matchPairs)
     : [];
-  applyMatchResult(container, matchPairs, false);
+  applyMatchResult(container, matchPairs);
 }
 
 function isCorrect(_challenge: Challenge, answer: string): boolean {
