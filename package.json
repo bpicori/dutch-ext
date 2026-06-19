@@ -1,5 +1,5 @@
 {
-  "name": "wacht-nederlands",
+  "name": "tab-taal",
   "private": true,
   "scripts": {
     "build": "./build.sh",

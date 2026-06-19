@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "WachtNederlands",
+  "name": "TabTaal",
   "version": "0.1.0",
   "description": "Learn Dutch one new tab at a time",
   "chrome_url_overrides": {

@@ -1,4 +1,4 @@
-WachtNederlands helps learners build Dutch through micro-challenges that appear on every new tab.
+TabTaal helps learners build Dutch through micro-challenges that appear on every new tab.
 
 ## Build
 

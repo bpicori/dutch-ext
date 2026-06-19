@@ -6,7 +6,7 @@ export function renderAppShell(): string {
     <header class="fixed top-0 left-0 w-full z-50 flex items-center px-container-padding py-md">
       <div class="flex items-center gap-xs type-label-sm text-muted normal-case tracking-normal">
         <span class="material-symbols-outlined text-accent-dim" style="font-variation-settings: 'FILL' 1; font-size: 18px">local_florist</span>
-        <span class="font-medium text-ink/80">WachtNederlands</span>
+        <span class="font-medium text-ink/80">TabTaal</span>
       </div>
     </header>
     <main class="relative z-10 min-h-screen flex items-center justify-center px-container-padding">

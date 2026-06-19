@@ -1,8 +1,8 @@
-# WachtNederlands
+# TabTaal
 
 **Learn Dutch one new tab at a time.**
 
-WachtNederlands is a Chrome extension that turns your browser’s new tab page into a short Dutch practice session. Instead of a blank page, you get a single micro-challenge — answer it, dismiss it, and get on with your day. The goal is to help you build Dutch through small, repeated exposures rather than long study blocks.
+TabTaal is a Chrome extension that turns your browser’s new tab page into a short Dutch practice session. Instead of a blank page, you get a single micro-challenge — answer it, dismiss it, and get on with your day. The goal is to help you build Dutch through small, repeated exposures rather than long study blocks.
 
 ## How it works
 
