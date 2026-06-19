@@ -2,11 +2,14 @@ import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
 import { SKIP_LINK_HTML, applyOrderResult, kbdChip, matchesAnswer, shuffle } from './shared.js';
 
-function buildListHtml(items: string[], selected: number): string {
+function buildListHtml(items: string[]): string {
   return items
     .map(
       (item, i) =>
-        `<button type="button" data-order-idx="${i}" class="order-item w-full text-left p-md rounded-lg border font-body-md ${i === selected ? 'border-primary-container bg-surface-container-high' : 'border-outline-variant bg-surface-container'}">${i + 1}. ${item}</button>`,
+        `<div draggable="true" data-order-idx="${i}" class="order-item flex items-center gap-sm w-full p-md rounded-lg border border-outline-variant bg-surface-container cursor-grab active:cursor-grabbing transition-all duration-150 select-none">
+      <span class="material-symbols-outlined text-on-surface-variant opacity-50 shrink-0 pointer-events-none" style="font-size: 20px">drag_indicator</span>
+      <span class="order-item-text flex-1 text-left font-body-md">${i + 1}. ${item}</span>
+    </div>`,
     )
     .join('');
 }
@@ -14,7 +17,7 @@ function buildListHtml(items: string[], selected: number): string {
 function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
   const orderItems = challenge.orderItems ?? [];
   let currentOrder = shuffle([...orderItems]);
-  let orderSelected = 0;
+  let dragIndex: number | null = null;
 
   return new Promise((resolve) => {
     let answered = false;
@@ -30,20 +33,82 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
 
     const submit = () => done({ kind: 'answer', value: currentOrder.join('|') });
 
-    const bindList = () => {
-      container
-        .querySelector('#skip-link')
-        ?.addEventListener('click', () => done({ kind: 'skip' }));
-      container.querySelectorAll('.order-item').forEach((btn) => {
-        btn.addEventListener('click', () => {
+    const clearDropTargets = () => {
+      container.querySelectorAll('.order-item').forEach((el) => {
+        el.classList.remove('border-primary-container', 'bg-surface-container-high', 'scale-[1.01]');
+      });
+    };
+
+    const refreshItemLabels = () => {
+      container.querySelectorAll('.order-item').forEach((el, i) => {
+        const item = el as HTMLElement;
+        item.dataset.orderIdx = String(i);
+        const textEl = item.querySelector('.order-item-text');
+        if (textEl) textEl.textContent = `${i + 1}. ${currentOrder[i]}`;
+      });
+    };
+
+    const reorder = (from: number, to: number) => {
+      if (from === to) return;
+      const [item] = currentOrder.splice(from, 1);
+      currentOrder.splice(to, 0, item);
+
+      const listEl = container.querySelector('#order-list');
+      if (!listEl) return;
+      const nodes = [...listEl.querySelectorAll('.order-item')] as HTMLElement[];
+      const movedNode = nodes[from];
+      const targetNode = nodes[to];
+      if (!movedNode || !targetNode) return;
+
+      if (from < to) {
+        listEl.insertBefore(movedNode, targetNode.nextSibling);
+      } else {
+        listEl.insertBefore(movedNode, targetNode);
+      }
+      refreshItemLabels();
+    };
+
+    const bindDrag = () => {
+      container.querySelectorAll('.order-item').forEach((el) => {
+        const item = el as HTMLElement;
+
+        item.addEventListener('dragstart', (e) => {
           if (answered) return;
-          orderSelected = parseInt((btn as HTMLElement).dataset.orderIdx || '0', 10);
-          render();
+          dragIndex = parseInt(item.dataset.orderIdx || '0', 10);
+          item.classList.add('opacity-50', 'scale-[0.98]');
+          e.dataTransfer?.setData('text/plain', String(dragIndex));
+          if (e.dataTransfer) e.dataTransfer.effectAllowed = 'move';
+        });
+
+        item.addEventListener('dragend', () => {
+          item.classList.remove('opacity-50', 'scale-[0.98]');
+          clearDropTargets();
+          dragIndex = null;
+        });
+
+        item.addEventListener('dragover', (e) => {
+          if (answered || dragIndex === null) return;
+          e.preventDefault();
+          if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
+          clearDropTargets();
+          item.classList.add('border-primary-container', 'bg-surface-container-high', 'scale-[1.01]');
+        });
+
+        item.addEventListener('dragleave', () => {
+          item.classList.remove('border-primary-container', 'bg-surface-container-high', 'scale-[1.01]');
+        });
+
+        item.addEventListener('drop', (e) => {
+          if (answered || dragIndex === null) return;
+          e.preventDefault();
+          const to = parseInt(item.dataset.orderIdx || '0', 10);
+          clearDropTargets();
+          reorder(dragIndex, to);
         });
       });
     };
 
-    const render = () => {
+    const renderShell = () => {
       container.innerHTML = `
       <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
         <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg">
@@ -51,17 +116,23 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
             <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">ORDENEN</span>
           </div>
           <p class="font-body-md text-on-surface text-center">${challenge.prompt}</p>
-          <div id="order-list" class="flex flex-col gap-sm w-full">${buildListHtml(currentOrder, orderSelected)}</div>
+          <div id="order-list" class="flex flex-col gap-sm w-full">${buildListHtml(currentOrder)}</div>
+          <button type="button" id="order-submit" class="w-full py-md rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-active">
+            Controleer
+          </button>
           <div id="order-feedback" class="hidden"></div>
         </div>
         ${SKIP_LINK_HTML}
         <div class="mt-xl flex justify-center items-center gap-lg">
-          <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('\u2191\u2193')}<span>Move</span></div>
+          <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60"><span class="material-symbols-outlined" style="font-size: 16px">drag_indicator</span><span>Drag to reorder</span></div>
           <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Enter')}<span>Submit</span></div>
           <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
         </div>
       </div>`;
-      bindList();
+
+      container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
+      container.querySelector('#order-submit')?.addEventListener('click', submit);
+      bindDrag();
     };
 
     const onKey = (e: KeyboardEvent) => {
@@ -75,33 +146,13 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         done({ kind: 'skip' });
         return;
       }
-      if (e.key === 'ArrowUp' && orderSelected > 0) {
-        e.preventDefault();
-        [currentOrder[orderSelected], currentOrder[orderSelected - 1]] = [
-          currentOrder[orderSelected - 1],
-          currentOrder[orderSelected],
-        ];
-        orderSelected--;
-        render();
-        return;
-      }
-      if (e.key === 'ArrowDown' && orderSelected < currentOrder.length - 1) {
-        e.preventDefault();
-        [currentOrder[orderSelected], currentOrder[orderSelected + 1]] = [
-          currentOrder[orderSelected + 1],
-          currentOrder[orderSelected],
-        ];
-        orderSelected++;
-        render();
-        return;
-      }
       if (e.key === 'Enter') {
         e.preventDefault();
         submit();
       }
     };
 
-    render();
+    renderShell();
     document.addEventListener('keydown', onKey);
   });
 }

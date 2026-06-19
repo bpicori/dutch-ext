@@ -9,6 +9,18 @@ import {
   shuffle,
 } from './shared.js';
 
+const BUILT_PLACEHOLDER_HTML =
+  '<span class="word-built-placeholder text-on-surface-variant opacity-40 font-label-sm">Click words to build the sentence</span>';
+
+function buildPoolHtml(wordPool: string[]): string {
+  return wordPool
+    .map(
+      (w, i) =>
+        `<button type="button" data-word-idx="${i}" class="word-pool-btn px-md py-sm rounded-full border border-outline-variant bg-surface-container font-body-md transition-transform duration-150 active:scale-95">${w}</button>`,
+    )
+    .join('');
+}
+
 function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
   let wordPool = shuffle(challenge.orderItems ?? []);
   let wordBuilt: string[] = [];
@@ -25,46 +37,67 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
       resolve(response);
     };
 
-    const bindInteractions = () => {
-      container
-        .querySelector('#skip-link')
-        ?.addEventListener('click', () => done({ kind: 'skip' }));
-      container.querySelector('#word-clear')?.addEventListener('click', () => {
-        if (answered) return;
-        wordPool.push(...wordBuilt);
-        wordBuilt = [];
-        render();
-      });
-      container.querySelectorAll('.word-pool-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          if (answered) return;
-          const idx = parseInt((btn as HTMLElement).dataset.wordIdx || '0', 10);
-          const word = wordPool.splice(idx, 1)[0];
-          if (word) {
-            wordBuilt.push(word);
-            render();
-          }
-        });
+    const reindexPoolButtons = () => {
+      const activeButtons = [...container.querySelectorAll('.word-pool-btn')].filter(
+        (btn) => !btn.classList.contains('animate-word-out'),
+      );
+      activeButtons.forEach((btn, i) => {
+        (btn as HTMLElement).dataset.wordIdx = String(i);
       });
     };
 
-    const render = () => {
-      const builtHtml = wordBuilt.length
-        ? wordBuilt
-            .map(
-              (w) =>
-                `<span class="px-sm py-xs bg-primary-container/20 rounded font-body-md">${w}</span>`,
-            )
-            .join(' ')
-        : '<span class="text-on-surface-variant opacity-40 font-label-sm">Click words to build the sentence</span>';
+    const addWordToBuilt = (word: string) => {
+      const builtEl = container.querySelector('#word-built');
+      if (!builtEl) return;
+      builtEl.querySelector('.word-built-placeholder')?.remove();
+      const span = document.createElement('span');
+      span.className =
+        'word-built-token px-sm py-xs bg-primary-container/20 rounded font-body-md animate-word-in';
+      span.textContent = word;
+      builtEl.appendChild(span);
+    };
 
-      const poolHtml = wordPool
-        .map(
-          (w, i) =>
-            `<button type="button" data-word-idx="${i}" class="word-pool-btn px-md py-sm rounded-full border border-outline-variant bg-surface-container font-body-md">${w}</button>`,
-        )
-        .join('');
+    const clearBuilt = () => {
+      const builtEl = container.querySelector('#word-built');
+      if (!builtEl) return;
+      builtEl.innerHTML = BUILT_PLACEHOLDER_HTML;
+    };
 
+    const bindPool = () => {
+      container.querySelectorAll('.word-pool-btn').forEach((btn) => {
+        btn.addEventListener('click', onPoolClick);
+      });
+    };
+
+    const onPoolClick = (e: Event) => {
+      if (answered) return;
+      const btn = e.currentTarget as HTMLButtonElement;
+      const idx = parseInt(btn.dataset.wordIdx || '0', 10);
+      const word = wordPool.splice(idx, 1)[0];
+      if (!word) return;
+      wordBuilt.push(word);
+
+      btn.disabled = true;
+      btn.classList.add('animate-word-out');
+      reindexPoolButtons();
+      btn.addEventListener('animationend', () => btn.remove(), { once: true });
+
+      addWordToBuilt(word);
+    };
+
+    const onClear = () => {
+      if (answered) return;
+      wordPool.push(...wordBuilt);
+      wordBuilt = [];
+      clearBuilt();
+      const poolEl = container.querySelector('#word-pool');
+      if (poolEl) {
+        poolEl.innerHTML = buildPoolHtml(wordPool);
+        bindPool();
+      }
+    };
+
+    const renderShell = () => {
       container.innerHTML = `
       <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
         <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg">
@@ -72,8 +105,8 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
             <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">WOORDVOLGORDE</span>
           </div>
           <p class="font-body-md text-on-surface text-center">${challenge.prompt}</p>
-          <div id="word-built" class="min-h-[3rem] p-md border border-dashed border-outline-variant rounded-DEFAULT flex flex-wrap gap-xs items-center">${builtHtml}</div>
-          <div id="word-pool" class="flex flex-wrap gap-sm justify-center">${poolHtml}</div>
+          <div id="word-built" class="min-h-[3rem] p-md border border-dashed border-outline-variant rounded-DEFAULT flex flex-wrap gap-xs items-center">${BUILT_PLACEHOLDER_HTML}</div>
+          <div id="word-pool" class="flex flex-wrap gap-sm justify-center">${buildPoolHtml(wordPool)}</div>
           <button type="button" id="word-clear" class="text-label-sm text-on-surface-variant hover:text-on-surface">Clear</button>
           <div id="word-feedback" class="hidden"></div>
         </div>
@@ -83,7 +116,10 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
           <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
         </div>
       </div>`;
-      bindInteractions();
+
+      container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
+      container.querySelector('#word-clear')?.addEventListener('click', onClear);
+      bindPool();
     };
 
     const onKey = (e: KeyboardEvent) => {
@@ -103,7 +139,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
       }
     };
 
-    render();
+    renderShell();
     document.addEventListener('keydown', onKey);
   });
 }

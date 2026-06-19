@@ -117,8 +117,13 @@ export function applyOrderResult(
 ): void {
   const card = container.querySelector('#challenge');
   container.querySelectorAll('.order-item').forEach((el) => {
-    (el as HTMLButtonElement).disabled = true;
+    const item = el as HTMLElement;
+    item.draggable = false;
+    item.style.pointerEvents = 'none';
+    item.classList.remove('cursor-grab');
   });
+  const submitBtn = container.querySelector('#order-submit') as HTMLButtonElement | null;
+  if (submitBtn) submitBtn.disabled = true;
   if (correct) {
     card?.classList.add('success-glow');
     playSuccess();
@@ -198,11 +203,19 @@ export function applyMatchResult(
     const speakerIdx = matchPairs.indexOf(idx);
     if (speakerIdx >= 0) {
       const ok = speakerIdx === idx;
-      btn.classList.add(
-        ok
-          ? '!bg-secondary-container !border-secondary-container !text-on-secondary-container'
-          : '!bg-on-tertiary/10 !border-on-tertiary-container !text-on-surface',
-      );
+      if (ok) {
+        btn.classList.add(
+          '!bg-secondary-container',
+          '!border-secondary-container',
+          '!text-on-secondary-container',
+        );
+      } else {
+        btn.classList.add(
+          '!bg-on-tertiary/10',
+          '!border-on-tertiary-container',
+          '!text-on-surface',
+        );
+      }
       if (!ok) btn.classList.add('animate-shake');
     }
   });
