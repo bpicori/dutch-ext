@@ -90,19 +90,19 @@ export class DebugMode {
     panel.innerHTML = `
       <div class="glass-card p-md rounded-lg flex flex-col gap-sm border border-primary-container/30">
         <div class="flex items-center justify-between">
-          <span class="font-label-sm text-label-sm text-primary-container font-bold uppercase tracking-widest">Debug</span>
+          <span class="type-label-sm text-primary-container font-bold uppercase tracking-widest">Debug</span>
           <button type="button" id="debug-close" class="text-on-surface-variant hover:text-on-surface transition-colors material-symbols-outlined" style="font-size: 18px" aria-label="Close debug mode">close</button>
         </div>
-        <label class="font-label-sm text-label-sm text-on-surface-variant" for="debug-type-select">Challenge type</label>
-        <select id="debug-type-select" class="w-full p-sm rounded-DEFAULT border border-outline-variant bg-surface-container text-on-surface font-body-md text-sm focus:outline-none focus:border-primary-container">
+        <label class="type-label-sm text-on-surface-variant" for="debug-type-select">Challenge type</label>
+        <select id="debug-type-select" class="w-full p-sm rounded-DEFAULT border border-outline-variant bg-surface-container text-on-surface type-body-md text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container">
           <option value="">— select —</option>
           ${CHALLENGE_TYPES.map(
             (type) =>
               `<option value="${type}" ${type === this.selectedType ? 'selected' : ''}>${formatTypeLabel(type)} (${this.countForType(type)})</option>`,
           ).join('')}
         </select>
-        <p id="debug-count" class="font-label-sm text-label-sm text-on-surface-variant"></p>
-        <p class="font-label-sm text-label-sm text-on-surface-variant opacity-60">⌘D to toggle</p>
+        <p id="debug-count" class="type-label-sm text-on-surface-variant"></p>
+        <p class="type-label-sm text-on-surface-variant opacity-60">⌘D to toggle</p>
       </div>`;
 
     document.body.appendChild(panel);

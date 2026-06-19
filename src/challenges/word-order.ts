@@ -1,23 +1,27 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
 import {
-  SKIP_LINK_HTML,
+  badgePill,
+  challengeLayout,
+  kbdFooter,
+  primaryButton,
+} from '../ui/primitives.js';
+import {
   applyWordOrderResult,
   bindChallengeSession,
   highlightDiff,
-  kbdChip,
   matchesAnswer,
   shuffle,
 } from './shared.js';
 
 const BUILT_PLACEHOLDER_HTML =
-  '<span class="word-built-placeholder text-on-surface-variant opacity-40 font-label-sm">Click words to build the sentence</span>';
+  '<span class="word-built-placeholder text-on-surface-variant opacity-40 type-label-sm">Click words to build the sentence</span>';
 
 function buildPoolHtml(wordPool: string[]): string {
   return wordPool
     .map(
       (w, i) =>
-        `<button type="button" data-word-idx="${i}" class="word-pool-btn px-md py-sm rounded-full border border-outline-variant bg-surface-container font-body-md transition-transform duration-150 active:scale-95">${w}</button>`,
+        `<button type="button" data-word-idx="${i}" class="word-pool-btn px-md py-sm rounded-full border border-outline-variant bg-surface-container type-body-md transition-transform duration-150 active:scale-95">${w}</button>`,
     )
     .join('');
 }
@@ -58,7 +62,7 @@ function createWordPoolController(
     builtEl.querySelector('.word-built-placeholder')?.remove();
     const span = document.createElement('span');
     span.className =
-      'word-built-token px-sm py-xs bg-primary-container/20 rounded font-body-md animate-word-in';
+      'word-built-token px-sm py-xs bg-primary-container/20 rounded type-body-md animate-word-in';
     span.textContent = word;
     builtEl.appendChild(span);
   };
@@ -125,27 +129,20 @@ function createWordPoolController(
 function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
   const wordPool = shuffle(challenge.orderItems ?? []);
 
-  container.innerHTML = `
-    <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
-      <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg">
-        <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant self-center">
-          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">WOORDVOLGORDE</span>
-        </div>
-        <p class="font-body-md text-on-surface text-center">${challenge.prompt}</p>
-        <div id="word-built" class="min-h-[3rem] p-md border border-dashed border-outline-variant rounded-DEFAULT flex flex-wrap gap-xs items-center">${BUILT_PLACEHOLDER_HTML}</div>
-        <div id="word-pool" class="flex flex-wrap gap-sm justify-center">${buildPoolHtml(wordPool)}</div>
-        <button type="button" id="word-clear" class="text-label-sm text-on-surface-variant hover:text-on-surface">Clear</button>
-        <button type="button" id="word-submit" class="hidden w-full py-md rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-active">
-          Controleer
-        </button>
-        <div id="word-feedback" class="hidden"></div>
-      </div>
-      ${SKIP_LINK_HTML}
-      <div class="mt-xl flex justify-center items-center gap-lg">
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Enter')}<span>Submit</span></div>
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
-      </div>
-    </div>`;
+  const cardBody = `${badgePill('WOORDVOLGORDE')}
+    <p class="type-body-md text-on-surface text-center">${challenge.prompt}</p>
+    <div id="word-built" class="min-h-[3rem] p-md border border-dashed border-outline-variant rounded-DEFAULT flex flex-wrap gap-xs items-center">${BUILT_PLACEHOLDER_HTML}</div>
+    <div id="word-pool" class="flex flex-wrap gap-sm justify-center">${buildPoolHtml(wordPool)}</div>
+    <button type="button" id="word-clear" class="text-label-sm text-on-surface-variant hover:text-on-surface">Clear</button>
+    ${primaryButton('word-submit', 'Controleer', true)}
+    <div id="word-feedback" class="hidden"></div>`;
+
+  const footer = kbdFooter([
+    { key: 'Enter', label: 'Submit' },
+    { key: 'Space', label: 'Skip' },
+  ]);
+
+  container.innerHTML = challengeLayout(cardBody, footer);
 
   return new Promise((resolve) => {
     const { done, isAnswered } = bindChallengeSession(resolve, {

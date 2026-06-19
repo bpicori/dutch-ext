@@ -1,20 +1,14 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-import {
-  SKIP_LINK_HTML,
-  applyMatchResult,
-  bindChallengeSession,
-  kbdChip,
-  shuffle,
-  updateMatchLines,
-} from './shared.js';
+import { badgePill, challengeShell, kbdFooter } from '../ui/primitives.js';
+import { applyMatchResult, bindChallengeSession, shuffle, updateMatchLines } from './shared.js';
 
 const LEFT_IDLE = 'bg-surface-container border border-outline-variant opacity-60';
 const LEFT_ACTIVE = 'bg-surface-container-high border border-primary-container/30';
 const LEFT_MATCHED = 'bg-secondary-container/10 border border-secondary-container/40';
 const RIGHT_IDLE = 'bg-surface-container border border-outline-variant';
 const RIGHT_TAKEN = 'bg-secondary-container text-on-secondary-container pointer-events-none';
-const LEFT_BASE = 'match-left-btn w-full text-left p-sm rounded-lg border font-body-md';
+const LEFT_BASE = 'match-left-btn w-full text-left p-sm rounded-lg border type-body-md';
 const RIGHT_BASE = 'choice-btn w-full text-center p-sm rounded-lg border';
 
 function leftBtnClass(matched: boolean, active: boolean): string {
@@ -44,7 +38,7 @@ function buildShellHtml(
     .map((origIdx) => {
       const text = rightItems[origIdx];
       return `<button data-choice="${origIdx}" type="button" class="${RIGHT_BASE} ${RIGHT_IDLE}">
-        <span class="font-body-md">${text}</span></button>`;
+        <span class="type-body-md">${text}</span></button>`;
     })
     .join('');
 
@@ -52,26 +46,26 @@ function buildShellHtml(
     ? `<div class="max-h-24 overflow-y-auto p-sm bg-surface-container-low rounded text-sm text-on-surface-variant">${challenge.context}</div>`
     : '';
 
-  return `
-    <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center" data-match-pairs="[]">
-      <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg relative">
-        <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant self-center">
-          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">MATCHEN</span>
-        </div>
-        <p class="font-body-md text-on-surface text-center">${challenge.prompt}</p>
-        ${contextHtml}
-        <svg id="match-lines" class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg"></svg>
-        <div class="grid grid-cols-2 gap-md relative z-10">
-          <div id="read-match-left" class="flex flex-col gap-sm">${leftHtml}</div>
-          <div id="read-match-right" class="flex flex-col gap-sm">${rightHtml}</div>
-        </div>
-      </div>
-      ${SKIP_LINK_HTML}
-      <div class="mt-xl flex justify-center items-center gap-lg">
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('1-3')}<span>Select</span></div>
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
-      </div>
+  const cardBody = `${badgePill('MATCHEN')}
+    <p class="type-body-md text-on-surface text-center">${challenge.prompt}</p>
+    ${contextHtml}
+    <svg id="match-lines" class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="grid grid-cols-2 gap-md relative z-10">
+      <div id="read-match-left" class="flex flex-col gap-sm">${leftHtml}</div>
+      <div id="read-match-right" class="flex flex-col gap-sm">${rightHtml}</div>
     </div>`;
+
+  const footer = kbdFooter([
+    { key: '1-3', label: 'Select' },
+    { key: 'Space', label: 'Skip' },
+  ]);
+
+  return challengeShell(
+    `<div id="challenge" class="challenge-card">${cardBody}</div>
+    <button id="skip-link" type="button" class="skip-link">Ik weet het niet zeker</button>
+    ${footer}`,
+    ' data-match-pairs="[]"',
+  );
 }
 
 type MatchController = {

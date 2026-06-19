@@ -31,11 +31,7 @@ function tone(
   osc.stop(startTime + duration + 0.01);
 }
 
-export function escapeAttr(s: string): string {
-  return s.replace(/"/g, '&quot;');
-}
-
-export const SKIP_LINK_HTML = `<button id="skip-link" type="button" class="mt-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-widest py-xs">Ik weet het niet zeker</button>`;
+export { escapeAttr, kbdChip, kbdFooter, skipLink } from '../ui/primitives.js';
 
 export function speak(text: string, lang = 'nl-NL'): void {
   if (!window.speechSynthesis) return;
@@ -86,18 +82,6 @@ export function shuffle<T>(items: T[]): T[] {
   }
   return result;
 }
-
-export function kbdChip(label: string): string {
-  return `<span class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-2 py-1 rounded border border-outline-variant">${label}</span>`;
-}
-
-export const MCQ_FOOTER_HTML = `
-  <div class="mt-xl flex justify-center items-center gap-lg">
-    <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('1')}<span>Choose</span></div>
-    <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('2')}</div>
-    <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('3')}</div>
-    <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
-  </div>`;
 
 export function playSuccess(): void {
   const ctx = getAudioContext();
@@ -165,31 +149,17 @@ export function applyMatchResult(container: HTMLElement, matchPairs: number[]): 
   const rightSel = '#read-match-right .choice-btn';
 
   container.querySelectorAll(leftSel).forEach((btn, i) => {
-    btn.classList.add(
-      matchPairs[i] === i ? '!border-secondary-container' : '!border-on-tertiary-container',
-    );
+    const el = btn as HTMLElement;
+    el.classList.add(matchPairs[i] === i ? 'border-secondary-container' : 'border-on-tertiary-container');
   });
 
   container.querySelectorAll(rightSel).forEach((btn) => {
-    const idx = parseInt((btn as HTMLElement).dataset.choice || '-1', 10);
+    const el = btn as HTMLElement;
+    const idx = parseInt(el.dataset.choice || '-1', 10);
     const speakerIdx = matchPairs.indexOf(idx);
-    if (speakerIdx >= 0) {
-      const ok = speakerIdx === idx;
-      if (ok) {
-        btn.classList.add(
-          '!bg-secondary-container',
-          '!border-secondary-container',
-          '!text-on-secondary-container',
-        );
-      } else {
-        btn.classList.add(
-          '!bg-on-tertiary/10',
-          '!border-on-tertiary-container',
-          '!text-on-surface',
-        );
-      }
-      if (!ok) btn.classList.add('animate-shake');
-    }
+    if (speakerIdx < 0) return;
+    const ok = speakerIdx === idx;
+    el.className = `choice-btn w-full text-center p-sm rounded-lg border ${ok ? 'choice-btn--correct' : 'choice-btn--wrong'}`;
   });
 
   container.querySelector('#match-lines')!.innerHTML = '';
@@ -339,22 +309,13 @@ export function applyChoiceResult(
 
   buttons.forEach((btn) => {
     const answer = btn.dataset.answer;
-    btn.style.pointerEvents = 'none';
+    const grid = btn.classList.contains('choice-btn--grid') ? ' choice-btn--grid' : '';
     if (answer === correctAnswer) {
-      btn.classList.add(
-        '!bg-secondary-container',
-        '!border-secondary-container',
-        '!text-on-secondary-container',
-      );
+      btn.className = `choice-btn choice-btn--correct${grid}`;
     } else if (answer === userAnswer) {
-      btn.classList.add(
-        '!bg-on-tertiary/10',
-        '!border-on-tertiary-container',
-        '!text-on-surface',
-        'animate-shake',
-      );
+      btn.className = `choice-btn choice-btn--wrong${grid}`;
     } else {
-      btn.classList.add('opacity-40');
+      btn.className = `choice-btn choice-btn--muted${grid}`;
     }
   });
 

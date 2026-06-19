@@ -1,13 +1,12 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
 import {
-  SKIP_LINK_HTML,
-  applyOrderResult,
-  bindChallengeSession,
-  kbdChip,
-  matchesAnswer,
-  shuffle,
-} from './shared.js';
+  badgePill,
+  challengeLayout,
+  kbdFooter,
+  primaryButton,
+} from '../ui/primitives.js';
+import { applyOrderResult, bindChallengeSession, matchesAnswer, shuffle } from './shared.js';
 
 function buildListHtml(items: string[]): string {
   return items
@@ -15,7 +14,7 @@ function buildListHtml(items: string[]): string {
       (item, i) =>
         `<div draggable="true" data-order-idx="${i}" class="order-item flex items-center gap-sm w-full p-md rounded-lg border border-outline-variant bg-surface-container cursor-grab active:cursor-grabbing transition-all duration-150 select-none">
       <span class="material-symbols-outlined text-on-surface-variant opacity-50 shrink-0 pointer-events-none" style="font-size: 20px">drag_indicator</span>
-      <span class="order-item-text flex-1 text-left font-body-md">${i + 1}. ${item}</span>
+      <span class="order-item-text flex-1 text-left type-body-md">${i + 1}. ${item}</span>
     </div>`,
     )
     .join('');
@@ -119,26 +118,19 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
   const orderItems = challenge.orderItems ?? [];
   const shuffled = shuffle([...orderItems]);
 
-  container.innerHTML = `
-    <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
-      <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg">
-        <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant self-center">
-          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">ORDENEN</span>
-        </div>
-        <p class="font-body-md text-on-surface text-center">${challenge.prompt}</p>
-        <div id="order-list" class="flex flex-col gap-sm w-full">${buildListHtml(shuffled)}</div>
-        <button type="button" id="order-submit" class="w-full py-md rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-active">
-          Controleer
-        </button>
-        <div id="order-feedback" class="hidden"></div>
-      </div>
-      ${SKIP_LINK_HTML}
-      <div class="mt-xl flex justify-center items-center gap-lg">
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60"><span class="material-symbols-outlined" style="font-size: 16px">drag_indicator</span><span>Drag to reorder</span></div>
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Enter')}<span>Submit</span></div>
-        <div class="flex items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60">${kbdChip('Space')}<span>Skip</span></div>
-      </div>
-    </div>`;
+  const cardBody = `${badgePill('ORDENEN')}
+    <p class="type-body-md text-on-surface text-center">${challenge.prompt}</p>
+    <div id="order-list" class="flex flex-col gap-sm w-full">${buildListHtml(shuffled)}</div>
+    ${primaryButton('order-submit', 'Controleer')}
+    <div id="order-feedback" class="hidden"></div>`;
+
+  const footer = kbdFooter([
+    { key: '', icon: 'drag_indicator', label: 'Drag to reorder' },
+    { key: 'Enter', label: 'Submit' },
+    { key: 'Space', label: 'Skip' },
+  ]);
+
+  container.innerHTML = challengeLayout(cardBody, footer);
 
   return new Promise((resolve) => {
     const { done, isAnswered } = bindChallengeSession(resolve, {

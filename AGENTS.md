@@ -100,8 +100,43 @@ Logic lives in `sm2.ts` (`pickNext`, `advance`). Orchestrator calls `gradeRespon
 
 Legacy storage key `consecutiveStreaks` is migrated to `intervalIndex` on load.
 
+## Design system (Warm Stone, dark-only)
+
+Three layers: **tokens** → **CSS components** → **TS primitives**.
+
+| Layer | File | Role |
+| ----- | ---- | ---- |
+| Tokens | `tailwind.config.js` | M3 warm-stone palette (trimmed to used colors), spacing, typography, `max-w-challenge` (420px) |
+| Components | `src/input.css` `@layer components` | `.challenge-shell`, `.challenge-card`, `.badge-pill`, `.choice-btn`, `.btn-primary`, `.skip-link`, `.kbd-footer`, `.type-*` |
+| Primitives | `src/ui/primitives.ts` | HTML builders: `challengeLayout`, `badgePill`, `choiceButton`, `kbdFooter`, `primaryButton`, etc. |
+
+### Token roles
+
+| Role | Tokens |
+| ---- | ------ |
+| Canvas | `background`, `surface-container`, `surface-container-high` |
+| Text | `on-surface`, `on-surface-variant` |
+| Brand | `primary`, `primary-container` |
+| Success | `secondary`, `secondary-container` |
+| Error | `on-tertiary-container`, `on-tertiary` |
+| Border | `outline-variant` |
+
+### Component classes
+
+- `.choice-btn--correct` / `--wrong` / `--muted` — result states (replaces `!important` overrides)
+- `.state-success` / `.state-error` — card feedback glow (aliases `success-glow` / `error-glow`)
+- `.type-display-word`, `.type-body-md`, etc. — single-class typography (replaces dual `font-* text-*`)
+
+### Adding a new challenge type
+
+Use primitives from `src/ui/primitives.ts`; add type-specific layout only when the pattern genuinely differs (e.g. de-het grid buttons use `.choice-btn--grid`).
+
+### Motion and accessibility
+
+- Motion tokens: `--duration-fast`, `--duration-normal` in `:root`
+- `prefers-reduced-motion: reduce` disables shake, slide, and word animations
+- Interactive elements use `focus-visible:ring-2 ring-primary-container`
+
 ## Tailwind
 
-Standalone CLI tailwindcss v3.4.17. Config: `tailwind.config.js` scans `./src/**/*.{html,ts}`. Custom animations (fadeIn, slideOut, shake) and glass-card utilities defined in `src/input.css`.
-
-UI uses M3-inspired warm-stone tokens with Inter typography. Feedback colors: `secondary-container` (correct), `on-tertiary-container` (wrong).
+Standalone CLI tailwindcss v3.4.17. Config: `tailwind.config.js` scans `./src/**/*.{html,ts}`. Custom animations and glass-card utilities in `src/input.css`.

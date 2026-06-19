@@ -1,15 +1,13 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule } from './types.js';
 import {
-  MCQ_FOOTER_HTML,
-  SKIP_LINK_HTML,
-  applyChoiceResult,
-  bindMcqPresent,
-  escapeAttr,
-  matchesAnswer,
-  shuffle,
-  speak,
-} from './shared.js';
+  badgePill,
+  challengeLayout,
+  choiceButton,
+  contextBlock,
+  kbdFooter,
+} from '../ui/primitives.js';
+import { applyChoiceResult, bindMcqPresent, matchesAnswer, shuffle, speak } from './shared.js';
 
 export type McqPromptMode = 'default' | 'audio' | 'context';
 
@@ -21,55 +19,42 @@ export interface McqConfig {
   audioDelayMs?: number;
 }
 
+const MCQ_KBD_FOOTER = kbdFooter([
+  { key: '1', label: 'Choose' },
+  { key: '2' },
+  { key: '3' },
+  { key: 'Space', label: 'Skip' },
+]);
+
 function buildPrompt(challenge: Challenge, config: McqConfig): string {
   const { subtitle, promptMode } = config;
 
   if (promptMode === 'audio') {
     return `<div class="text-center py-md w-full">
       <button type="button" id="replay-audio" class="mb-sm material-symbols-outlined text-primary-container text-3xl hover:opacity-80 transition-opacity">volume_up</button>
-      <h1 class="font-display-sentence text-display-sentence text-primary">${challenge.prompt}</h1>
-      <p class="text-on-surface-variant font-label-sm mt-xs opacity-60">${subtitle}</p></div>`;
+      <h1 class="type-display-sentence text-primary">${challenge.prompt}</h1>
+      <p class="text-on-surface-variant type-label-sm mt-xs opacity-60">${subtitle}</p></div>`;
   }
 
   if (promptMode === 'context' && challenge.context) {
     return `<div class="w-full">
-      <div class="w-full max-h-32 overflow-y-auto text-left p-md bg-surface-container-low rounded-DEFAULT border border-outline-variant mb-md">
-        <p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-wrap">${challenge.context}</p>
-      </div>
-      <h1 class="font-body-lg text-body-lg text-on-surface text-center">${challenge.prompt}</h1>
-      <p class="text-on-surface-variant font-label-sm mt-xs opacity-60 text-center">${subtitle}</p></div>`;
+      ${contextBlock(challenge.context)}
+      <h1 class="type-body-lg text-on-surface text-center mt-md">${challenge.prompt}</h1>
+      <p class="text-on-surface-variant type-label-sm mt-xs opacity-60 text-center">${subtitle}</p></div>`;
   }
 
   const promptClass = config.promptClass ? ` ${config.promptClass}` : '';
   return `<div class="text-center py-md">
-    <h1 class="font-display-word text-display-word text-primary${promptClass}">${challenge.prompt}</h1>
-    <p class="text-on-surface-variant font-label-sm mt-xs opacity-60">${subtitle}</p></div>`;
+    <h1 class="type-display-word text-primary${promptClass}">${challenge.prompt}</h1>
+    <p class="text-on-surface-variant type-label-sm mt-xs opacity-60">${subtitle}</p></div>`;
 }
 
 function buildHtml(challenge: Challenge, choices: string[], config: McqConfig): string {
-  const choicesHtml = choices
-    .map(
-      (choice, i) => `
-      <button data-answer="${escapeAttr(choice)}" data-index="${i}" type="button"
-        class="choice-btn group flex items-center justify-between w-full p-md bg-surface-container rounded-DEFAULT border border-outline-variant hover:border-primary-container hover:bg-surface-container-high transition-all">
-        <span class="font-body-lg text-body-lg text-on-surface">${choice}</span>
-        <span class="text-label-sm text-on-surface-variant opacity-40 group-hover:opacity-100 transition-opacity">${i + 1}</span>
-      </button>`,
-    )
-    .join('');
+  const choicesHtml = choices.map((choice, i) => choiceButton(choice, choice, i)).join('');
+  const cardBody = `${badgePill(config.badge)}${buildPrompt(challenge, config)}
+    <div class="w-full flex flex-col gap-sm">${choicesHtml}</div>`;
 
-  return `
-    <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
-      <div id="challenge" class="glass-card w-full rounded-DEFAULT py-xl px-lg flex flex-col items-center gap-lg relative overflow-hidden">
-        <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant">
-          <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">${config.badge}</span>
-        </div>
-        ${buildPrompt(challenge, config)}
-        <div class="w-full flex flex-col gap-sm">${choicesHtml}</div>
-      </div>
-      ${SKIP_LINK_HTML}
-      ${MCQ_FOOTER_HTML}
-    </div>`;
+  return challengeLayout(cardBody, MCQ_KBD_FOOTER);
 }
 
 export function createMcqModule(config: McqConfig): ChallengeModule {
