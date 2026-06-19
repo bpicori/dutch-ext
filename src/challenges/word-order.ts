@@ -3,6 +3,7 @@ import { ChallengeModule, UserResponse } from './types.js';
 import {
   SKIP_LINK_HTML,
   applyWordOrderResult,
+  bindChallengeSession,
   highlightDiff,
   kbdChip,
   matchesAnswer,
@@ -26,16 +27,14 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
   let wordBuilt: string[] = [];
 
   return new Promise((resolve) => {
-    let answered = false;
-
-    const cleanup = () => document.removeEventListener('keydown', onKey);
-
-    const done = (response: UserResponse) => {
-      if (answered) return;
-      answered = true;
-      cleanup();
-      resolve(response);
-    };
+    const { done, isAnswered } = bindChallengeSession(resolve, {
+      onKey(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submit();
+        }
+      },
+    });
 
     const submit = () => {
       if (wordPool.length > 0 || wordBuilt.length === 0) return;
@@ -83,7 +82,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
     };
 
     const onPoolClick = (e: Event) => {
-      if (answered) return;
+      if (isAnswered()) return;
       const btn = e.currentTarget as HTMLButtonElement;
       const idx = parseInt(btn.dataset.wordIdx || '0', 10);
       const word = wordPool.splice(idx, 1)[0];
@@ -100,7 +99,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
     };
 
     const onClear = () => {
-      if (answered) return;
+      if (isAnswered()) return;
       wordPool.push(...wordBuilt);
       wordBuilt = [];
       clearBuilt();
@@ -112,8 +111,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
       updateSubmitButton();
     };
 
-    const renderShell = () => {
-      container.innerHTML = `
+    container.innerHTML = `
       <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
         <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg">
           <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant self-center">
@@ -135,32 +133,11 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         </div>
       </div>`;
 
-      container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
-      container.querySelector('#word-clear')?.addEventListener('click', onClear);
-      container.querySelector('#word-submit')?.addEventListener('click', submit);
-      bindPool();
-      updateSubmitButton();
-    };
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        done({ kind: 'dismiss' });
-        return;
-      }
-      if (e.key === ' ') {
-        e.preventDefault();
-        done({ kind: 'skip' });
-        return;
-      }
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submit();
-      }
-    };
-
-    renderShell();
-    document.addEventListener('keydown', onKey);
+    container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
+    container.querySelector('#word-clear')?.addEventListener('click', onClear);
+    container.querySelector('#word-submit')?.addEventListener('click', submit);
+    bindPool();
+    updateSubmitButton();
   });
 }
 

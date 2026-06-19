@@ -1,3 +1,5 @@
+import type { UserResponse } from './types.js';
+
 let audioCtx: AudioContext | null = null;
 
 function getAudioContext(): AudioContext {
@@ -191,6 +193,52 @@ export function applyMatchResult(container: HTMLElement, matchPairs: number[]): 
   });
 
   container.querySelector('#match-lines')!.innerHTML = '';
+}
+
+export type ChallengeSessionOptions = {
+  onKey?: (e: KeyboardEvent) => void;
+  skipOnEnter?: boolean;
+};
+
+export function bindChallengeSession(
+  resolve: (response: UserResponse) => void,
+  options: ChallengeSessionOptions = {},
+): { done: (response: UserResponse) => void; isAnswered: () => boolean } {
+  let answered = false;
+
+  const cleanup = () => {
+    document.removeEventListener('keydown', onKey);
+  };
+
+  const done = (response: UserResponse) => {
+    if (answered) return;
+    answered = true;
+    cleanup();
+    resolve(response);
+  };
+
+  const onKey = (e: KeyboardEvent) => {
+    if (answered) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      done({ kind: 'dismiss' });
+      return;
+    }
+    if (e.key === ' ') {
+      e.preventDefault();
+      done({ kind: 'skip' });
+      return;
+    }
+    if (e.key === 'Enter' && options.skipOnEnter) {
+      e.preventDefault();
+      done({ kind: 'skip' });
+      return;
+    }
+    options.onKey?.(e);
+  };
+
+  document.addEventListener('keydown', onKey);
+  return { done, isAnswered: () => answered };
 }
 
 export function updateMatchLines(container: HTMLElement, matchPairs: number[]): void {

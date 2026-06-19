@@ -1,6 +1,13 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-import { SKIP_LINK_HTML, applyMatchResult, kbdChip, shuffle, updateMatchLines } from './shared.js';
+import {
+  SKIP_LINK_HTML,
+  applyMatchResult,
+  bindChallengeSession,
+  kbdChip,
+  shuffle,
+  updateMatchLines,
+} from './shared.js';
 
 function buildHtml(
   challenge: Challenge,
@@ -69,16 +76,17 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
   const matchShuffle = shuffle(rightItems.map((_, i) => i));
 
   return new Promise((resolve) => {
-    let answered = false;
-
-    const cleanup = () => document.removeEventListener('keydown', onKey);
-
-    const done = (response: UserResponse) => {
-      if (answered) return;
-      answered = true;
-      cleanup();
-      resolve(response);
-    };
+    const { done, isAnswered } = bindChallengeSession(resolve, {
+      skipOnEnter: true,
+      onKey(e) {
+        const num = parseInt(e.key, 10);
+        if (num >= 1 && num <= total) {
+          e.preventDefault();
+          matchActive = num - 1;
+          render();
+        }
+      },
+    });
 
     const finish = () => {
       const allCorrect = matchPairs.every((c, i) => c === i);
@@ -87,33 +95,12 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
       done({ kind: 'answer', value: allCorrect ? 'ok' : 'fail' });
     };
 
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        done({ kind: 'dismiss' });
-        return;
-      }
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        done({ kind: 'skip' });
-        return;
-      }
-      const num = parseInt(e.key, 10);
-      if (num >= 1 && num <= total) {
-        e.preventDefault();
-        matchActive = num - 1;
-        render();
-      }
-    };
-
     const bindInteractions = () => {
-      container
-        .querySelector('#skip-link')
-        ?.addEventListener('click', () => done({ kind: 'skip' }));
+      container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
 
       container.querySelectorAll('.match-left-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          if (answered) return;
+          if (isAnswered()) return;
           matchActive = parseInt((btn as HTMLElement).dataset.speaker || '0', 10);
           render();
         });
@@ -121,7 +108,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
 
       container.querySelectorAll('.choice-btn').forEach((btn) => {
         btn.addEventListener('click', () => {
-          if (answered) return;
+          if (isAnswered()) return;
           const choiceIdx = parseInt((btn as HTMLElement).dataset.choice || '-1', 10);
           if (choiceIdx < 0 || matchPairs.includes(choiceIdx)) return;
           matchPairs[matchActive] = choiceIdx;
@@ -150,7 +137,6 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
     };
 
     render();
-    document.addEventListener('keydown', onKey);
   });
 }
 

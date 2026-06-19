@@ -1,6 +1,6 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-import { applyChoiceResult, kbdChip, normalizeAnswer } from './shared.js';
+import { applyChoiceResult, bindChallengeSession, kbdChip, normalizeAnswer } from './shared.js';
 
 function buildHtml(challenge: Challenge): string {
   return `
@@ -30,60 +30,30 @@ function buildHtml(challenge: Challenge): string {
     </div>`;
 }
 
-function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
+function present(container: HTMLElement, challenge: Challenge) {
   container.innerHTML = buildHtml(challenge);
 
-  return new Promise((resolve) => {
-    let answered = false;
-
-    const cleanup = () => {
-      document.removeEventListener('keydown', onKey);
-      skipLink?.removeEventListener('click', onSkip);
-      buttons.forEach((btn) => btn.removeEventListener('click', onChoice));
-    };
-
-    const done = (response: UserResponse) => {
-      if (answered) return;
-      answered = true;
-      cleanup();
-      resolve(response);
-    };
-
-    const onSkip = () => done({ kind: 'skip' });
+  return new Promise<UserResponse>((resolve) => {
+    const { done } = bindChallengeSession(resolve, {
+      skipOnEnter: true,
+      onKey(e) {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          done({ kind: 'answer', value: 'de' });
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          done({ kind: 'answer', value: 'het' });
+        }
+      },
+    });
 
     const onChoice = (e: Event) => {
       const answer = (e.currentTarget as HTMLElement).dataset.answer;
       if (answer) done({ kind: 'answer', value: answer });
     };
 
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        done({ kind: 'dismiss' });
-        return;
-      }
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        done({ kind: 'answer', value: 'de' });
-        return;
-      }
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        done({ kind: 'answer', value: 'het' });
-        return;
-      }
-      if (e.key === ' ' || e.key === 'Enter') {
-        e.preventDefault();
-        done({ kind: 'skip' });
-      }
-    };
-
-    const skipLink = container.querySelector('#skip-link');
-    const buttons = container.querySelectorAll('.choice-btn');
-
-    skipLink?.addEventListener('click', onSkip);
-    buttons.forEach((btn) => btn.addEventListener('click', onChoice));
-    document.addEventListener('keydown', onKey);
+    container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
+    container.querySelectorAll('.choice-btn').forEach((btn) => btn.addEventListener('click', onChoice));
   });
 }
 

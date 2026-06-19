@@ -1,6 +1,13 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-import { SKIP_LINK_HTML, applyOrderResult, kbdChip, matchesAnswer, shuffle } from './shared.js';
+import {
+  SKIP_LINK_HTML,
+  applyOrderResult,
+  bindChallengeSession,
+  kbdChip,
+  matchesAnswer,
+  shuffle,
+} from './shared.js';
 
 function buildListHtml(items: string[]): string {
   return items
@@ -20,16 +27,14 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
   let dragIndex: number | null = null;
 
   return new Promise((resolve) => {
-    let answered = false;
-
-    const cleanup = () => document.removeEventListener('keydown', onKey);
-
-    const done = (response: UserResponse) => {
-      if (answered) return;
-      answered = true;
-      cleanup();
-      resolve(response);
-    };
+    const { done, isAnswered } = bindChallengeSession(resolve, {
+      onKey(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          submit();
+        }
+      },
+    });
 
     const submit = () => done({ kind: 'answer', value: currentOrder.join('|') });
 
@@ -73,7 +78,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         const item = el as HTMLElement;
 
         item.addEventListener('dragstart', (e) => {
-          if (answered) return;
+          if (isAnswered()) return;
           dragIndex = parseInt(item.dataset.orderIdx || '0', 10);
           item.classList.add('opacity-50', 'scale-[0.98]');
           e.dataTransfer?.setData('text/plain', String(dragIndex));
@@ -87,7 +92,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         });
 
         item.addEventListener('dragover', (e) => {
-          if (answered || dragIndex === null) return;
+          if (isAnswered() || dragIndex === null) return;
           e.preventDefault();
           if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
           clearDropTargets();
@@ -99,7 +104,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         });
 
         item.addEventListener('drop', (e) => {
-          if (answered || dragIndex === null) return;
+          if (isAnswered() || dragIndex === null) return;
           e.preventDefault();
           const to = parseInt(item.dataset.orderIdx || '0', 10);
           clearDropTargets();
@@ -108,8 +113,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
       });
     };
 
-    const renderShell = () => {
-      container.innerHTML = `
+    container.innerHTML = `
       <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
         <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg">
           <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant self-center">
@@ -130,30 +134,9 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         </div>
       </div>`;
 
-      container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
-      container.querySelector('#order-submit')?.addEventListener('click', submit);
-      bindDrag();
-    };
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        done({ kind: 'dismiss' });
-        return;
-      }
-      if (e.key === ' ') {
-        e.preventDefault();
-        done({ kind: 'skip' });
-        return;
-      }
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        submit();
-      }
-    };
-
-    renderShell();
-    document.addEventListener('keydown', onKey);
+    container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
+    container.querySelector('#order-submit')?.addEventListener('click', submit);
+    bindDrag();
   });
 }
 
