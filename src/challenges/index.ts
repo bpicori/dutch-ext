@@ -1,19 +1,19 @@
 import { ChallengeType } from '../types.js';
 import { ChallengeModule } from './types.js';
 import { deHetModule } from './de-het.js';
-import { enToNlModule } from './en-to-nl.js';
 import {
   dialogueReplyModule,
+  enToNlModule,
   enToNlSentenceModule,
   fillBlankModule,
   knmModule,
+  nlToEnModule,
   nlToEnSentenceModule,
   numberDetailModule,
   prepositionModule,
   readMcqModule,
   verbFormModule,
 } from './mcq.js';
-import { nlToEnModule } from './nl-to-en.js';
 import { readMatchModule } from './read-match.js';
 import { readOrderModule } from './read-order.js';
 import { wordOrderModule } from './word-order.js';

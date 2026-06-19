@@ -17,6 +17,7 @@ export interface McqConfig {
   badge: string;
   subtitle: string;
   promptMode: McqPromptMode;
+  promptClass?: string;
   audioDelayMs?: number;
 }
 
@@ -39,8 +40,9 @@ function buildPrompt(challenge: Challenge, config: McqConfig): string {
       <p class="text-on-surface-variant font-label-sm mt-xs opacity-60 text-center">${subtitle}</p></div>`;
   }
 
+  const promptClass = config.promptClass ? ` ${config.promptClass}` : '';
   return `<div class="text-center py-md">
-    <h1 class="font-display-word text-display-word text-primary">${challenge.prompt}</h1>
+    <h1 class="font-display-word text-display-word text-primary${promptClass}">${challenge.prompt}</h1>
     <p class="text-on-surface-variant font-label-sm mt-xs opacity-60">${subtitle}</p></div>`;
 }
 
@@ -102,6 +104,19 @@ export function createMcqModule(config: McqConfig): ChallengeModule {
     },
   };
 }
+
+export const nlToEnModule = createMcqModule({
+  badge: 'Nederlands \u2192 Engels',
+  subtitle: 'Choose the correct translation',
+  promptMode: 'default',
+  promptClass: 'lowercase',
+});
+
+export const enToNlModule = createMcqModule({
+  badge: 'Engels \u2192 Nederlands',
+  subtitle: 'Choose the correct translation',
+  promptMode: 'default',
+});
 
 export const nlToEnSentenceModule = createMcqModule({
   badge: 'Nederlands \u2192 Engels',
