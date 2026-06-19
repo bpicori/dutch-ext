@@ -59,7 +59,7 @@ Each challenge module implements `ChallengeModule`: `present()` → `UserRespons
 
 Challenge JSON lives under `src/challenges/data/{level}/` (e.g. `a1/vocab-basics.json`). A curated [`src/challenges/manifest.json`](src/challenges/manifest.json) lists which files to load. `build.sh` validates then copies into `dist/challenges/`.
 
-`StorageService.init()` fetches the manifest, loads each file, enriches cards with `level`/`topic` from the path, and flattens into one deck. See [docs/challenge-data.md](docs/challenge-data.md) for ID scheme, authoring rules, and validation.
+`StorageService.init()` fetches the manifest, loads each file, enriches cards with `level`/`topic` from the path, and flattens into one deck. See [docs/challenge-data.md](docs/challenge-data.md) for ID scheme, authoring rules, and validation. To generate challenges from textbook PDFs in `tmp/`, see [docs/challenge-ingestion.md](docs/challenge-ingestion.md) — agents use Cursor skills and write ephemeral scripts at runtime; `content/` and ingestion scripts are gitignored.
 
 Each challenge is a standalone flashcard with its own SM-2 progress. `pickNext()` in `sm2.ts` picks a due card (never seen, or `dontShowUntil <= now`); if none are due, it shows the card waiting longest.
 

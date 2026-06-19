@@ -1,0 +1,122 @@
+[
+  {
+    "id": "a1.fundament-chpt08.dik.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "dik",
+    "choices": [
+      "dun",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "dun",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt08.goed.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "goed",
+    "choices": [
+      "slecht",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "slecht",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt08.groot.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "groot",
+    "choices": [
+      "klein",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "klein",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt08.hoog.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "hoog",
+    "choices": [
+      "laag",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "laag",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt08.lang.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "lang",
+    "choices": [
+      "kort",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "kort",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt08.mooi.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "mooi",
+    "choices": [
+      "lelijk",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "lelijk",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt08.nieuw.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "nieuw",
+    "choices": [
+      "oud",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "oud",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt08.warm.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "warm",
+    "choices": [
+      "koud",
+      "auto",
+      "trein"
+    ],
+    "correctAnswer": "koud",
+    "tags": [
+      "fundament",
+      "chpt-08"
+    ]
+  }
+]

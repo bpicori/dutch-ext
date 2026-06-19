@@ -1,0 +1,212 @@
+[
+  {
+    "id": "a1.fundament-chpt03.adres.de_het",
+    "type": "de_het",
+    "prompt": "adres",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.been.de_het",
+    "type": "de_het",
+    "prompt": "been",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.begin.de_het",
+    "type": "de_het",
+    "prompt": "begin",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.boek.de_het",
+    "type": "de_het",
+    "prompt": "boek",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.brood.de_het",
+    "type": "de_het",
+    "prompt": "brood",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.centrum.de_het",
+    "type": "de_het",
+    "prompt": "centrum",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.deur.de_het",
+    "type": "de_het",
+    "prompt": "deur",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "de",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.fiets.de_het",
+    "type": "de_het",
+    "prompt": "fiets",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "de",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.fundament.de_het",
+    "type": "de_het",
+    "prompt": "fundament",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.gebergte.de_het",
+    "type": "de_het",
+    "prompt": "gebergte",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.gedonder.de_het",
+    "type": "de_het",
+    "prompt": "gedonder",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.goud.de_het",
+    "type": "de_het",
+    "prompt": "goud",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.hoofd.de_het",
+    "type": "de_het",
+    "prompt": "hoofd",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.hout.de_het",
+    "type": "de_het",
+    "prompt": "hout",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt03.huis.de_het",
+    "type": "de_het",
+    "prompt": "huis",
+    "choices": [
+      "de",
+      "het"
+    ],
+    "correctAnswer": "het",
+    "tags": [
+      "fundament",
+      "chpt-03"
+    ]
+  }
+]

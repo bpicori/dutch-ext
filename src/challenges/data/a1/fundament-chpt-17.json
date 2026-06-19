@@ -1,0 +1,62 @@
+[
+  {
+    "id": "a1.fundament-chpt17.eten.verb_form",
+    "type": "verb_form",
+    "prompt": "Ik ___ een appel.",
+    "choices": [
+      "eet",
+      "eten",
+      "at"
+    ],
+    "correctAnswer": "eet",
+    "tags": [
+      "fundament",
+      "chpt-17"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt17.gaan.verb_form",
+    "type": "verb_form",
+    "prompt": "Zij ___ naar huis.",
+    "choices": [
+      "gaat",
+      "ga",
+      "gaan"
+    ],
+    "correctAnswer": "gaat",
+    "tags": [
+      "fundament",
+      "chpt-17"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt17.spreken.verb_form",
+    "type": "verb_form",
+    "prompt": "Wij ___ Nederlands.",
+    "choices": [
+      "spreken",
+      "spreek",
+      "spreekt"
+    ],
+    "correctAnswer": "spreken",
+    "tags": [
+      "fundament",
+      "chpt-17"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt17.geen-regel.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Onregelmatige werkwoorden hebben geen vaste ___",
+    "choices": [
+      "regel",
+      "stam",
+      "t"
+    ],
+    "correctAnswer": "regel",
+    "tags": [
+      "fundament",
+      "chpt-17"
+    ]
+  }
+]

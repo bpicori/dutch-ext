@@ -4,3 +4,13 @@ tailwindcss
 package-lock.json
 .DS_Store
 tmp/
+content/
+.venv-pdf/
+
+# Ingestion scripts — agents write ephemeral scripts at runtime
+scripts/pdf-extract.py
+scripts/author-fundament-drafts.py
+scripts/review-fundament-drafts.py
+scripts/promote-staging.mjs
+scripts/validate-drafts.mjs
+scripts/validate-staging.mjs

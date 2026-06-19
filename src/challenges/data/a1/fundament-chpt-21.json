@@ -1,0 +1,64 @@
+[
+  {
+    "id": "a1.fundament-chpt21.morgen-school.word_order",
+    "type": "word_order",
+    "prompt": "Maak een zin:",
+    "orderItems": [
+      "ik",
+      "ga",
+      "morgen",
+      "naar",
+      "school"
+    ],
+    "correctAnswer": "ik ga morgen naar school",
+    "tags": [
+      "fundament",
+      "chpt-21"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt21.toekomend-ga.verb_form",
+    "type": "verb_form",
+    "prompt": "Ik ___ morgen naar Amsterdam.",
+    "choices": [
+      "ga",
+      "gaan",
+      "ging"
+    ],
+    "correctAnswer": "ga",
+    "tags": [
+      "fundament",
+      "chpt-21"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt21.zal-werken.verb_form",
+    "type": "verb_form",
+    "prompt": "Ik ___ morgen werken.",
+    "choices": [
+      "zal",
+      "zou",
+      "ben"
+    ],
+    "correctAnswer": "zal",
+    "tags": [
+      "fundament",
+      "chpt-21"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt21.gaan-inf.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Toekomende tijd met 'gaan' + ___",
+    "choices": [
+      "infinitief",
+      "stam",
+      "deelwoord"
+    ],
+    "correctAnswer": "infinitief",
+    "tags": [
+      "fundament",
+      "chpt-21"
+    ]
+  }
+]

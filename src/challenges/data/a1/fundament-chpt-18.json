@@ -1,0 +1,65 @@
+[
+  {
+    "id": "a1.fundament-chpt18.opstaan-zin.word_order",
+    "type": "word_order",
+    "prompt": "Maak een zin:",
+    "orderItems": [
+      "ik",
+      "sta",
+      "om",
+      "zeven",
+      "uur",
+      "op"
+    ],
+    "correctAnswer": "ik sta om zeven uur op",
+    "tags": [
+      "fundament",
+      "chpt-18"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt18.aanzetten.verb_form",
+    "type": "verb_form",
+    "prompt": "Hij ___ de radio aan.",
+    "choices": [
+      "zet",
+      "zetten",
+      "zette"
+    ],
+    "correctAnswer": "zet",
+    "tags": [
+      "fundament",
+      "chpt-18"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt18.opstaan.verb_form",
+    "type": "verb_form",
+    "prompt": "Ik ___ op om zeven uur.",
+    "choices": [
+      "sta",
+      "staat",
+      "stonden"
+    ],
+    "correctAnswer": "sta",
+    "tags": [
+      "fundament",
+      "chpt-18"
+    ]
+  },
+  {
+    "id": "a1.fundament-chpt18.voorvoegsel.fill_blank",
+    "type": "fill_blank",
+    "prompt": "'Op' in 'opstaan' is het ___",
+    "choices": [
+      "voorvoegsel",
+      "achtervoegsel",
+      "lidwoord"
+    ],
+    "correctAnswer": "voorvoegsel",
+    "tags": [
+      "fundament",
+      "chpt-18"
+    ]
+  }
+]
