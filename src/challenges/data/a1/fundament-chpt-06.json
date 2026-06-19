@@ -47,11 +47,11 @@
   {
     "id": "a1.fundament-chpt06.p04.preposition",
     "type": "preposition",
-    "prompt": "Het schilderij hangt ___ de muur.",
+    "prompt": "Het schilderij hangt vast ___ de muur.",
     "choices": [
       "aan",
-      "op",
-      "in"
+      "in",
+      "achter"
     ],
     "correctAnswer": "aan",
     "tags": [

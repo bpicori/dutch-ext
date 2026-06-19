@@ -3,8 +3,8 @@
     "id": "a1.sentences.morning-routine.read_order",
     "type": "read_order",
     "prompt": "Zet de zinnen in de juiste volgorde:",
-    "orderItems": ["Eerst ga ik douchen.", "Daarna eet ik ontbijt.", "Tot slot ga ik naar werk."],
-    "correctAnswer": "Eerst ga ik douchen.|Daarna eet ik ontbijt.|Tot slot ga ik naar werk."
+    "orderItems": ["Eerst ga ik douchen.", "Daarna eet ik ontbijt.", "Tot slot ga ik naar het werk."],
+    "correctAnswer": "Eerst ga ik douchen.|Daarna eet ik ontbijt.|Tot slot ga ik naar het werk."
   },
   {
     "id": "a1.sentences.huisarts-steps.read_order",

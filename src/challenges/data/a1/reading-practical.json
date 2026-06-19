@@ -12,8 +12,8 @@
     "type": "read_mcq",
     "context": "Beste mevrouw De Vries,\n\nUw afspraak is op dinsdag 14 maart om 10:30 uur.\n\nMet vriendelijke groet,\nHuisartsenpraktijk Centrum",
     "prompt": "Wanneer is de afspraak?",
-    "choices": ["Dinsdag 10:30", "Maandag 14:00", "Woensdag 10:30"],
-    "correctAnswer": "Dinsdag 10:30"
+    "choices": ["Dinsdag 14 maart om 10:30", "Maandag 14 maart om 14:00", "Woensdag 14 maart om 10:30"],
+    "correctAnswer": "Dinsdag 14 maart om 10:30"
   },
   {
     "id": "a1.reading-practical.brood-price.number_detail",

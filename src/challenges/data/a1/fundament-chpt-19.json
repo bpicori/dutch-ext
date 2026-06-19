@@ -17,13 +17,13 @@
   {
     "id": "a1.fundament-chpt19.zich-aankleden.verb_form",
     "type": "verb_form",
-    "prompt": "Zij ___ zich snel.",
+    "prompt": "Zij ___ zich snel aan.",
     "choices": [
-      "kleedt aan",
+      "kleedt",
       "kleed",
       "kleden"
     ],
-    "correctAnswer": "kleedt aan",
+    "correctAnswer": "kleedt",
     "tags": [
       "fundament",
       "chpt-19"

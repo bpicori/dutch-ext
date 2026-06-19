@@ -17,7 +17,7 @@
   {
     "id": "a1.fundament-chpt17.gaan.verb_form",
     "type": "verb_form",
-    "prompt": "Zij ___ naar huis.",
+    "prompt": "Maria ___ naar huis.",
     "choices": [
       "gaat",
       "ga",

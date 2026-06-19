@@ -91,11 +91,11 @@
   {
     "id": "a1.fundament-chpt16.reizen.verb_form",
     "type": "verb_form",
-    "prompt": "Zij ___ naar Spanje.",
+    "prompt": "Lisa ___ naar Spanje.",
     "choices": [
       "reist",
       "reizen",
-      "reis"
+      "reisde"
     ],
     "correctAnswer": "reist",
     "tags": [

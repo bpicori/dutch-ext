@@ -32,11 +32,11 @@
   {
     "id": "a1.fundament-chpt11.dat-huis.fill_blank",
     "type": "fill_blank",
-    "prompt": "___ huis is groot.",
+    "prompt": "___ huis daar is groot.",
     "choices": [
       "Dat",
       "Die",
-      "De"
+      "Het"
     ],
     "correctAnswer": "Dat",
     "tags": [
@@ -47,11 +47,11 @@
   {
     "id": "a1.fundament-chpt11.die-fiets.fill_blank",
     "type": "fill_blank",
-    "prompt": "___ fiets is rood.",
+    "prompt": "___ fiets daar is rood.",
     "choices": [
       "Die",
       "Dat",
-      "De"
+      "Het"
     ],
     "correctAnswer": "Die",
     "tags": [

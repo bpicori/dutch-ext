@@ -32,7 +32,7 @@
   {
     "id": "a1.fundament-chpt27.blijven.verb_form",
     "type": "verb_form",
-    "prompt": "Zij ___ thuis.",
+    "prompt": "Anna ___ thuis.",
     "choices": [
       "blijft",
       "blijf",
@@ -92,7 +92,7 @@
   {
     "id": "a1.fundament-chpt27.komen.verb_form",
     "type": "verb_form",
-    "prompt": "Zij ___ morgen.",
+    "prompt": "Eva ___ morgen.",
     "choices": [
       "komt",
       "kom",

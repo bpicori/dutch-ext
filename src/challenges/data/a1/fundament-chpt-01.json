@@ -51,7 +51,7 @@
     "choices": [
       "ijd",
       "aal",
-      "optie2"
+      "ee"
     ],
     "correctAnswer": "ijd",
     "tags": [
@@ -77,7 +77,7 @@
   {
     "id": "a1.fundament-chpt01.korte-klank.fill_blank",
     "type": "fill_blank",
-    "prompt": "Een korte klank: appel of sapp___?",
+    "prompt": "Vul aan: sapp___ (meervoud van sap)",
     "choices": [
       "en",
       "el",
@@ -154,11 +154,11 @@
     "type": "nl_to_en",
     "prompt": "tweeklank",
     "choices": [
-      "diphtong",
+      "diphthong",
       "auto",
       "trein"
     ],
-    "correctAnswer": "diphtong",
+    "correctAnswer": "diphthong",
     "tags": [
       "fundament",
       "chpt-01"

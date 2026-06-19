@@ -47,7 +47,7 @@
   {
     "id": "a1.fundament-chpt09.wit-witte.fill_blank",
     "type": "fill_blank",
-    "prompt": "Het witte huis; na -t wordt het ___",
+    "prompt": "Bij 'wit' + het woord: het ___ huis",
     "choices": [
       "witte",
       "wit",

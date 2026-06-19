@@ -1,12 +1,12 @@
 [
   {
     "id": "a1.fundament-chpt08.dik.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "dik",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van dik is ___",
     "choices": [
       "dun",
-      "auto",
-      "trein"
+      "dikker",
+      "zwaar"
     ],
     "correctAnswer": "dun",
     "tags": [
@@ -16,12 +16,12 @@
   },
   {
     "id": "a1.fundament-chpt08.goed.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "goed",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van goed is ___",
     "choices": [
       "slecht",
-      "auto",
-      "trein"
+      "beter",
+      "mooi"
     ],
     "correctAnswer": "slecht",
     "tags": [
@@ -31,12 +31,12 @@
   },
   {
     "id": "a1.fundament-chpt08.groot.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "groot",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van groot is ___",
     "choices": [
       "klein",
-      "auto",
-      "trein"
+      "groter",
+      "lang"
     ],
     "correctAnswer": "klein",
     "tags": [
@@ -46,12 +46,12 @@
   },
   {
     "id": "a1.fundament-chpt08.hoog.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "hoog",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van hoog is ___",
     "choices": [
       "laag",
-      "auto",
-      "trein"
+      "diep",
+      "breed"
     ],
     "correctAnswer": "laag",
     "tags": [
@@ -61,12 +61,12 @@
   },
   {
     "id": "a1.fundament-chpt08.lang.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "lang",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van lang is ___",
     "choices": [
       "kort",
-      "auto",
-      "trein"
+      "langer",
+      "smal"
     ],
     "correctAnswer": "kort",
     "tags": [
@@ -76,12 +76,12 @@
   },
   {
     "id": "a1.fundament-chpt08.mooi.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "mooi",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van mooi is ___",
     "choices": [
       "lelijk",
-      "auto",
-      "trein"
+      "mooier",
+      "goed"
     ],
     "correctAnswer": "lelijk",
     "tags": [
@@ -91,12 +91,12 @@
   },
   {
     "id": "a1.fundament-chpt08.nieuw.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "nieuw",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van nieuw is ___",
     "choices": [
       "oud",
-      "auto",
-      "trein"
+      "nieuwer",
+      "jong"
     ],
     "correctAnswer": "oud",
     "tags": [
@@ -106,12 +106,12 @@
   },
   {
     "id": "a1.fundament-chpt08.warm.nl_to_en",
-    "type": "nl_to_en",
-    "prompt": "warm",
+    "type": "fill_blank",
+    "prompt": "Het tegenovergestelde van warm is ___",
     "choices": [
       "koud",
-      "auto",
-      "trein"
+      "warm",
+      "heet"
     ],
     "correctAnswer": "koud",
     "tags": [

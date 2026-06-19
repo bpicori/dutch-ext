@@ -100,16 +100,16 @@
   {
     "id": "a1.vocab-basics.korting-goed.nl_to_en_sentence",
     "type": "nl_to_en_sentence",
-    "prompt": "de korting is goed",
-    "choices": ["the discount is good", "the price is good", "the sale is good"],
-    "correctAnswer": "the discount is good"
+    "prompt": "er is korting",
+    "choices": ["there is a discount", "the price is low", "the sale is over"],
+    "correctAnswer": "there is a discount"
   },
   {
     "id": "a1.vocab-basics.korting-goed.en_to_nl_sentence",
     "type": "en_to_nl_sentence",
-    "prompt": "the discount is good",
-    "choices": ["de korting is goed", "de prijs is goed", "de uitverkoop is goed"],
-    "correctAnswer": "de korting is goed"
+    "prompt": "there is a discount",
+    "choices": ["er is korting", "de prijs is laag", "de uitverkoop is voorbij"],
+    "correctAnswer": "er is korting"
   },
   {
     "id": "a1.vocab-basics.gezellig-hier.nl_to_en_sentence",
@@ -122,7 +122,7 @@
     "id": "a1.vocab-basics.gezellig-hier.en_to_nl_sentence",
     "type": "en_to_nl_sentence",
     "prompt": "it is cozy here",
-    "choices": ["het is gezellig hier", "het is luid hier", "het is koud hier"],
+    "choices": ["het is gezellig hier", "het is hier luid", "het is koud hier"],
     "correctAnswer": "het is gezellig hier"
   }
 ]

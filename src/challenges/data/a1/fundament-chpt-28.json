@@ -51,7 +51,7 @@
     "choices": [
       "moet",
       "mogen",
-      "optie2"
+      "moeten"
     ],
     "correctAnswer": "moet",
     "tags": [
@@ -62,11 +62,11 @@
   {
     "id": "a1.fundament-chpt28.zijn-voltooid.verb_form",
     "type": "verb_form",
-    "prompt": "Zij ___ ziek.",
+    "prompt": "Zij ___ ziek geweest.",
     "choices": [
       "is",
       "was",
-      "zijn"
+      "heeft"
     ],
     "correctAnswer": "is",
     "tags": [
