@@ -2,6 +2,7 @@ import { StorageService } from './storage.js';
 import { getChallenge } from './challenges/index.js';
 import { ChallengeModule, UserResponse } from './challenges/types.js';
 import { DebugMode } from './debug.js';
+import { StatsMode } from './stats.js';
 import { mountAppShell, mountContinueHint, renderDebugEmptyState } from './shell.js';
 import { Challenge, ChallengeProgress } from './types.js';
 import { advance, DEFAULT_PROGRESS, pickNext } from './sm2.js';
@@ -61,14 +62,17 @@ function gradeResponse(
 
 export class Orchestrator {
   private debug: DebugMode;
+  private stats: StatsMode;
 
   constructor(private storage: StorageService) {
     this.debug = new DebugMode(() => this.storage.getDeck());
+    this.stats = new StatsMode();
   }
 
   start(): void {
     mountAppShell();
     this.debug.mount();
+    this.stats.mount(this.storage);
     void this.run();
   }
 
@@ -108,6 +112,7 @@ export class Orchestrator {
       priorProgress,
     );
     await this.storage.saveProgress(challenge.id, nextProgress);
+    await this.storage.logReview(challenge.id, correct, nextProgress.intervalIndex);
 
     module.showResult(area, challenge, answer, correct);
     mountContinueHint(area);

@@ -3,11 +3,20 @@ import { kbdChip } from './ui/primitives.js';
 export function renderAppShell(): string {
   return `
     <div class="glow-overlay"></div>
-    <header class="fixed top-0 left-0 w-full z-50 flex items-center px-container-padding py-md">
+    <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-container-padding py-md">
       <div class="flex items-center gap-xs type-label-sm text-muted normal-case tracking-normal">
         <img src="icons/icon48.png" alt="" width="18" height="18" class="rounded-[4px]" />
         <span class="font-medium text-ink/80">TabTaal</span>
       </div>
+      <button
+        type="button"
+        id="stats-btn"
+        class="flex items-center gap-xs type-label-sm text-muted hover:text-ink normal-case tracking-normal transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded px-xs py-xs"
+        aria-label="Statistics"
+      >
+        <span class="material-symbols-outlined" style="font-size: 18px">bar_chart</span>
+        <span>Stats</span>
+      </button>
     </header>
     <main class="relative z-10 min-h-screen flex items-center justify-center px-container-padding">
       <div id="challenge-area" class="w-full max-w-challenge flex flex-col items-center"></div>

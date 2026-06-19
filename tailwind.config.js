@@ -43,6 +43,7 @@ module.exports = {
       },
       maxWidth: {
         challenge: '400px',
+        stats: '560px',
       },
       borderRadius: {
         DEFAULT: '0.75rem',

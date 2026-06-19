@@ -28,3 +28,20 @@ export interface ChallengeProgress {
   intervalIndex: number;
   dontShowUntil: number;
 }
+
+export interface ReviewEntry {
+  cardId: string;
+  ts: number;
+  correct: boolean;
+  intervalIndex: number;
+}
+
+export interface DailyReviewStat {
+  reviews: number;
+  correct: number;
+}
+
+export interface StreakState {
+  current: number;
+  lastDate: string | null;
+}
