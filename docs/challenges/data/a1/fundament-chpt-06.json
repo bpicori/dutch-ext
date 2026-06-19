@@ -1,0 +1,82 @@
+[
+  {
+    "id": "a1.fundament-chpt06.p01.preposition",
+    "type": "preposition",
+    "prompt": "De pen ligt ___ de tafel.",
+    "choices": ["op", "in", "naar"],
+    "correctAnswer": "op",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p02.preposition",
+    "type": "preposition",
+    "prompt": "De kat zit ___ de tafel.",
+    "choices": ["onder", "boven", "achter"],
+    "correctAnswer": "onder",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p03.preposition",
+    "type": "preposition",
+    "prompt": "De lamp hangt ___ de tafel.",
+    "choices": ["boven", "onder", "in"],
+    "correctAnswer": "boven",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p04.preposition",
+    "type": "preposition",
+    "prompt": "Het schilderij hangt vast ___ de muur.",
+    "choices": ["aan", "in", "achter"],
+    "correctAnswer": "aan",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p05.preposition",
+    "type": "preposition",
+    "prompt": "Zij fietst elke dag ___ school.",
+    "choices": ["naar", "op", "in"],
+    "correctAnswer": "naar",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p06.preposition",
+    "type": "preposition",
+    "prompt": "Ik ben geboren ___ 22 april 1990.",
+    "choices": ["op", "in", "om"],
+    "correctAnswer": "op",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p07.preposition",
+    "type": "preposition",
+    "prompt": "Hij is jarig ___ juni.",
+    "choices": ["in", "op", "tot"],
+    "correctAnswer": "in",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p08.preposition",
+    "type": "preposition",
+    "prompt": "Zij blijft hier ___ zondag.",
+    "choices": ["tot", "in", "sinds"],
+    "correctAnswer": "tot",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p09.preposition",
+    "type": "preposition",
+    "prompt": "Willem houdt ___ voetbal.",
+    "choices": ["van", "op", "naar"],
+    "correctAnswer": "van",
+    "tags": ["fundament", "chpt-06"]
+  },
+  {
+    "id": "a1.fundament-chpt06.p10.preposition",
+    "type": "preposition",
+    "prompt": "Jan is boos ___ zijn zusje.",
+    "choices": ["op", "van", "naar"],
+    "correctAnswer": "op",
+    "tags": ["fundament", "chpt-06"]
+  }
+]

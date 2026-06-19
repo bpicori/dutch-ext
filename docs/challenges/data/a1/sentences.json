@@ -1,0 +1,43 @@
+[
+  {
+    "id": "a1.sentences.morning-routine.read_order",
+    "type": "read_order",
+    "prompt": "Zet de zinnen in de juiste volgorde:",
+    "orderItems": [
+      "Eerst ga ik douchen.",
+      "Daarna eet ik ontbijt.",
+      "Tot slot ga ik naar het werk."
+    ],
+    "correctAnswer": "Eerst ga ik douchen.|Daarna eet ik ontbijt.|Tot slot ga ik naar het werk."
+  },
+  {
+    "id": "a1.sentences.huisarts-steps.read_order",
+    "type": "read_order",
+    "prompt": "Zet de stappen in de juiste volgorde:",
+    "orderItems": ["Bel de huisarts.", "Maak een afspraak.", "Ga naar de praktijk."],
+    "correctAnswer": "Bel de huisarts.|Maak een afspraak.|Ga naar de praktijk."
+  },
+  {
+    "id": "a1.sentences.lisa-supermarkt.read_match",
+    "type": "read_match",
+    "context": "Lisa werkt in een supermarkt. Ze begint om 8 uur en stopt om 16 uur.",
+    "prompt": "Match elke vraag met het juiste antwoord:",
+    "matchLeft": ["Waar werkt Lisa?", "Hoe laat begint ze?", "Hoe laat stopt ze?"],
+    "matchRight": ["In een supermarkt", "Om 8 uur", "Om 16 uur"],
+    "correctAnswer": "ok"
+  },
+  {
+    "id": "a1.sentences.fiets-rood.word_order",
+    "type": "word_order",
+    "prompt": "Maak een goede zin:",
+    "orderItems": ["de", "fiets", "is", "rood"],
+    "correctAnswer": "de fiets is rood"
+  },
+  {
+    "id": "a1.sentences.ga-huis.word_order",
+    "type": "word_order",
+    "prompt": "Maak een goede zin:",
+    "orderItems": ["ik", "ga", "naar", "huis"],
+    "correctAnswer": "ik ga naar huis"
+  }
+]

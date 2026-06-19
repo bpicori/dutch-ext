@@ -1,0 +1,42 @@
+[
+  {
+    "id": "a1.fundament-chpt26.denken-aan.preposition",
+    "type": "preposition",
+    "prompt": "Denk ___ je moeder.",
+    "choices": ["aan", "op", "in"],
+    "correctAnswer": "aan",
+    "tags": ["fundament", "chpt-26"]
+  },
+  {
+    "id": "a1.fundament-chpt26.houden-van.preposition",
+    "type": "preposition",
+    "prompt": "Hij houdt ___ voetbal.",
+    "choices": ["van", "op", "in"],
+    "correctAnswer": "van",
+    "tags": ["fundament", "chpt-26"]
+  },
+  {
+    "id": "a1.fundament-chpt26.lijden-aan.preposition",
+    "type": "preposition",
+    "prompt": "Hij lijdt ___ hoofdpijn.",
+    "choices": ["aan", "op", "in"],
+    "correctAnswer": "aan",
+    "tags": ["fundament", "chpt-26"]
+  },
+  {
+    "id": "a1.fundament-chpt26.luisteren-naar.preposition",
+    "type": "preposition",
+    "prompt": "Zij luistert ___ muziek.",
+    "choices": ["naar", "op", "in"],
+    "correctAnswer": "naar",
+    "tags": ["fundament", "chpt-26"]
+  },
+  {
+    "id": "a1.fundament-chpt26.wachten-op.preposition",
+    "type": "preposition",
+    "prompt": "Ik wacht ___ de bus.",
+    "choices": ["op", "in", "met"],
+    "correctAnswer": "op",
+    "tags": ["fundament", "chpt-26"]
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "id": "a1.society-dialogue.koorts.knm",
+    "type": "knm",
+    "prompt": "Je hebt koorts en hoest. Wat doe je eerst?",
+    "choices": ["Bel de huisarts", "Ga naar het ziekenhuis", "Bel 112"],
+    "correctAnswer": "Bel de huisarts"
+  },
+  {
+    "id": "a1.society-dialogue.adres-wijzigen.knm",
+    "type": "knm",
+    "prompt": "Je wilt je adres wijzigen bij de overheid. Waar ga je naartoe?",
+    "choices": ["De gemeente", "De bank", "Het ziekenhuis"],
+    "correctAnswer": "De gemeente"
+  },
+  {
+    "id": "a1.society-dialogue.goedemorgen.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Goedemorgen! Hoe gaat het met u?",
+    "choices": ["Goedemorgen, het gaat goed, dank u.", "Ik ben de fiets.", "Tot ziens morgen!"],
+    "correctAnswer": "Goedemorgen, het gaat goed, dank u."
+  },
+  {
+    "id": "a1.society-dialogue.koffie.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Wilt u een kopje koffie?",
+    "choices": ["Ja, graag.", "Ik ben ziek.", "Het is donderdag."],
+    "correctAnswer": "Ja, graag."
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "a1.fundament-chpt05.achtervoegsel.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Verkleinwoorden worden gevormd met -je, -tje, -etje, -pje of ___",
+    "choices": ["-kje", "-ing", "-en"],
+    "correctAnswer": "-kje",
+    "tags": ["fundament", "chpt-05"]
+  },
+  {
+    "id": "a1.fundament-chpt05.bal.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Verkleinwoord van bal: ___",
+    "choices": ["balletje", "bal", "balen"],
+    "correctAnswer": "balletje",
+    "tags": ["fundament", "chpt-05"]
+  },
+  {
+    "id": "a1.fundament-chpt05.boek.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Verkleinwoord van boek: ___",
+    "choices": ["boekje", "boek", "boeken"],
+    "correctAnswer": "boekje",
+    "tags": ["fundament", "chpt-05"]
+  },
+  {
+    "id": "a1.fundament-chpt05.huis.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Verkleinwoord van huis: ___",
+    "choices": ["huisje", "huis", "huisen"],
+    "correctAnswer": "huisje",
+    "tags": ["fundament", "chpt-05"]
+  },
+  {
+    "id": "a1.fundament-chpt05.kop.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Verkleinwoord van kop: ___",
+    "choices": ["kopje", "kop", "kopen"],
+    "correctAnswer": "kopje",
+    "tags": ["fundament", "chpt-05"]
+  },
+  {
+    "id": "a1.fundament-chpt05.mand.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Verkleinwoord van mand: ___",
+    "choices": ["mandje", "mand", "manden"],
+    "correctAnswer": "mandje",
+    "tags": ["fundament", "chpt-05"]
+  }
+]

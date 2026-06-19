@@ -1,39 +1,22 @@
-import {
-  Challenge,
-  ChallengeLevel,
-  ChallengeProgress,
-  DailyReviewStat,
-  ReviewEntry,
-  StreakState,
-} from './types.js';
 import { assetUrl, storageGet, storageSet } from './platform.js';
 import { addDays, toLocalDate } from './stats/dates.js';
-
-const PROGRESS_KEY = 'progress' as const;
-const REVIEW_DAILY_KEY = 'reviewDaily' as const;
-const REVIEW_LOG_KEY = 'reviewLog' as const;
-const STREAK_KEY = 'streak' as const;
-
-const MAX_LOG_ENTRIES = 10_000;
-const LOG_RETENTION_MS = 365 * 86_400_000;
-
-const LEVELS = new Set<ChallengeLevel>(['a1', 'a2', 'b1']);
-
-const DEFAULT_STREAK: StreakState = { current: 0, lastDate: null };
-
-function metadataFromPath(filePath: string): { level?: ChallengeLevel; topic?: string } {
+const PROGRESS_KEY = 'progress';
+const REVIEW_DAILY_KEY = 'reviewDaily';
+const REVIEW_LOG_KEY = 'reviewLog';
+const STREAK_KEY = 'streak';
+const MAX_LOG_ENTRIES = 10000;
+const LOG_RETENTION_MS = 365 * 86400000;
+const LEVELS = new Set(['a1', 'a2', 'b1']);
+const DEFAULT_STREAK = { current: 0, lastDate: null };
+function metadataFromPath(filePath) {
   const levelMatch = filePath.match(/^data\/([^/]+)\//);
   const topicMatch = filePath.match(/\/([^/]+)\.json$/);
   const levelSlug = levelMatch?.[1];
-  const level =
-    levelSlug && LEVELS.has(levelSlug as ChallengeLevel)
-      ? (levelSlug as ChallengeLevel)
-      : undefined;
+  const level = levelSlug && LEVELS.has(levelSlug) ? levelSlug : undefined;
   const topic = topicMatch?.[1];
   return { level, topic };
 }
-
-function enrichChallenge(challenge: Challenge, filePath: string): Challenge {
+function enrichChallenge(challenge, filePath) {
   const { level, topic } = metadataFromPath(filePath);
   return {
     ...challenge,
@@ -41,13 +24,11 @@ function enrichChallenge(challenge: Challenge, filePath: string): Challenge {
     topic: challenge.topic ?? topic,
   };
 }
-
-function migrateProgress(raw: Record<string, unknown>): Record<string, ChallengeProgress> {
-  const result: Record<string, ChallengeProgress> = {};
-
+function migrateProgress(raw) {
+  const result = {};
   for (const [id, entry] of Object.entries(raw)) {
     if (!entry || typeof entry !== 'object') continue;
-    const p = entry as Record<string, unknown>;
+    const p = entry;
     result[id] = {
       correct: Number(p.correct) || 0,
       attempts: Number(p.attempts) || 0,
@@ -55,16 +36,14 @@ function migrateProgress(raw: Record<string, unknown>): Record<string, Challenge
       dontShowUntil: Number(p.dontShowUntil) || 0,
     };
   }
-
   return result;
 }
-
-function migrateReviewDaily(raw: unknown): Record<string, DailyReviewStat> {
+function migrateReviewDaily(raw) {
   if (!raw || typeof raw !== 'object') return {};
-  const result: Record<string, DailyReviewStat> = {};
-  for (const [date, entry] of Object.entries(raw as Record<string, unknown>)) {
+  const result = {};
+  for (const [date, entry] of Object.entries(raw)) {
     if (!entry || typeof entry !== 'object') continue;
-    const e = entry as Record<string, unknown>;
+    const e = entry;
     result[date] = {
       reviews: Number(e.reviews) || 0,
       correct: Number(e.correct) || 0,
@@ -72,13 +51,12 @@ function migrateReviewDaily(raw: unknown): Record<string, DailyReviewStat> {
   }
   return result;
 }
-
-function migrateReviewLog(raw: unknown): ReviewEntry[] {
+function migrateReviewLog(raw) {
   if (!Array.isArray(raw)) return [];
-  const result: ReviewEntry[] = [];
+  const result = [];
   for (const entry of raw) {
     if (!entry || typeof entry !== 'object') continue;
-    const e = entry as Record<string, unknown>;
+    const e = entry;
     if (typeof e.cardId !== 'string') continue;
     result.push({
       cardId: e.cardId,
@@ -89,101 +67,73 @@ function migrateReviewLog(raw: unknown): ReviewEntry[] {
   }
   return result;
 }
-
-function migrateStreak(raw: unknown): StreakState {
+function migrateStreak(raw) {
   if (!raw || typeof raw !== 'object') return { ...DEFAULT_STREAK };
-  const s = raw as Record<string, unknown>;
+  const s = raw;
   return {
     current: Number(s.current) || 0,
     lastDate: typeof s.lastDate === 'string' ? s.lastDate : null,
   };
 }
-
-function pruneReviewLog(log: ReviewEntry[], now: number): ReviewEntry[] {
+function pruneReviewLog(log, now) {
   const cutoff = now - LOG_RETENTION_MS;
   const pruned = log.filter((e) => e.ts >= cutoff);
   if (pruned.length <= MAX_LOG_ENTRIES) return pruned;
   return pruned.slice(pruned.length - MAX_LOG_ENTRIES);
 }
-
-function updateStreak(streak: StreakState, today: string): StreakState {
+function updateStreak(streak, today) {
   if (streak.lastDate === today) return streak;
-
   const yesterday = addDays(today, -1);
   const current = streak.lastDate === yesterday ? streak.current + 1 : 1;
   return { current, lastDate: today };
 }
-
 export class StorageService {
-  private deck: Challenge[] = [];
-  private progress: Record<string, ChallengeProgress> = {};
-  private reviewDaily: Record<string, DailyReviewStat> = {};
-  private reviewLog: ReviewEntry[] = [];
-  private streak: StreakState = { ...DEFAULT_STREAK };
-
-  async init(): Promise<void> {
-    const manifest: string[] = await fetch(assetUrl('challenges/manifest.json')).then((r) =>
-      r.json(),
-    );
+  constructor() {
+    this.deck = [];
+    this.progress = {};
+    this.reviewDaily = {};
+    this.reviewLog = [];
+    this.streak = { ...DEFAULT_STREAK };
+  }
+  async init() {
+    const manifest = await fetch(assetUrl('challenges/manifest.json')).then((r) => r.json());
     const parts = await Promise.all(
       manifest.map(async (f) => {
-        const challenges: Challenge[] = await fetch(assetUrl(`challenges/${f}`)).then((r) =>
-          r.json(),
-        );
+        const challenges = await fetch(assetUrl(`challenges/${f}`)).then((r) => r.json());
         return challenges.map((ch) => enrichChallenge(ch, f));
       }),
     );
     this.deck = parts.flat();
-
     const data = await storageGet([PROGRESS_KEY, REVIEW_DAILY_KEY, REVIEW_LOG_KEY, STREAK_KEY]);
-
     const stored = data[PROGRESS_KEY];
-    this.progress =
-      stored && typeof stored === 'object'
-        ? migrateProgress(stored as Record<string, unknown>)
-        : {};
-
+    this.progress = stored && typeof stored === 'object' ? migrateProgress(stored) : {};
     this.reviewDaily = migrateReviewDaily(data[REVIEW_DAILY_KEY]);
     this.reviewLog = pruneReviewLog(migrateReviewLog(data[REVIEW_LOG_KEY]), Date.now());
     this.streak = migrateStreak(data[STREAK_KEY]);
   }
-
-  getDeck(): Challenge[] {
+  getDeck() {
     return this.deck;
   }
-
-  getProgress(): Record<string, ChallengeProgress> {
+  getProgress() {
     return this.progress;
   }
-
-  getReviewDaily(): Record<string, DailyReviewStat> {
+  getReviewDaily() {
     return this.reviewDaily;
   }
-
-  getReviewLog(): ReviewEntry[] {
+  getReviewLog() {
     return this.reviewLog;
   }
-
-  getStreak(): StreakState {
+  getStreak() {
     return this.streak;
   }
-
-  async saveProgress(id: string, progress: ChallengeProgress): Promise<void> {
+  async saveProgress(id, progress) {
     this.progress = { ...this.progress, [id]: progress };
     await storageSet({ [PROGRESS_KEY]: this.progress });
   }
-
-  async logReview(
-    cardId: string,
-    correct: boolean,
-    intervalIndex: number,
-    now = Date.now(),
-  ): Promise<void> {
+  async logReview(cardId, correct, intervalIndex, now = Date.now()) {
     const today = toLocalDate(now);
-
-    const entry: ReviewEntry = { cardId, ts: now, correct, intervalIndex };
+    const entry = { cardId, ts: now, correct, intervalIndex };
     this.reviewLog = pruneReviewLog([...this.reviewLog, entry], now);
-
     const daily = this.reviewDaily[today] ?? { reviews: 0, correct: 0 };
     this.reviewDaily = {
       ...this.reviewDaily,
@@ -192,9 +142,7 @@ export class StorageService {
         correct: daily.correct + (correct ? 1 : 0),
       },
     };
-
     this.streak = updateStreak(this.streak, today);
-
     await storageSet({
       [REVIEW_LOG_KEY]: this.reviewLog,
       [REVIEW_DAILY_KEY]: this.reviewDaily,

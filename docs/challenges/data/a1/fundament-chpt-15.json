@@ -1,0 +1,50 @@
+[
+  {
+    "id": "a1.fundament-chpt15.infinitief-en.fill_blank",
+    "type": "fill_blank",
+    "prompt": "De hoofdvorm van een werkwoord eindigt bijna altijd op ___",
+    "choices": ["en", "t", "de"],
+    "correctAnswer": "en",
+    "tags": ["fundament", "chpt-15"]
+  },
+  {
+    "id": "a1.fundament-chpt15.onregelmatig-aantal.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Ongeveer ___ onregelmatige werkwoorden zijn er.",
+    "choices": ["150", "50", "500"],
+    "correctAnswer": "150",
+    "tags": ["fundament", "chpt-15"]
+  },
+  {
+    "id": "a1.fundament-chpt15.tijden.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Werkwoordtijden zijn onder andere tegenwoordige tijd, verleden tijd en ___",
+    "choices": ["voltooide tijd", "toekomende tijd", "gebiedende wijs"],
+    "correctAnswer": "voltooide tijd",
+    "tags": ["fundament", "chpt-15"]
+  },
+  {
+    "id": "a1.fundament-chpt15.zwakke.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Regelmatige werkwoorden heten ook ___ werkwoorden",
+    "choices": ["zwakke", "sterke", "onregelmatige"],
+    "correctAnswer": "zwakke",
+    "tags": ["fundament", "chpt-15"]
+  },
+  {
+    "id": "a1.fundament-chpt15.werk-ik.verb_form",
+    "type": "verb_form",
+    "prompt": "Ik ___ elke dag.",
+    "choices": ["werk", "werken", "werkt"],
+    "correctAnswer": "werk",
+    "tags": ["fundament", "chpt-15"]
+  },
+  {
+    "id": "a1.fundament-chpt15.wonen-wij.verb_form",
+    "type": "verb_form",
+    "prompt": "Wij ___ in Nederland.",
+    "choices": ["wonen", "woon", "woont"],
+    "correctAnswer": "wonen",
+    "tags": ["fundament", "chpt-15"]
+  }
+]

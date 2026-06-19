@@ -1,0 +1,26 @@
+[
+  {
+    "id": "a1.fundament-chpt20.gebiedend-doe.verb_form",
+    "type": "verb_form",
+    "prompt": "___ de deur!",
+    "choices": ["Doe", "Doet", "Doen"],
+    "correctAnswer": "Doe",
+    "tags": ["fundament", "chpt-20"]
+  },
+  {
+    "id": "a1.fundament-chpt20.gebiedend-praat.verb_form",
+    "type": "verb_form",
+    "prompt": "___ niet zo hard!",
+    "choices": ["Praat", "Praatte", "Praten"],
+    "correctAnswer": "Praat",
+    "tags": ["fundament", "chpt-20"]
+  },
+  {
+    "id": "a1.fundament-chpt20.imperative.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Gebiedende wijs = ___",
+    "choices": ["imperative", "past tense", "plural"],
+    "correctAnswer": "imperative",
+    "tags": ["fundament", "chpt-20"]
+  }
+]

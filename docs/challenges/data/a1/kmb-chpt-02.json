@@ -1,0 +1,102 @@
+[
+  {
+    "id": "a1.kmb-chpt02.mag-kennismaken.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Mag ik met u kennismaken?",
+    "choices": ["Ja, graag.", "Nee, dank u wel.", "Ik ben Française."],
+    "correctAnswer": "Ja, graag.",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.wil-je-drinken.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Wil jij wat drinken? Chocolademelk of thee?",
+    "choices": ["Ik wil graag thee.", "Ik woon in Huizen.", "Dat klopt."],
+    "correctAnswer": "Ik wil graag thee.",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.mag-wc.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Mag ik naar de wc?",
+    "choices": ["Ja, je mag naar de wc.", "Ik wil graag beginnen.", "Dat lijkt me gezellig!"],
+    "correctAnswer": "Ja, je mag naar de wc.",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.broer.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "broer",
+    "choices": ["brother", "sister", "father"],
+    "correctAnswer": "brother",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.gezellig.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "gezellig",
+    "choices": ["nice, cosy", "angry", "married"],
+    "correctAnswer": "nice, cosy",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.trein.en_to_nl",
+    "type": "en_to_nl",
+    "prompt": "the train",
+    "choices": ["trein", "stad", "week"],
+    "correctAnswer": "trein",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.maria-monique.read_mcq",
+    "type": "read_mcq",
+    "context": "Monique komt uit Frankrijk. Zij is Française. Maria komt uit Spanje. Monique woont in Huizen. Maria woont in Amstelveen.",
+    "prompt": "Waar woont Monique?",
+    "choices": ["Huizen", "Amstelveen", "Amsterdam"],
+    "correctAnswer": "Huizen",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.monique-frankrijk.read_mcq",
+    "type": "read_mcq",
+    "context": "Maria: 'Monique? Dat klinkt Frans, kom je uit Frankrijk?' Monique: 'Ja, dat klopt. Ik ben Française.'",
+    "prompt": "Waar komt Monique vandaan?",
+    "choices": ["Frankrijk", "Spanje", "Nederland"],
+    "correctAnswer": "Frankrijk",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.weekend-limburg.read_mcq",
+    "type": "read_mcq",
+    "context": "Maria vraagt of Monique mee naar de stad wil. Monique gaat dit weekend met de trein naar Limburg. Maria zegt: 'Oh wat jammer, misschien volgende week!'",
+    "prompt": "Waar gaat Monique dit weekend naartoe?",
+    "choices": ["Limburg", "Amsterdam", "Frankrijk"],
+    "correctAnswer": "Limburg",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.opa-leeftijd.number_detail",
+    "type": "number_detail",
+    "context": "Mijn opa is achtentachtig jaar oud.",
+    "prompt": "Hoe oud is de opa in de zin?",
+    "choices": ["88 jaar", "18 jaar", "28 jaar"],
+    "correctAnswer": "88 jaar",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.wc-vragen.knm",
+    "type": "knm",
+    "prompt": "Je moet tijdens de les naar het toilet. Wat zeg je tegen de docent?",
+    "choices": ["Mag ik naar de wc?", "Ik ben Française.", "Tot morgen!"],
+    "correctAnswer": "Mag ik naar de wc?",
+    "tags": ["kmb", "chpt-02"]
+  },
+  {
+    "id": "a1.kmb-chpt02.koffie-aanbieden.knm",
+    "type": "knm",
+    "prompt": "De docent vraagt: 'Wilt u wat drinken?' Wat is een passend antwoord?",
+    "choices": ["Ik wil graag koffie.", "Ik woon in Huizen.", "De docent begroet de cursisten."],
+    "correctAnswer": "Ik wil graag koffie.",
+    "tags": ["kmb", "chpt-02"]
+  }
+]

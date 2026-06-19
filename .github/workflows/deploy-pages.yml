@@ -1,0 +1,31 @@
+name: Deploy web app to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install
+
+      - run: npm run build:web
+
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Deploy web app to docs/'
+          file_pattern: docs/**

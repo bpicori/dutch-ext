@@ -1,0 +1,124 @@
+[
+  {
+    "id": "a1.kmb-chpt09.gereserveerd.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Heeft u gereserveerd?",
+    "choices": [
+      "Ja, ik heb gereserveerd op de naam Jansen.",
+      "Nee, ik ben de eigenaar.",
+      "Het regent vandaag."
+    ],
+    "correctAnswer": "Ja, ik heb gereserveerd op de naam Jansen.",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.jas-aannemen.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Mag ik uw jas aannemen?",
+    "choices": ["Ja, dat mag. Alstublieft.", "Ik wil graag de boerenkool.", "Het smaakt heerlijk!"],
+    "correctAnswer": "Ja, dat mag. Alstublieft.",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.wat-is-hutspot.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Mag ik iets vragen? Wat is hutspot?",
+    "choices": [
+      "Dat is een stamppot met wortel, ui en aardappel.",
+      "Ik wil graag een glas witte wijn.",
+      "Komt u binnen! Welkom."
+    ],
+    "correctAnswer": "Dat is een stamppot met wortel, ui en aardappel.",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.bestellen.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Wat wilt u bestellen?",
+    "choices": [
+      "Ik wil graag de groentesoep.",
+      "Ja, alles is naar wens.",
+      "Kan ik uw tas aannemen?"
+    ],
+    "correctAnswer": "Ik wil graag de groentesoep.",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.rekening.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Mag ik de rekening alstublieft?",
+    "choices": [
+      "Natuurlijk, ik breng de rekening.",
+      "Wilt u een tafel bij het raam?",
+      "Dat heb ik nog nooit gegeten."
+    ],
+    "correctAnswer": "Natuurlijk, ik breng de rekening.",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.eet-smakelijk.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Alstublieft, eet smakelijk.",
+    "choices": ["Dank u wel.", "Mag ik de menukaart zien?", "Ik ben niet zo dol op spruitjes."],
+    "correctAnswer": "Dank u wel.",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.tafelmanieren-mes-vork.knm",
+    "type": "knm",
+    "prompt": "Je eet in een Nederlands restaurant. Wat is een goede tafelmanier?",
+    "choices": ["Eet met mes en vork", "Leg je ellebogen op de tafel", "Praat met volle mond"],
+    "correctAnswer": "Eet met mes en vork",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.tafelmanieren-wachten.knm",
+    "type": "knm",
+    "prompt": "Iedereen aan tafel heeft eten. Wat doe je?",
+    "choices": [
+      "Wacht tot iedereen eten heeft",
+      "Begin meteen te eten",
+      "Ga naar de wc tijdens het eten"
+    ],
+    "correctAnswer": "Wacht tot iedereen eten heeft",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.restaurant-reserveren.knm",
+    "type": "knm",
+    "prompt": "Je wilt vanavond naar restaurant De Vliegende Hollander. Wat is verstandig?",
+    "choices": [
+      "Reserveren op je naam",
+      "Naar binnen lopen zonder te vragen",
+      "Je jas zelf aan de kapstok hangen zonder te vragen"
+    ],
+    "correctAnswer": "Reserveren op je naam",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.tafelmanieren-kok.knm",
+    "type": "knm",
+    "prompt": "Het eten was lekker. Wat is een goede gewoonte in Nederland?",
+    "choices": ["Bedank de kok", "Roep de ober heel hard", "Laat je bord op tafel liggen"],
+    "correctAnswer": "Bedank de kok",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.restaurant-gesprek.read_mcq",
+    "type": "read_mcq",
+    "context": "In restaurant 'De Vliegende Hollander' zitten Carina en Ella. Marcel is de eigenaar. Carina heeft gereserveerd op de naam Jansen. Ella bestelt boerenkool en Carina bestelt groentesoep.",
+    "prompt": "Wat bestelt Carina?",
+    "choices": ["Groentesoep", "Boerenkool", "Hutspot"],
+    "correctAnswer": "Groentesoep",
+    "tags": ["kmb", "chpt-09"]
+  },
+  {
+    "id": "a1.kmb-chpt09.hutspot-uitleg.read_mcq",
+    "type": "read_mcq",
+    "context": "Ella vraagt: 'Wat is hutspot?' Marcel antwoordt: 'Dat is een stamppot met wortel, ui en aardappel.'",
+    "prompt": "Wat zit er in hutspot?",
+    "choices": ["Wortel, ui en aardappel", "Gehaktballetjes en groenten", "Poedersuiker en melk"],
+    "correctAnswer": "Wortel, ui en aardappel",
+    "tags": ["kmb", "chpt-09"]
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "a1.fundament-chpt22.aan-het-koken.word_order",
+    "type": "word_order",
+    "prompt": "Maak een zin:",
+    "orderItems": ["zij", "is", "aan", "het", "koken"],
+    "correctAnswer": "zij is aan het koken",
+    "tags": ["fundament", "chpt-22"]
+  },
+  {
+    "id": "a1.fundament-chpt22.om-te-rusten.word_order",
+    "type": "word_order",
+    "prompt": "Maak een zin:",
+    "orderItems": ["ik", "ga", "naar", "huis", "om", "te", "rusten"],
+    "correctAnswer": "ik ga naar huis om te rusten",
+    "tags": ["fundament", "chpt-22"]
+  },
+  {
+    "id": "a1.fundament-chpt22.aan-het.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Ik ben ___ het werken.",
+    "choices": ["aan", "op", "in"],
+    "correctAnswer": "aan",
+    "tags": ["fundament", "chpt-22"]
+  },
+  {
+    "id": "a1.fundament-chpt22.om-te-spreken.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Ik leer Nederlands om de taal te ___",
+    "choices": ["spreken", "spreek", "sprak"],
+    "correctAnswer": "spreken",
+    "tags": ["fundament", "chpt-22"]
+  }
+]
