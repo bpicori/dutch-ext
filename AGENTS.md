@@ -21,70 +21,84 @@ No auto-reload on build. Manually click the reload icon on the extension card.
 ## Architecture
 
 ```
-main.ts (owns the loop)
-  ├── StorageService  repository: load deck, read/write progress, chrome.storage.local
-  ├── Orchestrator    stateless algorithms: SM-2, getNextChallenge, evaluate
-  └── Renderer        UI: DOM shell, layouts, keyboard, audio, mic
+main.ts (bootstrap)
+  ├── StorageService   deck load + chrome.storage.local progress
+  ├── Orchestrator     session loop: pick → present → grade → persist
+  │     ├── sm2.ts           pickNext, advance (spacing algorithm)
+  │     ├── shell.ts         app shell, debug empty state, continue hint
+  │     ├── debug.ts         ⌘D debug panel (filter by challenge type)
+  │     └── challenges/      per-type modules + shared UI helpers
+  └── challenges/index.ts    registry (single source of truth for ChallengeType)
 ```
 
-| File                  | Role                                                        |
-| --------------------- | ----------------------------------------------------------- |
-| `src/types.ts`        | Shared types (interfaces only — erased at compile time)     |
-| `src/orchestrator.ts` | SM-2, grading, challenge selection (stateless algorithms)   |
-| `src/storage.ts`      | Repository: deck loading, `chrome.storage.local` read/write |
-| `src/renderer.ts`     | DOM shell, layouts, keyboard, audio, mic                    |
-| `src/main.ts`         | Entry point — creates all three, owns the loop              |
+| File | Role |
+| ---- | ---- |
+| `src/main.ts` | Async bootstrap — `init()` then `Orchestrator.start()` |
+| `src/orchestrator.ts` | Session loop: `playRound` → present, grade, save, continue/dismiss |
+| `src/sm2.ts` | Spaced repetition: `pickNext`, `advance`, `DEFAULT_PROGRESS` |
+| `src/storage.ts` | Load deck from manifest JSON; `saveProgress()` writes to `chrome.storage.local` |
+| `src/shell.ts` | App shell HTML, debug empty state, continue hint |
+| `src/types.ts` | Domain types: `Challenge`, `ChallengeProgress`; re-exports `ChallengeType` |
+| `src/challenges/index.ts` | Registry + `getChallenge()`; defines `ChallengeType` |
+| `src/challenges/types.ts` | Runtime types: `ChallengeModule`, `UserResponse` |
+| `src/challenges/shared.ts` | Audio, grading helpers, `bindMcqPresent`, `bindChallengeSession`, result styling |
+| `src/challenges/mcq.ts` | `createMcqModule` factory (11 MCQ-based types) |
+| `src/challenges/de-het.ts` | Binary de/het choice |
+| `src/challenges/read-order.ts` | Drag-to-reorder list |
+| `src/challenges/read-match.ts` | Match two columns |
+| `src/challenges/word-order.ts` | Click words to build a sentence |
+| `src/debug.ts` | Debug panel — ⌘D toggles, pick a type to force random card from that type |
 
-Orchestrator is stateless — it receives data from StorageService, computes results, and returns them. main.ts wires all three together, passing state between storage and orchestrator each tick.
+Each challenge module implements `ChallengeModule`: `present()` → `UserResponse`, `showResult()`, `isCorrect()`. MCQ types use `createMcqModule`; interactive types use `bindChallengeSession` for keyboard handling.
 
 ## Challenge data
 
-`src/challenges/examples/` (`example-1.json` through `example-5.json` for now). All files are loaded and concatenated at runtime in `StorageService.init()`.
+`src/challenges/examples/` (`example-1.json` through `example-5.json` for now). All files listed in `challenges/manifest.json` are loaded and concatenated at runtime in `StorageService.init()`.
 
-Each challenge is a standalone flashcard with its own SM-2 progress. `Orchestrator.getNextChallenge()` picks a due card (never seen, or `dontShowUntil <= now`); if none are due, it shows the card waiting longest.
+Each challenge is a standalone flashcard with its own SM-2 progress. `pickNext()` in `sm2.ts` picks a due card (never seen, or `dontShowUntil <= now`); if none are due, it shows the card waiting longest.
 
-Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `orderItems`, `matchLeft`, `matchRight`, `formFields`, `bulletPrompts`, `imageUrl`.
+Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `orderItems`, `matchLeft`, `matchRight`, `audioWords`.
 
-## Challenge types (25)
+## Challenge types
 
-| Type                | Layout                     | Keyboard                  |
-| ------------------- | -------------------------- | ------------------------- |
-| `de_het`            | DE / HET buttons           | ← de, → het               |
-| `nl_to_en`          | 3-choice MCQ               | 1, 2, 3                   |
-| `en_to_nl`          | 3-choice MCQ               | 1, 2, 3                   |
-| `listen`            | TTS + spelling MCQ         | 1, 2, 3                   |
-| `listen_match`      | 4 audio ↔ 4 text pairs     | 1–4 play, click match     |
-| `nl_to_en_sentence` | 3-choice MCQ               | 1, 2, 3                   |
-| `en_to_nl_sentence` | 3-choice MCQ               | 1, 2, 3                   |
-| `read_mcq`          | Scrollable text + MCQ      | 1, 2, 3                   |
-| `knm`               | Scenario + MCQ             | 1, 2, 3                   |
-| `dialogue_reply`    | Dialogue + MCQ             | 1, 2, 3                   |
-| `fill_blank`        | Sentence + MCQ             | 1, 2, 3                   |
-| `verb_form`         | Sentence + MCQ             | 1, 2, 3                   |
-| `preposition`       | Sentence + MCQ             | 1, 2, 3                   |
-| `number_detail`     | Context + MCQ              | 1, 2, 3                   |
-| `listen_mcq`        | Question + TTS + MCQ       | 1, 2, 3                   |
-| `form_fill`         | Multi-field form           | Enter submit              |
-| `write_note`        | Bullets + textarea         | Enter submit              |
-| `complete_sentence` | Type missing word          | Enter submit              |
-| `plural`            | Type plural                | Enter submit              |
-| `number_listen`     | TTS + type number          | Enter submit              |
-| `read_order`        | Reorder list               | ↑↓ move, Enter submit     |
-| `read_match`        | Match two columns          | Click pairs               |
-| `word_order`        | Build sentence from tokens | Click words, Enter submit |
-| `speak_repeat`      | TTS + mic record           | Hold mic button           |
-| `image_describe`    | Image + type description   | Enter submit              |
+### Implemented (15)
 
-All types: Space / Esc = dismiss (focus omnibox). MCQ types also dismiss on Enter before answering.
+| Type | Module | Layout | Keyboard |
+| ---- | ------ | ------ | -------- |
+| `de_het` | `de-het.ts` | DE / HET buttons | ← de, → het, Space skip |
+| `nl_to_en` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
+| `en_to_nl` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
+| `nl_to_en_sentence` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
+| `en_to_nl_sentence` | `mcq.ts` | 3-choice MCQ | 1, 2, 3, Space/Enter skip |
+| `read_mcq` | `mcq.ts` | Scrollable text + MCQ | 1, 2, 3, Space/Enter skip |
+| `knm` | `mcq.ts` | Scenario + MCQ | 1, 2, 3, Space/Enter skip |
+| `dialogue_reply` | `mcq.ts` | Dialogue + MCQ | 1, 2, 3, Space/Enter skip |
+| `fill_blank` | `mcq.ts` | Sentence + MCQ | 1, 2, 3, Space/Enter skip |
+| `verb_form` | `mcq.ts` | Sentence + MCQ | 1, 2, 3, Space/Enter skip |
+| `preposition` | `mcq.ts` | Sentence + MCQ | 1, 2, 3, Space/Enter skip |
+| `number_detail` | `mcq.ts` | Context + MCQ | 1, 2, 3, Space/Enter skip |
+| `read_order` | `read-order.ts` | Drag-to-reorder list | Drag reorder, Enter submit, Space skip |
+| `read_match` | `read-match.ts` | Match two columns | 1–N select row, click match, Space/Enter skip |
+| `word_order` | `word-order.ts` | Build sentence from tokens | Click words, Enter submit, Space skip |
+
+All types: **Escape** dismisses (focus omnibox). After answering: **Enter** or click outside → next challenge; **Escape** dismisses.
+
+Skip counts as wrong (`correct: false`).
+
+### Planned (not yet implemented)
+
+`listen`, `listen_match`, `listen_mcq`, `form_fill`, `write_note`, `complete_sentence`, `plural`, `number_listen`, `speak_repeat`, `image_describe`
 
 ## SM-2 spacing
 
 Spacing intervals (minutes): `[1, 10, 60, 360, 1440, 2880, 5760, 10080, 20160, 43200]`.
 
-Correct → `consecutiveStreaks++` → `dontShowUntil = now + spacing[streaks]`.
-Wrong → `consecutiveStreaks = 0` → `dontShowUntil = now + 5 min`.
+Correct → `intervalIndex++` → `dontShowUntil = now + spacing[intervalIndex]`.
+Wrong → `intervalIndex = 0` → `dontShowUntil = now + 5 min`.
 
-Logic lives in `Orchestrator.evaluate()` and `Orchestrator.getNextChallenge()`.
+Logic lives in `sm2.ts` (`pickNext`, `advance`). Orchestrator calls `gradeResponse()` then `storage.saveProgress()`.
+
+Legacy storage key `consecutiveStreaks` is migrated to `intervalIndex` on load.
 
 ## Tailwind
 
