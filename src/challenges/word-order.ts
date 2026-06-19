@@ -37,6 +37,19 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
       resolve(response);
     };
 
+    const submit = () => {
+      if (wordPool.length > 0 || wordBuilt.length === 0) return;
+      done({ kind: 'answer', value: wordBuilt.join(' ') });
+    };
+
+    const updateSubmitButton = () => {
+      const submitBtn = container.querySelector('#word-submit') as HTMLButtonElement | null;
+      if (!submitBtn) return;
+      const complete = wordPool.length === 0 && wordBuilt.length > 0;
+      submitBtn.classList.toggle('hidden', !complete);
+      submitBtn.disabled = !complete;
+    };
+
     const reindexPoolButtons = () => {
       const activeButtons = [...container.querySelectorAll('.word-pool-btn')].filter(
         (btn) => !btn.classList.contains('animate-word-out'),
@@ -83,6 +96,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
       btn.addEventListener('animationend', () => btn.remove(), { once: true });
 
       addWordToBuilt(word);
+      updateSubmitButton();
     };
 
     const onClear = () => {
@@ -95,6 +109,7 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         poolEl.innerHTML = buildPoolHtml(wordPool);
         bindPool();
       }
+      updateSubmitButton();
     };
 
     const renderShell = () => {
@@ -108,6 +123,9 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
           <div id="word-built" class="min-h-[3rem] p-md border border-dashed border-outline-variant rounded-DEFAULT flex flex-wrap gap-xs items-center">${BUILT_PLACEHOLDER_HTML}</div>
           <div id="word-pool" class="flex flex-wrap gap-sm justify-center">${buildPoolHtml(wordPool)}</div>
           <button type="button" id="word-clear" class="text-label-sm text-on-surface-variant hover:text-on-surface">Clear</button>
+          <button type="button" id="word-submit" class="hidden w-full py-md rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm font-bold uppercase tracking-widest hover:opacity-90 transition-opacity btn-active">
+            Controleer
+          </button>
           <div id="word-feedback" class="hidden"></div>
         </div>
         ${SKIP_LINK_HTML}
@@ -119,7 +137,9 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
 
       container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
       container.querySelector('#word-clear')?.addEventListener('click', onClear);
+      container.querySelector('#word-submit')?.addEventListener('click', submit);
       bindPool();
+      updateSubmitButton();
     };
 
     const onKey = (e: KeyboardEvent) => {
@@ -133,9 +153,9 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         done({ kind: 'skip' });
         return;
       }
-      if (e.key === 'Enter' && wordBuilt.length > 0) {
+      if (e.key === 'Enter') {
         e.preventDefault();
-        done({ kind: 'answer', value: wordBuilt.join(' ') });
+        submit();
       }
     };
 

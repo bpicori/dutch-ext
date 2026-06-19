@@ -1,6 +1,8 @@
 import { StorageService } from './storage.js';
 import { getChallenge } from './challenges/index.js';
 import { kbdChip } from './challenges/shared.js';
+import { DebugMode } from './debug.js';
+import { Challenge } from './types.js';
 import { advance, DEFAULT_PROGRESS, pickNext } from './sm2.js';
 
 type ContinueAction = 'continue' | 'dismiss';
@@ -37,23 +39,54 @@ function waitForContinue(challengeArea: HTMLElement): Promise<ContinueAction> {
 }
 
 export class Orchestrator {
-  constructor(private storage: StorageService) {}
+  private debug: DebugMode;
+
+  constructor(private storage: StorageService) {
+    this.debug = new DebugMode(() => this.storage.getDeck());
+  }
 
   start(): void {
     this.renderShell();
+    this.debug.mount();
     void this.run();
+  }
+
+  private pickChallengeForRound(): Challenge | null {
+    const deck = this.storage.getDeck();
+    const debugChallenge = this.debug.pickChallenge(deck);
+    if (debugChallenge) return debugChallenge;
+    if (this.debug.wantsTypeButEmpty()) return null;
+    return pickNext(deck, this.storage.getProgress());
+  }
+
+  private showDebugEmpty(area: HTMLElement): void {
+    area.innerHTML = `
+      <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center">
+        <div class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg items-center text-center">
+          <span class="material-symbols-outlined text-on-surface-variant opacity-60" style="font-size: 40px">search_off</span>
+          <p class="font-body-md text-on-surface">No challenges found for the selected debug type.</p>
+          <p class="font-label-sm text-label-sm text-on-surface-variant">Pick another type in the debug panel.</p>
+        </div>
+      </div>`;
   }
 
   private async run(): Promise<void> {
     while (true) {
-      const progress = this.storage.getProgress();
-      const challenge = pickNext(this.storage.getDeck(), progress);
-      if (!challenge) return;
-
-      const impl = getChallenge(challenge.type);
+      const challenge = this.pickChallengeForRound();
       const area = document.getElementById('challenge-area');
       if (!area) return;
 
+      if (!challenge) {
+        this.showDebugEmpty(area);
+        if ((await waitForContinue(area)) === 'dismiss') {
+          this.dismiss();
+          return;
+        }
+        continue;
+      }
+
+      const impl = getChallenge(challenge.type);
+      const progress = this.storage.getProgress();
       const response = await impl.present(area, challenge);
 
       if (response.kind === 'dismiss') {

@@ -36,6 +36,8 @@ const Registry: Record<ChallengeType, ChallengeModule> = {
   word_order: wordOrderModule,
 };
 
+export const CHALLENGE_TYPES = Object.keys(Registry) as ChallengeType[];
+
 export function getChallenge(type: ChallengeType): ChallengeModule {
   return Registry[type];
 }

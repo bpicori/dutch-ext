@@ -140,7 +140,7 @@ export function applyOrderResult(
 
 export function applyWordOrderResult(container: HTMLElement, correct: boolean): void {
   const card = container.querySelector('#challenge');
-  container.querySelectorAll('.word-pool-btn, #word-clear').forEach((el) => {
+  container.querySelectorAll('.word-pool-btn, #word-clear, #word-submit').forEach((el) => {
     (el as HTMLButtonElement).style.pointerEvents = 'none';
     (el as HTMLButtonElement).disabled = true;
   });
