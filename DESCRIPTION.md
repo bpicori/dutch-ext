@@ -53,7 +53,7 @@ A daily streak counts consecutive days with at least one completed challenge.
 
 - Chrome Extension (Manifest V3) with a custom **new tab** override
 - TypeScript, compiled to plain JS; Tailwind CSS for UI
-- Challenge content in JSON (`challenges/examples/`); progress in `chrome.storage.local`
+- Challenge content in JSON (`challenges/data/{level}/`); progress in `chrome.storage.local`
 - Core modules: storage (data + scheduling + grading), renderer (UI), game loop (orchestration)
 
 For build steps, architecture detail, and contributor notes, see [AGENTS.md](./AGENTS.md). To ship to the Chrome Web Store, see [docs/publish-chrome-web-store.md](./docs/publish-chrome-web-store.md).

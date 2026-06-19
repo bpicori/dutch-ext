@@ -57,11 +57,15 @@ Each challenge module implements `ChallengeModule`: `present()` → `UserRespons
 
 ## Challenge data
 
-`src/challenges/examples/` (`example-1.json` through `example-5.json` for now). All files listed in `challenges/manifest.json` are loaded and concatenated at runtime in `StorageService.init()`.
+Challenge JSON lives under `src/challenges/data/{level}/` (e.g. `a1/vocab-basics.json`). A curated [`src/challenges/manifest.json`](src/challenges/manifest.json) lists which files to load. `build.sh` validates then copies into `dist/challenges/`.
+
+`StorageService.init()` fetches the manifest, loads each file, enriches cards with `level`/`topic` from the path, and flattens into one deck. See [docs/challenge-data.md](docs/challenge-data.md) for ID scheme, authoring rules, and validation.
 
 Each challenge is a standalone flashcard with its own SM-2 progress. `pickNext()` in `sm2.ts` picks a due card (never seen, or `dontShowUntil <= now`); if none are due, it shows the card waiting longest.
 
-Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `orderItems`, `matchLeft`, `matchRight`, `audioWords`.
+Card IDs: `{level}.{topic}.{slug}` (e.g. `a1.vocab-basics.fiets.de_het`). Never rename published IDs — progress is keyed by `id`.
+
+Optional challenge fields: `context`, `promptAudio`, `acceptableAnswers`, `orderItems`, `matchLeft`, `matchRight`, `audioWords`, `tags`.
 
 ## Challenge types
 

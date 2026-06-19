@@ -21,9 +21,12 @@ echo "Compiling CSS..."
 
 cp manifest.json dist/
 cp src/newtab.html dist/
-mkdir -p dist/challenges/examples
-cp src/challenges/examples/*.json dist/challenges/examples/
-find dist/challenges/examples -name '*.json' -exec basename {} \; | jq -R -s 'split("\n") | map(select(length > 0) | "examples/\(.)")' > dist/challenges/manifest.json
+echo "Validating challenge data..."
+node scripts/validate-challenges.mjs
+
+mkdir -p dist/challenges/data
+cp -R src/challenges/data/. dist/challenges/data/
+cp src/challenges/manifest.json dist/challenges/manifest.json
 cp icons/*.png dist/icons/ 2>/dev/null || true
 cp -r src/images/* dist/images/ 2>/dev/null || true
 

@@ -1,6 +1,28 @@
-import { Challenge, ChallengeProgress } from './types.js';
+import { Challenge, ChallengeLevel, ChallengeProgress } from './types.js';
 
 const PROGRESS_KEY = 'progress' as const;
+
+const LEVELS = new Set<ChallengeLevel>(['a1', 'a2', 'b1']);
+
+function metadataFromPath(filePath: string): { level?: ChallengeLevel; topic?: string } {
+  const levelMatch = filePath.match(/^data\/([^/]+)\//);
+  const topicMatch = filePath.match(/\/([^/]+)\.json$/);
+  const levelSlug = levelMatch?.[1];
+  const level = levelSlug && LEVELS.has(levelSlug as ChallengeLevel)
+    ? (levelSlug as ChallengeLevel)
+    : undefined;
+  const topic = topicMatch?.[1];
+  return { level, topic };
+}
+
+function enrichChallenge(challenge: Challenge, filePath: string): Challenge {
+  const { level, topic } = metadataFromPath(filePath);
+  return {
+    ...challenge,
+    level: challenge.level ?? level,
+    topic: challenge.topic ?? topic,
+  };
+}
 
 function migrateProgress(raw: Record<string, unknown>): Record<string, ChallengeProgress> {
   const result: Record<string, ChallengeProgress> = {};
@@ -28,9 +50,14 @@ export class StorageService {
       (r) => r.json(),
     );
     const parts = await Promise.all(
-      manifest.map((f) => fetch(chrome.runtime.getURL(`challenges/${f}`)).then((r) => r.json())),
+      manifest.map(async (f) => {
+        const challenges: Challenge[] = await fetch(chrome.runtime.getURL(`challenges/${f}`)).then(
+          (r) => r.json(),
+        );
+        return challenges.map((ch) => enrichChallenge(ch, f));
+      }),
     );
-    this.deck = parts.flat() as Challenge[];
+    this.deck = parts.flat();
 
     const data = await chrome.storage.local.get([PROGRESS_KEY]);
     const stored = data[PROGRESS_KEY];
