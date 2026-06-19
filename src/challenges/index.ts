@@ -1,4 +1,3 @@
-import { ChallengeType } from '../types.js';
 import { ChallengeModule } from './types.js';
 import { deHetModule } from './de-het.js';
 import {
@@ -18,7 +17,7 @@ import { readMatchModule } from './read-match.js';
 import { readOrderModule } from './read-order.js';
 import { wordOrderModule } from './word-order.js';
 
-const Registry: Record<ChallengeType, ChallengeModule> = {
+const Registry = {
   de_het: deHetModule,
   nl_to_en: nlToEnModule,
   en_to_nl: enToNlModule,
@@ -34,7 +33,9 @@ const Registry: Record<ChallengeType, ChallengeModule> = {
   read_order: readOrderModule,
   read_match: readMatchModule,
   word_order: wordOrderModule,
-};
+} as const satisfies Record<string, ChallengeModule>;
+
+export type ChallengeType = keyof typeof Registry;
 
 export const CHALLENGE_TYPES = Object.keys(Registry) as ChallengeType[];
 

@@ -9,33 +9,41 @@ import {
   updateMatchLines,
 } from './shared.js';
 
-function buildHtml(
+const LEFT_IDLE = 'bg-surface-container border border-outline-variant opacity-60';
+const LEFT_ACTIVE = 'bg-surface-container-high border border-primary-container/30';
+const LEFT_MATCHED = 'bg-secondary-container/10 border border-secondary-container/40';
+const RIGHT_IDLE = 'bg-surface-container border border-outline-variant';
+const RIGHT_TAKEN = 'bg-secondary-container text-on-secondary-container pointer-events-none';
+const LEFT_BASE = 'match-left-btn w-full text-left p-sm rounded-lg border font-body-md';
+const RIGHT_BASE = 'choice-btn w-full text-center p-sm rounded-lg border';
+
+function leftBtnClass(matched: boolean, active: boolean): string {
+  if (matched) return `${LEFT_BASE} ${LEFT_MATCHED}`;
+  if (active) return `${LEFT_BASE} ${LEFT_ACTIVE}`;
+  return `${LEFT_BASE} ${LEFT_IDLE}`;
+}
+
+function rightBtnClass(taken: boolean): string {
+  return `${RIGHT_BASE} ${taken ? RIGHT_TAKEN : RIGHT_IDLE}`;
+}
+
+function buildShellHtml(
   challenge: Challenge,
-  matchPairs: number[],
-  matchActive: number,
   matchShuffle: number[],
   leftItems: string[],
   rightItems: string[],
 ): string {
   const leftHtml = leftItems
     .map((item, i) => {
-      const matched = matchPairs[i] !== -1;
-      const active = i === matchActive && !matched;
-      let cls = 'bg-surface-container border border-outline-variant opacity-60';
-      if (matched) cls = 'bg-secondary-container/10 border border-secondary-container/40';
-      else if (active) cls = 'bg-surface-container-high border border-primary-container/30';
-      return `<button data-speaker="${i}" type="button" class="match-left-btn w-full text-left p-sm rounded-lg border ${cls} font-body-md" ${matched ? 'disabled' : ''}>${item}</button>`;
+      const cls = i === 0 ? LEFT_ACTIVE : LEFT_IDLE;
+      return `<button data-speaker="${i}" type="button" class="${LEFT_BASE} ${cls}">${item}</button>`;
     })
     .join('');
 
   const rightHtml = matchShuffle
     .map((origIdx) => {
       const text = rightItems[origIdx];
-      const taken = matchPairs.includes(origIdx);
-      const cls = taken
-        ? 'bg-secondary-container text-on-secondary-container pointer-events-none'
-        : 'bg-surface-container border border-outline-variant';
-      return `<button data-choice="${origIdx}" type="button" class="choice-btn w-full text-center p-sm rounded-lg border ${cls}">
+      return `<button data-choice="${origIdx}" type="button" class="${RIGHT_BASE} ${RIGHT_IDLE}">
         <span class="font-body-md">${text}</span></button>`;
     })
     .join('');
@@ -45,7 +53,7 @@ function buildHtml(
     : '';
 
   return `
-    <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center" data-match-pairs="${JSON.stringify(matchPairs)}">
+    <div id="challenge-wrapper" class="animate-fade-in w-full flex flex-col items-center" data-match-pairs="[]">
       <div id="challenge" class="glass-card w-full p-lg rounded-lg flex flex-col gap-lg relative">
         <div class="bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant self-center">
           <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em]">MATCHEN</span>
@@ -66,14 +74,69 @@ function buildHtml(
     </div>`;
 }
 
+type MatchController = {
+  setActiveRow: (index: number) => void;
+  pairChoice: (choiceIdx: number) => boolean;
+  getMatchPairs: () => number[];
+  syncLines: () => void;
+};
+
+function createMatchController(container: HTMLElement, total: number): MatchController {
+  const matchPairs = Array(total).fill(-1);
+  let matchActive = 0;
+  let matchCount = 0;
+
+  const updateLeftButtons = () => {
+    container.querySelectorAll('.match-left-btn').forEach((btn, i) => {
+      const el = btn as HTMLButtonElement;
+      const matched = matchPairs[i] !== -1;
+      const active = i === matchActive && !matched;
+      el.className = leftBtnClass(matched, active);
+      el.disabled = matched;
+    });
+  };
+
+  const markRightTaken = (choiceIdx: number) => {
+    const btn = container.querySelector(`[data-choice="${choiceIdx}"]`) as HTMLButtonElement | null;
+    if (btn) btn.className = rightBtnClass(true);
+  };
+
+  return {
+    setActiveRow(index: number) {
+      matchActive = index;
+      updateLeftButtons();
+    },
+
+    pairChoice(choiceIdx: number) {
+      if (choiceIdx < 0 || matchPairs.includes(choiceIdx)) return false;
+      matchPairs[matchActive] = choiceIdx;
+      matchCount++;
+      updateLeftButtons();
+      markRightTaken(choiceIdx);
+      this.syncLines();
+      if (matchCount >= total) return true;
+      const next = matchPairs.findIndex((p) => p === -1);
+      if (next >= 0) matchActive = next;
+      updateLeftButtons();
+      return false;
+    },
+
+    getMatchPairs: () => [...matchPairs],
+
+    syncLines: () => {
+      requestAnimationFrame(() => updateMatchLines(container, matchPairs));
+    },
+  };
+}
+
 function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
   const leftItems = challenge.matchLeft ?? [];
   const rightItems = challenge.matchRight ?? [];
   const total = leftItems.length;
-  const matchPairs = Array(total).fill(-1);
-  let matchActive = 0;
-  let matchCount = 0;
   const matchShuffle = shuffle(rightItems.map((_, i) => i));
+
+  container.innerHTML = buildShellHtml(challenge, matchShuffle, leftItems, rightItems);
+  const controller = createMatchController(container, total);
 
   return new Promise((resolve) => {
     const { done, isAnswered } = bindChallengeSession(resolve, {
@@ -82,61 +145,36 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
         const num = parseInt(e.key, 10);
         if (num >= 1 && num <= total) {
           e.preventDefault();
-          matchActive = num - 1;
-          render();
+          controller.setActiveRow(num - 1);
         }
       },
     });
 
     const finish = () => {
+      const matchPairs = controller.getMatchPairs();
       const allCorrect = matchPairs.every((c, i) => c === i);
       const wrapper = container.querySelector('#challenge-wrapper') as HTMLElement;
       wrapper.dataset.matchPairs = JSON.stringify(matchPairs);
       done({ kind: 'answer', value: allCorrect ? 'ok' : 'fail' });
     };
 
-    const bindInteractions = () => {
-      container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
+    container.querySelector('#skip-link')?.addEventListener('click', () => done({ kind: 'skip' }));
 
-      container.querySelectorAll('.match-left-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          if (isAnswered()) return;
-          matchActive = parseInt((btn as HTMLElement).dataset.speaker || '0', 10);
-          render();
-        });
-      });
+    container.addEventListener('click', (e) => {
+      if (isAnswered()) return;
+      const target = e.target as HTMLElement;
 
-      container.querySelectorAll('.choice-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          if (isAnswered()) return;
-          const choiceIdx = parseInt((btn as HTMLElement).dataset.choice || '-1', 10);
-          if (choiceIdx < 0 || matchPairs.includes(choiceIdx)) return;
-          matchPairs[matchActive] = choiceIdx;
-          matchCount++;
-          if (matchCount >= total) finish();
-          else {
-            const next = matchPairs.findIndex((p) => p === -1);
-            if (next >= 0) matchActive = next;
-            render();
-          }
-        });
-      });
-    };
+      const leftBtn = target.closest('.match-left-btn') as HTMLButtonElement | null;
+      if (leftBtn && !leftBtn.disabled) {
+        controller.setActiveRow(parseInt(leftBtn.dataset.speaker || '0', 10));
+        return;
+      }
 
-    const render = () => {
-      container.innerHTML = buildHtml(
-        challenge,
-        matchPairs,
-        matchActive,
-        matchShuffle,
-        leftItems,
-        rightItems,
-      );
-      bindInteractions();
-      requestAnimationFrame(() => updateMatchLines(container, matchPairs));
-    };
-
-    render();
+      const rightBtn = target.closest('.choice-btn') as HTMLButtonElement | null;
+      if (!rightBtn) return;
+      const choiceIdx = parseInt(rightBtn.dataset.choice || '-1', 10);
+      if (controller.pairChoice(choiceIdx)) finish();
+    });
   });
 }
 

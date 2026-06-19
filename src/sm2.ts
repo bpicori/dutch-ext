@@ -5,7 +5,7 @@ export const SPACING_MINUTES = [1, 10, 60, 360, 1440, 2880, 5760, 10080, 20160, 
 export const DEFAULT_PROGRESS: ChallengeProgress = {
   correct: 0,
   attempts: 0,
-  consecutiveStreaks: 0,
+  intervalIndex: 0,
   dontShowUntil: 0,
 };
 
@@ -46,19 +46,19 @@ export function advance(
   now = Date.now(),
 ): ChallengeProgress {
   if (correct) {
-    const newStreaks = Math.min(prev.consecutiveStreaks + 1, SPACING_MINUTES.length - 1);
+    const nextIndex = Math.min(prev.intervalIndex + 1, SPACING_MINUTES.length - 1);
     return {
       correct: prev.correct + 1,
       attempts: prev.attempts + 1,
-      consecutiveStreaks: newStreaks,
-      dontShowUntil: now + SPACING_MINUTES[newStreaks] * 60 * 1000,
+      intervalIndex: nextIndex,
+      dontShowUntil: now + SPACING_MINUTES[nextIndex] * 60 * 1000,
     };
   }
 
   return {
     correct: prev.correct,
     attempts: prev.attempts + 1,
-    consecutiveStreaks: 0,
+    intervalIndex: 0,
     dontShowUntil: now + 5 * 60 * 1000,
   };
 }

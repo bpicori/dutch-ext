@@ -1,7 +1,10 @@
 import { StorageService } from './storage.js';
 import { Orchestrator } from './orchestrator.js';
 
-const storage = new StorageService();
-const orchestrator = new Orchestrator(storage);
+async function main(): Promise<void> {
+  const storage = new StorageService();
+  await storage.init();
+  new Orchestrator(storage).start();
+}
 
-storage.init().then(() => orchestrator.start());
+void main().catch(console.error);

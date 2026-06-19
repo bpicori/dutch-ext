@@ -107,8 +107,7 @@ export class Orchestrator {
       response,
       priorProgress,
     );
-    this.storage.updateProgress(challenge.id, nextProgress);
-    await this.storage.persist();
+    await this.storage.saveProgress(challenge.id, nextProgress);
 
     module.showResult(area, challenge, answer, correct);
     mountContinueHint(area);

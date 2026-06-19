@@ -1,19 +1,6 @@
-export type ChallengeType =
-  | 'de_het'
-  | 'nl_to_en'
-  | 'en_to_nl'
-  | 'nl_to_en_sentence'
-  | 'en_to_nl_sentence'
-  | 'read_mcq'
-  | 'knm'
-  | 'dialogue_reply'
-  | 'fill_blank'
-  | 'verb_form'
-  | 'preposition'
-  | 'number_detail'
-  | 'read_order'
-  | 'read_match'
-  | 'word_order';
+import type { ChallengeType } from './challenges/index.js';
+
+export type { ChallengeType };
 
 export interface Challenge {
   id: string;
@@ -33,6 +20,6 @@ export interface Challenge {
 export interface ChallengeProgress {
   correct: number;
   attempts: number;
-  consecutiveStreaks: number;
+  intervalIndex: number;
   dontShowUntil: number;
 }
