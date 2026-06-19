@@ -69,7 +69,7 @@ export function highlightDiff(userAnswer: string, correctAnswer: string): string
       const u = userWords[i]?.toLowerCase().replace(/[.,!?]/g, '');
       const c = word.toLowerCase().replace(/[.,!?]/g, '');
       if (u === c) return word;
-      return `<span class="text-secondary font-bold underline decoration-secondary/30 decoration-2 underline-offset-4">${word}</span>`;
+      return `<span class="text-success font-semibold underline decoration-success/30 decoration-2 underline-offset-4">${word}</span>`;
     })
     .join(' ');
 }
@@ -126,7 +126,7 @@ export function applyOrderResult(
   if (correct) return;
   const feedback = container.querySelector('#order-feedback');
   if (feedback) {
-    feedback.innerHTML = `<p class="text-sm text-on-surface-variant">Correct order: <span class="text-secondary">${correctAnswer.split('|').join(' \u2192 ')}</span></p>`;
+    feedback.innerHTML = `<p class="text-sm text-muted">Correct order: <span class="text-success font-editorial">${correctAnswer.split('|').join(' \u2192 ')}</span></p>`;
     feedback.classList.remove('hidden');
   }
 }
@@ -150,7 +150,7 @@ export function applyMatchResult(container: HTMLElement, matchPairs: number[]): 
 
   container.querySelectorAll(leftSel).forEach((btn, i) => {
     const el = btn as HTMLElement;
-    el.classList.add(matchPairs[i] === i ? 'border-secondary-container' : 'border-on-tertiary-container');
+    el.classList.add(matchPairs[i] === i ? 'border-success' : 'border-error');
   });
 
   container.querySelectorAll(rightSel).forEach((btn) => {

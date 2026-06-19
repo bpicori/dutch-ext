@@ -1,23 +1,24 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
 import {
-  badgePill,
+  challengeLabel,
   challengeLayout,
+  dutchPromptWord,
   kbdFooter,
 } from '../ui/primitives.js';
 import { applyChoiceResult, bindChallengeSession, normalizeAnswer } from './shared.js';
 
 function buildHtml(challenge: Challenge): string {
-  const cardBody = `${badgePill('DE / HET')}
-    <div class="py-xl flex flex-col items-center">
-      <h1 class="type-display-word text-primary lowercase">${challenge.prompt}</h1>
+  const cardBody = `${challengeLabel('DE / HET')}
+    <div class="prompt-area">
+      ${dutchPromptWord(challenge.prompt, 'lowercase')}
     </div>
     <div class="w-full grid grid-cols-2 gap-md">
       <button data-answer="de" type="button" class="choice-btn choice-btn--grid btn-active group">
-        <span class="type-headline-md text-on-surface group-hover:text-primary transition-colors">DE</span>
+        <span class="type-headline-md text-ink group-hover:text-accent transition-colors">DE</span>
       </button>
       <button data-answer="het" type="button" class="choice-btn choice-btn--grid btn-active group">
-        <span class="type-headline-md text-on-surface group-hover:text-primary transition-colors">HET</span>
+        <span class="type-headline-md text-ink group-hover:text-accent transition-colors">HET</span>
       </button>
     </div>`;
 

@@ -1,13 +1,18 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
-import { badgePill, challengeShell, kbdFooter } from '../ui/primitives.js';
+import {
+  challengeLabel,
+  challengeShell,
+  dutchPromptSentence,
+  kbdFooter,
+} from '../ui/primitives.js';
 import { applyMatchResult, bindChallengeSession, shuffle, updateMatchLines } from './shared.js';
 
-const LEFT_IDLE = 'bg-surface-container border border-outline-variant opacity-60';
-const LEFT_ACTIVE = 'bg-surface-container-high border border-primary-container/30';
-const LEFT_MATCHED = 'bg-secondary-container/10 border border-secondary-container/40';
-const RIGHT_IDLE = 'bg-surface-container border border-outline-variant';
-const RIGHT_TAKEN = 'bg-secondary-container text-on-secondary-container pointer-events-none';
+const LEFT_IDLE = 'bg-card border border-border opacity-70';
+const LEFT_ACTIVE = 'bg-card-hover border border-accent/50';
+const LEFT_MATCHED = 'bg-success-dim/20 border border-success/40';
+const RIGHT_IDLE = 'bg-card border border-border';
+const RIGHT_TAKEN = 'bg-success-dim border-success text-ink pointer-events-none';
 const LEFT_BASE = 'match-left-btn w-full text-left p-sm rounded-lg border type-body-md';
 const RIGHT_BASE = 'choice-btn w-full text-center p-sm rounded-lg border';
 
@@ -43,11 +48,11 @@ function buildShellHtml(
     .join('');
 
   const contextHtml = challenge.context
-    ? `<div class="max-h-24 overflow-y-auto p-sm bg-surface-container-low rounded text-sm text-on-surface-variant">${challenge.context}</div>`
+    ? `<div class="context-block mb-sm"><p class="context-block__text text-sm">${challenge.context}</p></div>`
     : '';
 
-  const cardBody = `${badgePill('MATCHEN')}
-    <p class="type-body-md text-on-surface text-center">${challenge.prompt}</p>
+  const cardBody = `${challengeLabel('MATCHEN')}
+    <div class="prompt-area py-sm">${dutchPromptSentence(challenge.prompt)}</div>
     ${contextHtml}
     <svg id="match-lines" class="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg"></svg>
     <div class="grid grid-cols-2 gap-md relative z-10">

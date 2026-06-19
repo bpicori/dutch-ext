@@ -100,32 +100,42 @@ Logic lives in `sm2.ts` (`pickNext`, `advance`). Orchestrator calls `gradeRespon
 
 Legacy storage key `consecutiveStreaks` is migrated to `intervalIndex` on load.
 
-## Design system (Warm Stone, dark-only)
+## Design system (calm new-tab, dark-only)
 
 Three layers: **tokens** → **CSS components** → **TS primitives**.
 
+Aesthetic: **calm new-tab atmosphere** (soft radial gradients on `canvas`) + **flashcard-native** interaction (`.flashcard` / `.challenge-card`, flat borders, subtle shadow) + **editorial Dutch prompts** (Lora serif via `.type-prompt-word` / `.type-prompt-sentence`; Inter for UI).
+
 | Layer | File | Role |
 | ----- | ---- | ---- |
-| Tokens | `tailwind.config.js` | M3 warm-stone palette (trimmed to used colors), spacing, typography, `max-w-challenge` (420px) |
-| Components | `src/input.css` `@layer components` | `.challenge-shell`, `.challenge-card`, `.badge-pill`, `.choice-btn`, `.btn-primary`, `.skip-link`, `.kbd-footer`, `.type-*` |
-| Primitives | `src/ui/primitives.ts` | HTML builders: `challengeLayout`, `badgePill`, `choiceButton`, `kbdFooter`, `primaryButton`, etc. |
+| Tokens | `tailwind.config.js` | Semantic palette (`canvas`, `card`, `ink`, `muted`, `accent`, `success`, `error`, `border`), spacing, `max-w-challenge` (400px), Lora + Inter |
+| Components | `src/input.css` `@layer components` | `.flashcard`, `.challenge-card`, `.challenge-label`, `.choice-btn`, `.btn-primary`, `.skip-link`, `.kbd-footer`, `.type-prompt-*`, `.type-body-*` |
+| Primitives | `src/ui/primitives.ts` | HTML builders: `challengeLayout`, `challengeLabel`, `dutchPromptWord`, `dutchPromptSentence`, `choiceButton`, `kbdFooter`, `primaryButton`, etc. |
 
 ### Token roles
 
 | Role | Tokens |
 | ---- | ------ |
-| Canvas | `background`, `surface-container`, `surface-container-high` |
-| Text | `on-surface`, `on-surface-variant` |
-| Brand | `primary`, `primary-container` |
-| Success | `secondary`, `secondary-container` |
-| Error | `on-tertiary-container`, `on-tertiary` |
-| Border | `outline-variant` |
+| Canvas | `canvas`, `background` |
+| Card | `card`, `card-hover` |
+| Text | `ink`, `muted` |
+| Accent | `accent`, `accent-dim` |
+| Success / error | `success`, `success-dim`, `error`, `error-dim` |
+| Border | `border`, `border-strong` |
+
+Legacy M3 class names (`on-surface`, `primary-container`, etc.) remain as aliases for gradual migration.
+
+### Typography
+
+- **UI** (Inter): `.type-body-md`, `.type-body-lg`, `.type-headline-md`, `.type-label-sm`
+- **Dutch prompts** (Lora): `.type-prompt-word` (single words, de/het), `.type-prompt-sentence` (phrases, MCQ stems)
+- Use `dutchPromptWord()` / `dutchPromptSentence()` from primitives — never raw display classes in challenge modules
 
 ### Component classes
 
-- `.choice-btn--correct` / `--wrong` / `--muted` — result states (replaces `!important` overrides)
+- `.choice-btn--correct` / `--wrong` / `--muted` — result states
 - `.state-success` / `.state-error` — card feedback glow (aliases `success-glow` / `error-glow`)
-- `.type-display-word`, `.type-body-md`, etc. — single-class typography (replaces dual `font-* text-*`)
+- `.glass-card` — alias for `.flashcard` (legacy)
 
 ### Adding a new challenge type
 
@@ -135,8 +145,8 @@ Use primitives from `src/ui/primitives.ts`; add type-specific layout only when t
 
 - Motion tokens: `--duration-fast`, `--duration-normal` in `:root`
 - `prefers-reduced-motion: reduce` disables shake, slide, and word animations
-- Interactive elements use `focus-visible:ring-2 ring-primary-container`
+- Interactive elements use `focus-visible:ring-2 ring-accent`
 
 ## Tailwind
 
-Standalone CLI tailwindcss v3.4.17. Config: `tailwind.config.js` scans `./src/**/*.{html,ts}`. Custom animations and glass-card utilities in `src/input.css`.
+Standalone CLI tailwindcss v3.4.17. Config: `tailwind.config.js` scans `./src/**/*.{html,ts}`. Custom animations and `.flashcard` utilities in `src/input.css`.

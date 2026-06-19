@@ -10,14 +10,33 @@ export function challengeCard(body: string): string {
   return `<div id="challenge" class="challenge-card">${body}</div>`;
 }
 
-export function badgePill(label: string): string {
-  return `<div class="badge-pill"><span class="badge-pill__text">${label}</span></div>`;
+export function challengeLabel(label: string): string {
+  return `<p class="challenge-label">${label}</p>`;
+}
+
+/** @deprecated Use challengeLabel */
+export const badgePill = challengeLabel;
+
+export function dutchPromptWord(text: string, extraClass = ''): string {
+  return `<h1 class="type-prompt-word${extraClass ? ` ${extraClass}` : ''}">${text}</h1>`;
+}
+
+export function dutchPromptSentence(text: string): string {
+  return `<h1 class="type-prompt-sentence">${text}</h1>`;
+}
+
+export function promptSubtitle(text: string): string {
+  return `<p class="prompt-subtitle">${text}</p>`;
+}
+
+export function promptArea(inner: string): string {
+  return `<div class="prompt-area">${inner}</div>`;
 }
 
 export function choiceButton(answer: string, label: string, index: number): string {
   return `<button data-answer="${escapeAttr(answer)}" data-index="${index}" type="button" class="choice-btn group">
-    <span class="type-body-lg text-on-surface">${label}</span>
-    <span class="text-label-sm text-on-surface-variant opacity-40 group-hover:opacity-100 transition-opacity">${index + 1}</span>
+    <span class="type-body-lg text-ink">${label}</span>
+    <span class="text-label-sm text-muted opacity-50 group-hover:opacity-90 transition-opacity">${index + 1}</span>
   </button>`;
 }
 
@@ -33,7 +52,7 @@ export function kbdFooter(hints: { key: string; label?: string; icon?: string }[
   const items = hints
     .map((h) => {
       const keyPart = h.icon
-        ? `<span class="material-symbols-outlined" style="font-size: 16px">${h.icon}</span>`
+        ? `<span class="material-symbols-outlined text-muted" style="font-size: 16px">${h.icon}</span>`
         : kbdChip(h.key);
       const labelPart = h.label ? `<span>${h.label}</span>` : '';
       return `<div class="kbd-footer__hint">${keyPart}${labelPart}</div>`;
@@ -48,7 +67,7 @@ export function primaryButton(id: string, label: string, hidden = false): string
 }
 
 export function contextBlock(text: string): string {
-  return `<div class="context-block"><p class="type-body-md text-on-surface-variant whitespace-pre-wrap">${text}</p></div>`;
+  return `<div class="context-block"><p class="context-block__text">${text}</p></div>`;
 }
 
 export function challengeLayout(cardBody: string, footer = ''): string {

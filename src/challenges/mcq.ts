@@ -1,11 +1,15 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule } from './types.js';
 import {
-  badgePill,
+  challengeLabel,
   challengeLayout,
   choiceButton,
   contextBlock,
+  dutchPromptSentence,
+  dutchPromptWord,
   kbdFooter,
+  promptArea,
+  promptSubtitle,
 } from '../ui/primitives.js';
 import { applyChoiceResult, bindMcqPresent, matchesAnswer, shuffle, speak } from './shared.js';
 
@@ -30,28 +34,25 @@ function buildPrompt(challenge: Challenge, config: McqConfig): string {
   const { subtitle, promptMode } = config;
 
   if (promptMode === 'audio') {
-    return `<div class="text-center py-md w-full">
-      <button type="button" id="replay-audio" class="mb-sm material-symbols-outlined text-primary-container text-3xl hover:opacity-80 transition-opacity">volume_up</button>
-      <h1 class="type-display-sentence text-primary">${challenge.prompt}</h1>
-      <p class="text-on-surface-variant type-label-sm mt-xs opacity-60">${subtitle}</p></div>`;
+    return promptArea(`
+      <button type="button" id="replay-audio" class="mb-sm material-symbols-outlined text-accent text-3xl hover:opacity-80 transition-opacity">volume_up</button>
+      ${dutchPromptSentence(challenge.prompt)}
+      ${promptSubtitle(subtitle)}`);
   }
 
   if (promptMode === 'context' && challenge.context) {
     return `<div class="w-full">
       ${contextBlock(challenge.context)}
-      <h1 class="type-body-lg text-on-surface text-center mt-md">${challenge.prompt}</h1>
-      <p class="text-on-surface-variant type-label-sm mt-xs opacity-60 text-center">${subtitle}</p></div>`;
+      <div class="prompt-area mt-md">${dutchPromptSentence(challenge.prompt)}${promptSubtitle(subtitle)}</div></div>`;
   }
 
-  const promptClass = config.promptClass ? ` ${config.promptClass}` : '';
-  return `<div class="text-center py-md">
-    <h1 class="type-display-word text-primary${promptClass}">${challenge.prompt}</h1>
-    <p class="text-on-surface-variant type-label-sm mt-xs opacity-60">${subtitle}</p></div>`;
+  const extraClass = config.promptClass ?? '';
+  return promptArea(`${dutchPromptWord(challenge.prompt, extraClass)}${promptSubtitle(subtitle)}`);
 }
 
 function buildHtml(challenge: Challenge, choices: string[], config: McqConfig): string {
   const choicesHtml = choices.map((choice, i) => choiceButton(choice, choice, i)).join('');
-  const cardBody = `${badgePill(config.badge)}${buildPrompt(challenge, config)}
+  const cardBody = `${challengeLabel(config.badge)}${buildPrompt(challenge, config)}
     <div class="w-full flex flex-col gap-sm">${choicesHtml}</div>`;
 
   return challengeLayout(cardBody, MCQ_KBD_FOOTER);

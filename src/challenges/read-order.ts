@@ -1,8 +1,9 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
 import {
-  badgePill,
+  challengeLabel,
   challengeLayout,
+  dutchPromptSentence,
   kbdFooter,
   primaryButton,
 } from '../ui/primitives.js';
@@ -12,9 +13,9 @@ function buildListHtml(items: string[]): string {
   return items
     .map(
       (item, i) =>
-        `<div draggable="true" data-order-idx="${i}" class="order-item flex items-center gap-sm w-full p-md rounded-lg border border-outline-variant bg-surface-container cursor-grab active:cursor-grabbing transition-all duration-150 select-none">
-      <span class="material-symbols-outlined text-on-surface-variant opacity-50 shrink-0 pointer-events-none" style="font-size: 20px">drag_indicator</span>
-      <span class="order-item-text flex-1 text-left type-body-md">${i + 1}. ${item}</span>
+        `<div draggable="true" data-order-idx="${i}" class="order-item flex items-center gap-sm w-full p-md rounded-lg border border-border bg-card cursor-grab active:cursor-grabbing transition-all duration-150 select-none">
+      <span class="material-symbols-outlined text-muted opacity-50 shrink-0 pointer-events-none" style="font-size: 20px">drag_indicator</span>
+      <span class="order-item-text flex-1 text-left type-body-md text-ink">${i + 1}. ${item}</span>
     </div>`,
     )
     .join('');
@@ -30,7 +31,7 @@ function createOrderListController(
 
   const clearDropTargets = () => {
     container.querySelectorAll('.order-item').forEach((el) => {
-      el.classList.remove('border-primary-container', 'bg-surface-container-high', 'scale-[1.01]');
+      el.classList.remove('border-accent', 'bg-card-hover', 'scale-[1.01]');
     });
   };
 
@@ -85,11 +86,11 @@ function createOrderListController(
       e.preventDefault();
       if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
       clearDropTargets();
-      item.classList.add('border-primary-container', 'bg-surface-container-high', 'scale-[1.01]');
+      item.classList.add('border-accent', 'bg-card-hover', 'scale-[1.01]');
     });
 
     item.addEventListener('dragleave', () => {
-      item.classList.remove('border-primary-container', 'bg-surface-container-high', 'scale-[1.01]');
+      item.classList.remove('border-accent', 'bg-card-hover', 'scale-[1.01]');
     });
 
     item.addEventListener('drop', (e) => {
@@ -118,8 +119,8 @@ function present(container: HTMLElement, challenge: Challenge): Promise<UserResp
   const orderItems = challenge.orderItems ?? [];
   const shuffled = shuffle([...orderItems]);
 
-  const cardBody = `${badgePill('ORDENEN')}
-    <p class="type-body-md text-on-surface text-center">${challenge.prompt}</p>
+  const cardBody = `${challengeLabel('ORDENEN')}
+    <div class="prompt-area py-sm">${dutchPromptSentence(challenge.prompt)}</div>
     <div id="order-list" class="flex flex-col gap-sm w-full">${buildListHtml(shuffled)}</div>
     ${primaryButton('order-submit', 'Controleer')}
     <div id="order-feedback" class="hidden"></div>`;

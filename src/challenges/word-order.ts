@@ -1,8 +1,9 @@
 import { Challenge } from '../types.js';
 import { ChallengeModule, UserResponse } from './types.js';
 import {
-  badgePill,
+  challengeLabel,
   challengeLayout,
+  dutchPromptSentence,
   kbdFooter,
   primaryButton,
 } from '../ui/primitives.js';
@@ -15,13 +16,13 @@ import {
 } from './shared.js';
 
 const BUILT_PLACEHOLDER_HTML =
-  '<span class="word-built-placeholder text-on-surface-variant opacity-40 type-label-sm">Click words to build the sentence</span>';
+  '<span class="word-built-placeholder text-muted opacity-50 type-label-sm normal-case tracking-normal">Click words to build the sentence</span>';
 
 function buildPoolHtml(wordPool: string[]): string {
   return wordPool
     .map(
       (w, i) =>
-        `<button type="button" data-word-idx="${i}" class="word-pool-btn px-md py-sm rounded-full border border-outline-variant bg-surface-container type-body-md transition-transform duration-150 active:scale-95">${w}</button>`,
+        `<button type="button" data-word-idx="${i}" class="word-pool-btn px-md py-sm rounded-lg border border-border bg-card type-body-md text-ink transition-transform duration-150 active:scale-95 hover:border-accent hover:bg-card-hover">${w}</button>`,
     )
     .join('');
 }
@@ -62,7 +63,7 @@ function createWordPoolController(
     builtEl.querySelector('.word-built-placeholder')?.remove();
     const span = document.createElement('span');
     span.className =
-      'word-built-token px-sm py-xs bg-primary-container/20 rounded type-body-md animate-word-in';
+      'word-built-token px-sm py-xs bg-accent/15 rounded font-editorial text-body-md text-ink animate-word-in';
     span.textContent = word;
     builtEl.appendChild(span);
   };
@@ -129,11 +130,11 @@ function createWordPoolController(
 function present(container: HTMLElement, challenge: Challenge): Promise<UserResponse> {
   const wordPool = shuffle(challenge.orderItems ?? []);
 
-  const cardBody = `${badgePill('WOORDVOLGORDE')}
-    <p class="type-body-md text-on-surface text-center">${challenge.prompt}</p>
-    <div id="word-built" class="min-h-[3rem] p-md border border-dashed border-outline-variant rounded-DEFAULT flex flex-wrap gap-xs items-center">${BUILT_PLACEHOLDER_HTML}</div>
+  const cardBody = `${challengeLabel('WOORDVOLGORDE')}
+    <div class="prompt-area py-sm">${dutchPromptSentence(challenge.prompt)}</div>
+    <div id="word-built" class="min-h-[3rem] p-md border border-dashed border-border rounded-lg flex flex-wrap gap-xs items-center">${BUILT_PLACEHOLDER_HTML}</div>
     <div id="word-pool" class="flex flex-wrap gap-sm justify-center">${buildPoolHtml(wordPool)}</div>
-    <button type="button" id="word-clear" class="text-label-sm text-on-surface-variant hover:text-on-surface">Clear</button>
+    <button type="button" id="word-clear" class="text-label-sm text-muted hover:text-ink transition-colors">Clear</button>
     ${primaryButton('word-submit', 'Controleer', true)}
     <div id="word-feedback" class="hidden"></div>`;
 
@@ -177,7 +178,7 @@ function showResult(
   if (correct) return;
   const feedback = container.querySelector('#word-feedback');
   if (feedback) {
-    feedback.innerHTML = `<p class="text-sm text-on-surface-variant">Correct: <span class="text-secondary">${highlightDiff(userAnswer, challenge.correctAnswer)}</span></p>`;
+    feedback.innerHTML = `<p class="text-sm text-muted">Correct: <span class="text-success font-editorial">${highlightDiff(userAnswer, challenge.correctAnswer)}</span></p>`;
     feedback.classList.remove('hidden');
   }
 }

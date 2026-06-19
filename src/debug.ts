@@ -88,21 +88,21 @@ export class DebugMode {
     panel.id = 'debug-panel';
     panel.className = 'fixed top-md right-container-padding z-[100] w-56';
     panel.innerHTML = `
-      <div class="glass-card p-md rounded-lg flex flex-col gap-sm border border-primary-container/30">
+      <div class="flashcard p-md flex flex-col gap-sm border border-border">
         <div class="flex items-center justify-between">
-          <span class="type-label-sm text-primary-container font-bold uppercase tracking-widest">Debug</span>
-          <button type="button" id="debug-close" class="text-on-surface-variant hover:text-on-surface transition-colors material-symbols-outlined" style="font-size: 18px" aria-label="Close debug mode">close</button>
+          <span class="type-label-sm text-accent font-semibold normal-case tracking-wide">Debug</span>
+          <button type="button" id="debug-close" class="text-muted hover:text-ink transition-colors material-symbols-outlined" style="font-size: 18px" aria-label="Close debug mode">close</button>
         </div>
-        <label class="type-label-sm text-on-surface-variant" for="debug-type-select">Challenge type</label>
-        <select id="debug-type-select" class="w-full p-sm rounded-DEFAULT border border-outline-variant bg-surface-container text-on-surface type-body-md text-sm focus:outline-none focus:border-primary-container focus-visible:ring-2 focus-visible:ring-primary-container">
+        <label class="type-label-sm text-muted normal-case tracking-normal" for="debug-type-select">Challenge type</label>
+        <select id="debug-type-select" class="w-full p-sm rounded-lg border border-border bg-card text-ink type-body-md text-sm focus:outline-none focus:border-accent focus-visible:ring-2 focus-visible:ring-accent">
           <option value="">— select —</option>
           ${CHALLENGE_TYPES.map(
             (type) =>
               `<option value="${type}" ${type === this.selectedType ? 'selected' : ''}>${formatTypeLabel(type)} (${this.countForType(type)})</option>`,
           ).join('')}
         </select>
-        <p id="debug-count" class="type-label-sm text-on-surface-variant"></p>
-        <p class="type-label-sm text-on-surface-variant opacity-60">⌘D to toggle</p>
+        <p id="debug-count" class="type-label-sm text-muted normal-case tracking-normal"></p>
+        <p class="type-label-sm text-muted normal-case tracking-normal opacity-60">⌘D to toggle</p>
       </div>`;
 
     document.body.appendChild(panel);

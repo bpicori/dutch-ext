@@ -4,21 +4,21 @@
 
 :root {
   --duration-fast: 150ms;
-  --duration-normal: 200ms;
+  --duration-normal: 220ms;
   --duration-slow: 400ms;
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --color-success-glow: rgba(37, 164, 117, 0.15);
-  --color-success-border: rgba(37, 164, 117, 0.3);
-  --color-error-glow: rgba(188, 0, 54, 0.15);
-  --color-error-border: rgba(188, 0, 54, 0.3);
-  --color-match-line: #25a475;
+  --color-success-glow: rgba(45, 155, 110, 0.12);
+  --color-success-border: rgba(45, 155, 110, 0.35);
+  --color-error-glow: rgba(196, 92, 106, 0.12);
+  --color-error-border: rgba(196, 92, 106, 0.35);
+  --color-match-line: #2d9b6e;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -33,7 +33,7 @@
   }
   to {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
@@ -47,20 +47,20 @@
   50%,
   70%,
   90% {
-    transform: translateX(-4px);
+    transform: translateX(-3px);
   }
   20%,
   40%,
   60%,
   80% {
-    transform: translateX(4px);
+    transform: translateX(3px);
   }
 }
 
 @keyframes wordIn {
   from {
     opacity: 0;
-    transform: scale(0.85) translateY(4px);
+    transform: scale(0.9) translateY(3px);
   }
   to {
     opacity: 1;
@@ -75,19 +75,21 @@
   }
   to {
     opacity: 0;
-    transform: scale(0.85);
+    transform: scale(0.9);
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-canvas text-ink antialiased;
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% -10%, rgba(232, 192, 102, 0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(45, 155, 110, 0.04) 0%, transparent 55%);
   }
 }
 
 @layer components {
-  .type-display-word {
-    @apply font-display-word text-display-word;
-  }
-
-  .type-display-sentence {
-    @apply font-display-sentence text-display-sentence;
-  }
-
+  /* UI typography (Inter) */
   .type-body-lg {
     @apply font-body-lg text-body-lg;
   }
@@ -101,72 +103,95 @@
   }
 
   .type-label-sm {
-    @apply font-label-sm text-label-sm;
+    @apply font-label-sm text-label-sm uppercase;
   }
 
+  /* Editorial typography (Lora) — Dutch prompts */
+  .type-prompt-word {
+    @apply font-editorial text-prompt-word text-ink;
+  }
+
+  .type-prompt-sentence {
+    @apply font-editorial text-prompt-sentence text-ink;
+  }
+
+  .prompt-subtitle {
+    @apply type-label-sm text-muted normal-case tracking-wide mt-sm opacity-80;
+  }
+
+  .prompt-area {
+    @apply text-center py-md w-full;
+  }
+
+  /* Flashcard shell */
   .challenge-shell {
     @apply animate-fade-in w-full flex flex-col items-center;
   }
 
+  .flashcard {
+    @apply w-full bg-card border border-border rounded-lg flex flex-col gap-lg relative overflow-hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
+  }
+
   .challenge-card {
-    @apply glass-card w-full rounded-DEFAULT p-lg flex flex-col gap-lg relative overflow-hidden;
+    @apply flashcard p-lg;
   }
 
-  .badge-pill {
-    @apply bg-surface-container-highest px-sm py-xs rounded-full border border-outline-variant self-center;
-  }
-
-  .badge-pill__text {
-    @apply type-label-sm text-on-surface-variant tracking-[0.2em];
+  .challenge-label {
+    @apply type-label-sm text-muted text-center tracking-[0.2em];
   }
 
   .choice-btn {
-    @apply flex items-center justify-between w-full p-md bg-surface-container rounded-DEFAULT border border-outline-variant
-      hover:border-primary-container hover:bg-surface-container-high transition-all
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container;
+    @apply flex items-center justify-between w-full px-md py-sm bg-card border border-border rounded-lg
+      hover:border-accent hover:bg-card-hover transition-colors
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-card;
   }
 
   .choice-btn--correct {
-    @apply bg-secondary-container border-secondary-container text-on-secondary-container pointer-events-none;
+    @apply bg-success-dim border-success text-ink pointer-events-none;
   }
 
   .choice-btn--wrong {
-    @apply bg-on-tertiary/10 border-on-tertiary-container text-on-surface pointer-events-none animate-shake;
+    @apply bg-error-dim/30 border-error text-ink pointer-events-none animate-shake;
   }
 
   .choice-btn--muted {
-    @apply opacity-40 pointer-events-none;
+    @apply opacity-35 pointer-events-none;
   }
 
   .choice-btn--grid {
-    @apply flex-col items-center justify-center py-lg bg-surface-container-high hover:bg-surface-bright rounded-lg;
+    @apply flex-col items-center justify-center py-lg hover:bg-card-hover;
   }
 
   .skip-link {
-    @apply mt-lg type-label-sm text-on-surface-variant hover:text-on-surface transition-colors uppercase tracking-widest py-xs
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container rounded;
+    @apply mt-lg type-label-sm text-muted hover:text-ink transition-colors normal-case tracking-widest py-xs
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded;
   }
 
   .kbd-chip {
-    @apply bg-surface-container-highest text-on-surface-variant type-label-sm px-2 py-1 rounded border border-outline-variant;
+    @apply bg-card-hover text-muted type-label-sm normal-case tracking-normal px-2 py-0.5 rounded border border-border;
   }
 
   .kbd-footer {
-    @apply mt-xl flex justify-center items-center gap-lg;
+    @apply mt-xl flex justify-center items-center gap-lg flex-wrap;
   }
 
   .kbd-footer__hint {
-    @apply flex items-center gap-sm type-label-sm text-on-surface-variant opacity-60;
+    @apply flex items-center gap-sm type-label-sm text-muted normal-case tracking-normal opacity-70;
   }
 
   .btn-primary {
-    @apply w-full py-md rounded-full bg-primary-container text-on-primary-container type-label-sm font-bold uppercase tracking-widest
+    @apply w-full py-md rounded-lg bg-accent text-canvas type-label-sm font-semibold normal-case tracking-wide
       hover:opacity-90 transition-opacity btn-active
-      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-container focus-visible:ring-offset-2 focus-visible:ring-offset-surface-container;
+      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-card;
   }
 
   .context-block {
-    @apply w-full max-h-32 overflow-y-auto text-left p-md bg-surface-container-low rounded-DEFAULT border border-outline-variant;
+    @apply w-full max-h-36 overflow-y-auto text-left p-md bg-card-hover rounded-lg border border-border;
+  }
+
+  .context-block__text {
+    @apply font-editorial text-body-md text-ink leading-relaxed whitespace-pre-wrap;
   }
 }
 
@@ -207,20 +232,15 @@
 }
 
 .glass-card {
-  background: rgba(34, 31, 30, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  @apply flashcard;
 }
 
 .glow-overlay {
   position: fixed;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(252, 211, 77, 0.05) 0%, rgba(252, 211, 77, 0) 70%);
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(232, 192, 102, 0.04) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(45, 155, 110, 0.03) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -231,21 +251,21 @@
 
 .state-error,
 .error-glow {
-  box-shadow: 0 0 40px var(--color-error-glow);
-  border-color: var(--color-error-border);
+  box-shadow: 0 0 32px var(--color-error-glow);
+  border-color: var(--color-error-border) !important;
 }
 
 .state-success,
 .success-glow {
-  box-shadow: 0 0 40px var(--color-success-glow);
-  border-color: var(--color-success-border);
+  box-shadow: 0 0 32px var(--color-success-glow);
+  border-color: var(--color-success-border) !important;
 }
 
 .match-line {
   stroke: var(--color-match-line);
   stroke-width: 2;
   stroke-dasharray: 4 2;
-  filter: drop-shadow(0 0 4px rgba(37, 164, 117, 0.4));
+  opacity: 0.7;
 }
 
 .material-symbols-outlined {
