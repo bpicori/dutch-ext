@@ -5,7 +5,7 @@ export function renderAppShell(): string {
     <div class="glow-overlay"></div>
     <header class="fixed top-0 left-0 w-full z-50 flex items-center px-container-padding py-md">
       <div class="flex items-center gap-xs type-label-sm text-muted normal-case tracking-normal">
-        <span class="material-symbols-outlined text-accent-dim" style="font-variation-settings: 'FILL' 1; font-size: 18px">local_florist</span>
+        <img src="icons/icon48.png" alt="" width="18" height="18" class="rounded-[4px]" />
         <span class="font-medium text-ink/80">TabTaal</span>
       </div>
     </header>
