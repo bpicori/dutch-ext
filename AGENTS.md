@@ -18,6 +18,10 @@ npm install && ./build.sh
 
 No auto-reload on build. Manually click the reload icon on the extension card.
 
+## Publish to Chrome Web Store
+
+See [docs/publish-chrome-web-store.md](./docs/publish-chrome-web-store.md) for registration, zip packaging, listing copy, privacy fields, and submission.
+
 ## Architecture
 
 ```

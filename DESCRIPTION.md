@@ -56,4 +56,4 @@ A daily streak counts consecutive days with at least one completed challenge.
 - Challenge content in JSON (`challenges/examples/`); progress in `chrome.storage.local`
 - Core modules: storage (data + scheduling + grading), renderer (UI), game loop (orchestration)
 
-For build steps, architecture detail, and contributor notes, see [AGENTS.md](./AGENTS.md).
+For build steps, architecture detail, and contributor notes, see [AGENTS.md](./AGENTS.md). To ship to the Chrome Web Store, see [docs/publish-chrome-web-store.md](./docs/publish-chrome-web-store.md).
