@@ -5,7 +5,7 @@ import { advance, DEFAULT_PROGRESS, pickNext } from './sm2.js';
 
 type ContinueAction = 'continue' | 'dismiss';
 
-function waitForContinue(): Promise<ContinueAction> {
+function waitForContinue(challengeArea: HTMLElement): Promise<ContinueAction> {
   return new Promise((resolve) => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -21,8 +21,18 @@ function waitForContinue(): Promise<ContinueAction> {
       }
     };
 
-    const cleanup = () => document.removeEventListener('keydown', onKey);
+    const onClick = (e: MouseEvent) => {
+      if (challengeArea.contains(e.target as Node)) return;
+      cleanup();
+      resolve('continue');
+    };
+
+    const cleanup = () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('click', onClick);
+    };
     document.addEventListener('keydown', onKey);
+    document.addEventListener('click', onClick);
   });
 }
 
@@ -60,7 +70,7 @@ export class Orchestrator {
       impl.showResult(area, challenge, answer, correct);
       this.showContinueHint(area);
 
-      if ((await waitForContinue()) === 'dismiss') {
+      if ((await waitForContinue(area)) === 'dismiss') {
         this.dismiss();
         return;
       }
@@ -72,7 +82,7 @@ export class Orchestrator {
     hint.id = 'continue-hint';
     hint.className =
       'mt-xl flex justify-center items-center gap-sm font-label-sm text-label-sm text-on-surface-variant opacity-60';
-    hint.innerHTML = `${kbdChip('Enter')}<span>Next challenge</span>`;
+    hint.innerHTML = `${kbdChip('Enter')}<span>or click outside</span><span>Next challenge</span>`;
     area.appendChild(hint);
   }
 
