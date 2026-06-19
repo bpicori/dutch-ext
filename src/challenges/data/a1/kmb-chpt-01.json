@@ -1,0 +1,100 @@
+[
+  {
+    "id": "a1.kmb-chpt01.goedemorgen.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Goedemorgen! Hoe gaat het met u?",
+    "choices": ["Goedemorgen, het gaat goed, dank u.", "Ik ben de fiets.", "Tot ziens morgen!"],
+    "correctAnswer": "Goedemorgen, het gaat goed, dank u.",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.hoe-heet-jij.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Hoe heet jij?",
+    "choices": ["Ik heet Maria.", "Ik woon in Utrecht.", "Ik ben 32 jaar."],
+    "correctAnswer": "Ik heet Maria.",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.leuk-ontmoeten.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Leuk je te ontmoeten!",
+    "choices": ["Aangenaam!", "Welterusten!", "Tot volgende week!"],
+    "correctAnswer": "Aangenaam!",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.waar-kom-je.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Waar kom jij vandaan?",
+    "choices": ["Ik kom uit Spanje.", "Ik woon in Amsterdam.", "Ik ben getrouwd."],
+    "correctAnswer": "Ik kom uit Spanje.",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.volwassene.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "volwassene",
+    "choices": ["adult", "child", "boy"],
+    "correctAnswer": "adult",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.voornaam.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "voornaam",
+    "choices": ["first name", "postcode", "alphabet"],
+    "correctAnswer": "first name",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.groeten.en_to_nl",
+    "type": "en_to_nl",
+    "prompt": "to greet",
+    "choices": ["groeten", "spellen", "werken"],
+    "correctAnswer": "groeten",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.ik-ben-man.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Ben je een man? Ja, ik ___ een man.",
+    "choices": ["ben", "heb", "woon"],
+    "correctAnswer": "ben",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.familie-de-boer.read_mcq",
+    "type": "read_mcq",
+    "context": "Ik ben Elsa. Ik ben een vrouw. Hij is Michiel. Hij is een jongen. Zij is Lotte. Zij is een meisje. Wij zijn Elsa en Johan. Wij zijn volwassenen.",
+    "prompt": "Wie is een jongen?",
+    "choices": ["Michiel", "Lotte", "Elsa"],
+    "correctAnswer": "Michiel",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.jansen-getrouwd.read_mcq",
+    "type": "read_mcq",
+    "context": "Meneer Johan Jansen en mevrouw Elsa de Boer zijn getrouwd. Zij zijn volwassenen.",
+    "prompt": "Zijn meneer Jansen en mevrouw De Boer getrouwd?",
+    "choices": ["Ja", "Nee", "Alleen Johan"],
+    "correctAnswer": "Ja",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.formeel-aanspreken.knm",
+    "type": "knm",
+    "prompt": "Je spreekt een onbekende docent aan in de les. Welk voornaamwoord gebruik je?",
+    "choices": ["u", "jij", "zij"],
+    "correctAnswer": "u",
+    "tags": ["kmb", "chpt-01"]
+  },
+  {
+    "id": "a1.kmb-chpt01.hoe-gaat-het.knm",
+    "type": "knm",
+    "prompt": "Een buurman vraagt informeel: 'Hoe gaat het met jou?' Wat is een goed antwoord?",
+    "choices": ["Het gaat goed. En met jou?", "Ik woon in Huizen.", "Mag ik naar de wc?"],
+    "correctAnswer": "Het gaat goed. En met jou?",
+    "tags": ["kmb", "chpt-01"]
+  }
+]

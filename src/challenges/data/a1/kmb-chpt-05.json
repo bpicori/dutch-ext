@@ -1,0 +1,108 @@
+[
+  {
+    "id": "a1.kmb-chpt05.pardon.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Pardon, mag ik u iets vragen?",
+    "choices": ["Ja hoor, dat mag!", "Ik ben de weg kwijt.", "Tot ziens!"],
+    "correctAnswer": "Ja hoor, dat mag!",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.weg-kwijt.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Ik ben de weg kwijt.",
+    "choices": ["Dat is vervelend.", "Graag gedaan.", "Eerst moet je teruglopen."],
+    "correctAnswer": "Dat is vervelend.",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.bedankt.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Heel erg bedankt!",
+    "choices": ["Graag gedaan.", "Pardon.", "Ik ben de weg kwijt."],
+    "correctAnswer": "Graag gedaan.",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.irene-station.read_mcq",
+    "type": "read_mcq",
+    "context": "Irene: Ik woon hier niet. Ik moet naar het station.\nPolitieagent: Dan ben je hier verkeerd. Eerst moet je teruglopen naar de Kerkstraat.",
+    "prompt": "Waar moet Irene naartoe?",
+    "choices": ["Het station", "De Kerkstraat", "Het plein"],
+    "correctAnswer": "Het station",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.irene-rechterhand.read_mcq",
+    "type": "read_mcq",
+    "context": "Politieagent: Dan loop je rechtdoor en bij de tweede straat sla je rechtsaf. Daarna sla je bij de kruising linksaf. Aan je rechterhand zie je het station.",
+    "prompt": "Aan welke kant is het station?",
+    "choices": ["Aan je rechterhand", "Aan je linkerhand", "Op de hoek"],
+    "correctAnswer": "Aan je rechterhand",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.zebrapad.knm",
+    "type": "knm",
+    "prompt": "Je wilt oversteken bij het zebrapad. Wat doe je eerst?",
+    "choices": ["Kijk naar links, dan rechts, dan weer links", "Loop snel zonder te kijken", "Wacht tot het stoplicht groen is"],
+    "correctAnswer": "Kijk naar links, dan rechts, dan weer links",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.stoplicht-rood.knm",
+    "type": "knm",
+    "prompt": "Het stoplicht staat op rood. Wat moet je doen?",
+    "choices": ["Wachten tot het groen wordt", "Snel oversteken", "Naar rechts afslaan"],
+    "correctAnswer": "Wachten tot het groen wordt",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.rechtdoor.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "rechtdoor",
+    "choices": ["straight ahead", "left", "back"],
+    "correctAnswer": "straight ahead",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.kwijt.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "kwijt",
+    "choices": ["lost", "busy", "wrong"],
+    "correctAnswer": "lost",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.huisdieren.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Heb je huisdieren? Nee, ik heb ___ huisdieren.",
+    "choices": ["geen", "niet", "geen niet"],
+    "correctAnswer": "geen",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.nederlands.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Spreek je Nederlands? Nee, ik spreek ___ Nederlands.",
+    "choices": ["geen", "niet", "geen niet"],
+    "correctAnswer": "geen",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.weer-lekker.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Vind je het weer in Nederland lekker? Nee, ik vind het weer in Nederland ___ lekker.",
+    "choices": ["niet", "geen", "geen niet"],
+    "correctAnswer": "niet",
+    "tags": ["kmb", "chpt-05"]
+  },
+  {
+    "id": "a1.kmb-chpt05.oversteken.en_to_nl",
+    "type": "en_to_nl",
+    "prompt": "to cross the street",
+    "choices": ["de straat oversteken", "rechtdoor lopen", "teruglopen"],
+    "correctAnswer": "de straat oversteken",
+    "tags": ["kmb", "chpt-05"]
+  }
+]

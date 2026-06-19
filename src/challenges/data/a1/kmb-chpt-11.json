@@ -1,0 +1,123 @@
+[
+  {
+    "id": "a1.kmb-chpt11.provincies-aantal.read_mcq",
+    "type": "read_mcq",
+    "context": "Nederland heeft 12 provincies, met 12 hoofdsteden. De hoofdstad van het land is Amsterdam.",
+    "prompt": "Hoeveel provincies heeft Nederland?",
+    "choices": ["12", "10", "17"],
+    "correctAnswer": "12",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.provincie-zeeland.read_mcq",
+    "type": "read_mcq",
+    "context": "Provincie: Zeeland. Hoofdstad: Middelburg.",
+    "prompt": "Wat is de hoofdstad van Zeeland?",
+    "choices": ["Middelburg", "Maastricht", "Leeuwarden"],
+    "correctAnswer": "Middelburg",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.provincie-friesland.read_mcq",
+    "type": "read_mcq",
+    "context": "Provincie: Friesland. Hoofdstad: Leeuwarden.",
+    "prompt": "Wat is de hoofdstad van Friesland?",
+    "choices": ["Leeuwarden", "Groningen", "Zwolle"],
+    "correctAnswer": "Leeuwarden",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.provincie-zuid-holland.read_mcq",
+    "type": "read_mcq",
+    "context": "Provincie: Zuid-Holland. Hoofdstad: Den Haag (of: 's Gravenhage).",
+    "prompt": "Wat is de hoofdstad van Zuid-Holland?",
+    "choices": ["Den Haag", "Amsterdam", "Utrecht"],
+    "correctAnswer": "Den Haag",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.provincie-limburg.read_mcq",
+    "type": "read_mcq",
+    "context": "Provincie: Limburg. Hoofdstad: Maastricht.",
+    "prompt": "Wat is de hoofdstad van Limburg?",
+    "choices": ["Maastricht", "Arnhem", "Assen"],
+    "correctAnswer": "Maastricht",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.afsluitdijk.read_mcq",
+    "type": "read_mcq",
+    "context": "De Afsluitdijk verbindt Friesland en Noord-Holland sinds 1937. Het is een dijk van 32 km lang. Het IJsselmeer was vroeger zee. Door de Afsluitdijk is het zoet water geworden. De Noordzee is zout!",
+    "prompt": "Wat verbindt de Afsluitdijk?",
+    "choices": ["Friesland en Noord-Holland", "Zeeland en Limburg", "Utrecht en Gelderland"],
+    "correctAnswer": "Friesland en Noord-Holland",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.amsterdam-wandeling.read_mcq",
+    "type": "read_mcq",
+    "context": "Een wandeling door Amsterdam:\n• Start bij het Centraal Station. Loop richting het centrum naar de Dam.\n• Loop verder over het Rokin naar de Munttoren. Daar zie je de rivier de Amstel.\n• Loop door en bekijk de vier grachten: Prinsengracht, Keizersgracht, Herengracht en Singel.\n• Sla rechtsaf en loop richting het Museumplein.",
+    "prompt": "Welke rivier stroomt door Amsterdam?",
+    "choices": ["De Amstel", "De Rijn", "De Maas"],
+    "correctAnswer": "De Amstel",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.museumplein.read_mcq",
+    "type": "read_mcq",
+    "context": "Aan het Museumplein liggen de belangrijkste musea van Amsterdam: het Rijksmuseum, het Van Goghmuseum en het Stedelijk Museum.",
+    "prompt": "Welk museum ligt aan het Museumplein?",
+    "choices": ["Het Rijksmuseum", "Het Scheepvaartmuseum", "NEMO"],
+    "correctAnswer": "Het Rijksmuseum",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.weetjes-regering.read_mcq",
+    "type": "read_mcq",
+    "context": "Wist je dat… de regering in Den Haag zit? Rotterdam heeft de grootste haven van Europa.",
+    "prompt": "Waar zit de regering van Nederland?",
+    "choices": ["Den Haag", "Amsterdam", "Rotterdam"],
+    "correctAnswer": "Den Haag",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.hoofdstad-land.knm",
+    "type": "knm",
+    "prompt": "Wat is de hoofdstad van Nederland?",
+    "choices": ["Amsterdam", "Den Haag", "Rotterdam"],
+    "correctAnswer": "Amsterdam",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.regering-den-haag.knm",
+    "type": "knm",
+    "prompt": "Waar zit de Nederlandse regering?",
+    "choices": ["Den Haag", "Amsterdam", "Middelburg"],
+    "correctAnswer": "Den Haag",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.koning-willem-alexander.knm",
+    "type": "knm",
+    "prompt": "Hoe heet de koning van Nederland?",
+    "choices": ["Willem-Alexander", "Máxima", "Amalia"],
+    "correctAnswer": "Willem-Alexander",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.uitchecken-trein.knm",
+    "type": "knm",
+    "prompt": "Je reist met de trein in Nederland. Wat moet je niet vergeten?",
+    "choices": ["Uitchecken", "Reserveren bij de gemeente", "Je jas afgeven"],
+    "correctAnswer": "Uitchecken",
+    "tags": ["kmb", "chpt-11"]
+  },
+  {
+    "id": "a1.kmb-chpt11.pinnen-winkel.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Ik wil graag 500 gram zoete drop. Kan ik pinnen?",
+    "choices": ["Ja, u kunt hier pinnen.", "Het kost 2 euro 50.", "Nee, de winkel is gesloten."],
+    "correctAnswer": "Ja, u kunt hier pinnen.",
+    "tags": ["kmb", "chpt-11"]
+  }
+]

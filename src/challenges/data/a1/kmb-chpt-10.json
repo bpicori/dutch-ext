@@ -1,0 +1,111 @@
+[
+  {
+    "id": "a1.kmb-chpt10.koningsdag-vraag.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Wie kan mij iets vertellen over Koningsdag?",
+    "choices": ["Koningsdag! Dat is misschien wel mijn favoriete Nederlandse feest.", "In de winter is het koud.", "Ik ben aan het studeren."],
+    "correctAnswer": "Koningsdag! Dat is misschien wel mijn favoriete Nederlandse feest.",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.wat-doen-mensen.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "En wat doen mensen op Koningsdag?",
+    "choices": ["Sommige mensen verkopen hun oude spullen op een kleedjesmarkt.", "Het regent de hele dag.", "De lente begint op 21 maart."],
+    "correctAnswer": "Sommige mensen verkopen hun oude spullen op een kleedjesmarkt.",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.betekenis-naam.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Wat betekent de naam 'Koningsdag' eigenlijk?",
+    "choices": ["De verjaardag van de koning is op 27 april. Daarom viert iedereen feest.", "Het is altijd koud in de winter.", "Sinterklaas komt op 5 december."],
+    "correctAnswer": "De verjaardag van de koning is op 27 april. Daarom viert iedereen feest.",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.regent-het.dialogue_reply",
+    "type": "dialogue_reply",
+    "prompt": "Regent het de hele dag?",
+    "choices": ["Ja, het regent de hele dag.", "Ja, ik ben aan het spelen.", "Ja, ik heb gedronken."],
+    "correctAnswer": "Ja, het regent de hele dag.",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.koningsdag-datum.knm",
+    "type": "knm",
+    "prompt": "Wanneer is Koningsdag in Nederland?",
+    "choices": ["27 april", "5 december", "31 december"],
+    "correctAnswer": "27 april",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.koningsdag-waarom.knm",
+    "type": "knm",
+    "prompt": "Waarom vieren Nederlanders Koningsdag?",
+    "choices": ["Het is de verjaardag van koning Willem-Alexander", "Het is de eerste dag van de lente", "Het is de dag van Dodenherdenking"],
+    "correctAnswer": "Het is de verjaardag van koning Willem-Alexander",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.koningsdag-activiteit.knm",
+    "type": "knm",
+    "prompt": "Wat doen veel mensen op Koningsdag?",
+    "choices": ["Naar de kleedjesmarkt gaan of spullen verkopen", "Naar het strand zwemmen", "Sinterklaas verwachten"],
+    "correctAnswer": "Naar de kleedjesmarkt gaan of spullen verkopen",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.bevrijdingsdag.knm",
+    "type": "knm",
+    "prompt": "Wanneer is Bevrijdingsdag in Nederland?",
+    "choices": ["5 mei", "4 mei", "27 april"],
+    "correctAnswer": "5 mei",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.koningsdag-gesprek.read_mcq",
+    "type": "read_mcq",
+    "context": "Pedro woont nog niet lang in Nederland. Maria zegt: 'Vorig jaar heb ik voor het eerst Koningsdag gevierd. Ik ben toen in Amersfoort geweest.' Monique zegt: 'Ik ben vorig jaar in Amsterdam geweest. Dat was heel gezellig, maar ook heel erg druk.'",
+    "prompt": "Waar was Monique vorig jaar op Koningsdag?",
+    "choices": ["Amsterdam", "Amersfoort", "Groningen"],
+    "correctAnswer": "Amsterdam",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.seizoen-lente.read_mcq",
+    "type": "read_mcq",
+    "context": "De seizoenen in Nederland:\n21 maart: de lente begint.\n21 juni: de zomer begint.\n21 september: de herfst begint.\n21 december: de winter begint.",
+    "prompt": "Wanneer begint de lente?",
+    "choices": ["21 maart", "21 juni", "21 december"],
+    "correctAnswer": "21 maart",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.weer-herfst.read_mcq",
+    "type": "read_mcq",
+    "context": "Wat voor weer is het in de Nederlandse seizoenen?\nIn de lente schijnt de zon.\nIn de zomer is het warm.\nIn de herfst waait het hard en regent het veel.\nIn de winter is het koud. In de winter vriest het vaak.",
+    "prompt": "Hoe is het weer in de herfst?",
+    "choices": ["Het waait hard en het regent veel", "Het is warm", "De zon schijnt altijd"],
+    "correctAnswer": "Het waait hard en het regent veel",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.weer-winter.read_mcq",
+    "type": "read_mcq",
+    "context": "In de winter is het koud. In de winter vriest het vaak. In de winter hagelt het soms. In de winter sneeuwt het soms.",
+    "prompt": "Wat gebeurt er vaak in de winter?",
+    "choices": ["Het vriest", "Het is warm", "De bloesem bloeit"],
+    "correctAnswer": "Het vriest",
+    "tags": ["kmb", "chpt-10"]
+  },
+  {
+    "id": "a1.kmb-chpt10.feestdagen-kalender.read_mcq",
+    "type": "read_mcq",
+    "context": "Feestdagen in Nederland:\n1 januari: Nieuwjaarsdag\n27 april: Koningsdag\n4 mei: Dodenherdenking\n5 mei: Bevrijdingsdag\n5 december: Sinterklaas\n25/26 december: Kerstmis",
+    "prompt": "Wanneer is Dodenherdenking?",
+    "choices": ["4 mei", "5 mei", "27 april"],
+    "correctAnswer": "4 mei",
+    "tags": ["kmb", "chpt-10"]
+  }
+]
