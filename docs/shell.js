@@ -1,6 +1,6 @@
 import { kbdChip } from './ui/primitives.js';
 export function renderAppShell() {
-  return `
+    return `
     <div class="glow-overlay"></div>
     <header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-container-padding py-md">
       <div class="flex items-center gap-xs type-label-sm text-muted normal-case tracking-normal">
@@ -23,12 +23,13 @@ export function renderAppShell() {
   `;
 }
 export function mountAppShell() {
-  const app = document.getElementById('app');
-  if (!app) return;
-  app.innerHTML = renderAppShell();
+    const app = document.getElementById('app');
+    if (!app)
+        return;
+    app.innerHTML = renderAppShell();
 }
 export function renderDebugEmptyState() {
-  return `
+    return `
     <div id="challenge-wrapper" class="challenge-shell">
       <div class="flashcard p-lg flex flex-col gap-lg items-center text-center">
         <span class="material-symbols-outlined text-muted opacity-50" style="font-size: 36px">search_off</span>
@@ -38,10 +39,10 @@ export function renderDebugEmptyState() {
     </div>`;
 }
 export function mountContinueHint(area) {
-  const hint = document.createElement('div');
-  hint.id = 'continue-hint';
-  hint.className =
-    'mt-xl flex justify-center items-center gap-sm type-label-sm text-muted normal-case tracking-normal opacity-60';
-  hint.innerHTML = `${kbdChip('Enter')}<span>or click outside</span><span>Next challenge</span>`;
-  area.appendChild(hint);
+    const hint = document.createElement('div');
+    hint.id = 'continue-hint';
+    hint.className =
+        'mt-xl flex justify-center items-center gap-sm type-label-sm text-muted normal-case tracking-normal opacity-60';
+    hint.innerHTML = `${kbdChip('Enter')}<span>or click outside</span><span>Next challenge</span>`;
+    area.appendChild(hint);
 }
