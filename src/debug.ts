@@ -122,7 +122,9 @@ export class DebugMode {
       const value = (e.target as HTMLSelectElement).value;
       this.persistType(value ? (value as ChallengeType) : null);
     });
-    panel.querySelector('#debug-manage-ignored')?.addEventListener('click', () => this.showIgnoredManager(panel));
+    panel
+      .querySelector('#debug-manage-ignored')
+      ?.addEventListener('click', () => this.showIgnoredManager(panel));
 
     this.updateCount();
     this.updateIgnoredCount(panel);
@@ -140,18 +142,20 @@ export class DebugMode {
     const ignoredIds = this.getIgnored();
     const ignoredCards = deck.filter((c) => ignoredIds.includes(c.id));
 
-    const listHtml = ignoredCards.length === 0
-      ? `<p class="type-label-sm text-muted">No ignored challenges.</p>`
-      : ignoredCards
-          .map((c) => {
-            const label = (c.prompt || c.id).slice(0, 42) + ((c.prompt || c.id).length > 42 ? '…' : '');
-            return `
+    const listHtml =
+      ignoredCards.length === 0
+        ? `<p class="type-label-sm text-muted">No ignored challenges.</p>`
+        : ignoredCards
+            .map((c) => {
+              const label =
+                (c.prompt || c.id).slice(0, 42) + ((c.prompt || c.id).length > 42 ? '…' : '');
+              return `
               <div class="flex items-center justify-between gap-xs py-px">
                 <span class="type-label-sm truncate" title="${c.id}">${label}</span>
                 <button type="button" class="type-label-sm text-accent hover:underline unignore-btn" data-id="${c.id}">Un-ignore</button>
               </div>`;
-          })
-          .join('');
+            })
+            .join('');
 
     panel.innerHTML = `
       <div class="flashcard p-md flex flex-col gap-sm border border-border">

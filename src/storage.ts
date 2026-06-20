@@ -6,8 +6,7 @@ import {
   ReviewEntry,
   StreakState,
 } from './types.js';
-import { assetUrl, storageGet, storageSet } from './platform.js';
-import { addDays, toLocalDate } from './stats/dates.js';
+import { addDays, toLocalDate } from './stats.js';
 
 const PROGRESS_KEY = 'progress' as const;
 const REVIEW_DAILY_KEY = 'reviewDaily' as const;
@@ -124,20 +123,26 @@ export class StorageService {
   private ignored: Set<string> = new Set();
 
   async init(): Promise<void> {
-    const manifest: string[] = await fetch(assetUrl('challenges/manifest.json')).then((r) =>
-      r.json(),
+    const manifest: string[] = await fetch(chrome.runtime.getURL('challenges/manifest.json')).then(
+      (r) => r.json(),
     );
     const parts = await Promise.all(
       manifest.map(async (f) => {
-        const challenges: Challenge[] = await fetch(assetUrl(`challenges/${f}`)).then((r) =>
-          r.json(),
+        const challenges: Challenge[] = await fetch(chrome.runtime.getURL(`challenges/${f}`)).then(
+          (r) => r.json(),
         );
         return challenges.map((ch) => enrichChallenge(ch, f));
       }),
     );
     this.deck = parts.flat();
 
-    const data = await storageGet([PROGRESS_KEY, REVIEW_DAILY_KEY, REVIEW_LOG_KEY, STREAK_KEY, IGNORED_KEY]);
+    const data = (await chrome.storage.local.get([
+      PROGRESS_KEY,
+      REVIEW_DAILY_KEY,
+      REVIEW_LOG_KEY,
+      STREAK_KEY,
+      IGNORED_KEY,
+    ])) as Record<string, unknown>;
 
     const stored = data[PROGRESS_KEY];
     this.progress =
@@ -180,13 +185,13 @@ export class StorageService {
   async ignore(id: string): Promise<void> {
     if (this.ignored.has(id)) return;
     this.ignored.add(id);
-    await storageSet({ [IGNORED_KEY]: Array.from(this.ignored) });
+    await chrome.storage.local.set({ [IGNORED_KEY]: Array.from(this.ignored) });
   }
 
   async unignore(id: string): Promise<void> {
     if (!this.ignored.has(id)) return;
     this.ignored.delete(id);
-    await storageSet({ [IGNORED_KEY]: Array.from(this.ignored) });
+    await chrome.storage.local.set({ [IGNORED_KEY]: Array.from(this.ignored) });
   }
 
   isIgnored(id: string): boolean {
@@ -195,7 +200,7 @@ export class StorageService {
 
   async saveProgress(id: string, progress: ChallengeProgress): Promise<void> {
     this.progress = { ...this.progress, [id]: progress };
-    await storageSet({ [PROGRESS_KEY]: this.progress });
+    await chrome.storage.local.set({ [PROGRESS_KEY]: this.progress });
   }
 
   async logReview(
@@ -220,7 +225,7 @@ export class StorageService {
 
     this.streak = updateStreak(this.streak, today);
 
-    await storageSet({
+    await chrome.storage.local.set({
       [REVIEW_LOG_KEY]: this.reviewLog,
       [REVIEW_DAILY_KEY]: this.reviewDaily,
       [STREAK_KEY]: this.streak,
