@@ -17,7 +17,7 @@ node scripts/validate-challenges.mjs
 
 mkdir -p dist/challenges/data
 cp -R src/challenges/data/. dist/challenges/data/
-cp src/challenges/manifest.json dist/challenges/manifest.json
+cp src/challenges/deck.json dist/challenges/deck.json
 cp icons/*.png dist/icons/ 2>/dev/null || true
 cp -r src/images/* dist/images/ 2>/dev/null || true
 

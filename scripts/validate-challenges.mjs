@@ -5,42 +5,42 @@ import { validateChallengeArray, ValidationError } from './challenge-validation.
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CHALLENGES_DIR = join(ROOT, 'src/challenges');
-const MANIFEST_PATH = join(CHALLENGES_DIR, 'manifest.json');
+const DECK_PATH = join(CHALLENGES_DIR, 'deck.json');
 
 function fail(message) {
   console.error(`validate-challenges: ${message}`);
   process.exit(1);
 }
 
-function parseManifest() {
-  if (!existsSync(MANIFEST_PATH)) {
-    fail(`manifest not found at ${MANIFEST_PATH}`);
+function parseDeck() {
+  if (!existsSync(DECK_PATH)) {
+    fail(`deck not found at ${DECK_PATH}`);
   }
 
-  let manifest;
+  let deck;
   try {
-    manifest = JSON.parse(readFileSync(MANIFEST_PATH, 'utf8'));
+    deck = JSON.parse(readFileSync(DECK_PATH, 'utf8'));
   } catch (err) {
-    fail(`invalid manifest JSON: ${err.message}`);
+    fail(`invalid deck JSON: ${err.message}`);
   }
 
-  if (!Array.isArray(manifest) || manifest.length === 0) {
-    fail('manifest must be a non-empty array of file paths');
+  if (!Array.isArray(deck) || deck.length === 0) {
+    fail('deck must be a non-empty array of file paths');
   }
 
-  for (const entry of manifest) {
+  for (const entry of deck) {
     if (typeof entry !== 'string' || entry.trim() === '') {
-      fail('manifest entries must be non-empty strings');
+      fail('deck entries must be non-empty strings');
     }
   }
 
-  return manifest;
+  return deck;
 }
 
 function loadDeckFile(relativePath) {
   const absolutePath = join(CHALLENGES_DIR, relativePath);
   if (!existsSync(absolutePath)) {
-    fail(`manifest entry not found: ${relativePath}`);
+    fail(`deck entry not found: ${relativePath}`);
   }
 
   try {
@@ -50,12 +50,12 @@ function loadDeckFile(relativePath) {
   }
 }
 
-const manifest = parseManifest();
+const deck = parseDeck();
 const seenIds = new Map();
 let total = 0;
 
 try {
-  for (const file of manifest) {
+  for (const file of deck) {
     const challenges = loadDeckFile(file);
     total += validateChallengeArray(challenges, file, seenIds);
   }
@@ -66,4 +66,4 @@ try {
   throw err;
 }
 
-console.log(`validate-challenges: OK — ${total} challenges in ${manifest.length} file(s)`);
+console.log(`validate-challenges: OK — ${total} challenges in ${deck.length} file(s)`);

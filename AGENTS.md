@@ -68,7 +68,7 @@ interface ChallengeModule {
 ## Challenge data
 
 - `src/challenges/data/{level}/{topic}.json` (levels: a1|a2|b1)
-- `src/challenges/manifest.json` is the authoritative list (array of relative paths).
+- `src/challenges/deck.json` is the authoritative list (array of relative paths).
 - `build.sh` calls `node scripts/validate-challenges.mjs` which enforces required fields, type-specific shapes, and unique IDs.
 - Card ID format: `{level}.{topic}.{slug}` (e.g. `a1.vocab-basics.fiets.de_het`). **Never rename published IDs** — progress and logs are keyed by ID.
 - `StorageService` enriches every card with `level` and `topic` derived from path if missing.

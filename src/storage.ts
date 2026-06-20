@@ -123,7 +123,7 @@ export class StorageService {
   private ignored: Set<string> = new Set();
 
   async init(): Promise<void> {
-    const manifest: string[] = await fetch(chrome.runtime.getURL('challenges/manifest.json')).then(
+    const manifest: string[] = await fetch(chrome.runtime.getURL('challenges/deck.json')).then(
       (r) => r.json(),
     );
     const parts = await Promise.all(
