@@ -48,6 +48,7 @@ function buildShellHtml(challenge, matchShuffle, leftItems, rightItems) {
     ]);
     return challengeShell(`<div id="challenge" class="challenge-card">${cardBody}</div>
     <button id="skip-link" type="button" class="skip-link">Ik weet het niet zeker</button>
+    <button id="ignore-link" type="button" class="skip-link">Ignore</button>
     ${footer}`, ' data-match-pairs="[]"');
 }
 function createMatchController(container, total) {

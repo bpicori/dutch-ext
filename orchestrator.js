@@ -46,7 +46,7 @@ function gradeResponse(module, challenge, response, priorProgress) {
 export class Orchestrator {
     constructor(storage) {
         this.storage = storage;
-        this.debug = new DebugMode(() => this.storage.getDeck());
+        this.debug = new DebugMode(() => this.storage.getDeck(), () => this.storage.getIgnored(), (id) => this.storage.ignore(id), (id) => this.storage.unignore(id));
         this.stats = new StatsMode();
     }
     start() {
@@ -80,6 +80,10 @@ export class Orchestrator {
             this.dismiss();
             return 'exit';
         }
+        if (response.kind === 'ignore') {
+            await this.storage.ignore(challenge.id);
+            return 'next';
+        }
         const priorProgress = this.storage.getProgress()[challenge.id] ?? DEFAULT_PROGRESS;
         const { answer, correct, nextProgress } = gradeResponse(module, challenge, response, priorProgress);
         await this.storage.saveProgress(challenge.id, nextProgress);
@@ -97,12 +101,13 @@ export class Orchestrator {
     }
     pickChallengeForRound() {
         const deck = this.storage.getDeck();
+        const ignored = this.storage.getIgnored();
         const debugChallenge = this.debug.pickChallenge(deck);
-        if (debugChallenge)
+        if (debugChallenge && !this.storage.isIgnored(debugChallenge.id))
             return debugChallenge;
         if (this.debug.wantsTypeButEmpty())
             return null;
-        return pickNext(deck, this.storage.getProgress());
+        return pickNext(deck, this.storage.getProgress(), ignored);
     }
     requireChallengeArea() {
         const area = document.getElementById('challenge-area');

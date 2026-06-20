@@ -193,7 +193,10 @@ export class StatsMode {
         if (this.open)
             return;
         this.open = true;
-        const stats = computeStats(storage.getDeck(), storage.getProgress(), storage.getReviewDaily(), storage.getReviewLog(), storage.getStreak());
+        const deck = storage.getDeck();
+        const ignoredSet = new Set(storage.getIgnored());
+        const activeDeck = deck.filter((c) => !ignoredSet.has(c.id));
+        const stats = computeStats(activeDeck, storage.getProgress(), storage.getReviewDaily(), storage.getReviewLog(), storage.getStreak());
         const overlay = document.createElement('div');
         overlay.id = 'stats-overlay';
         overlay.className = 'stats-overlay animate-fade-in';

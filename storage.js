@@ -4,6 +4,7 @@ const PROGRESS_KEY = 'progress';
 const REVIEW_DAILY_KEY = 'reviewDaily';
 const REVIEW_LOG_KEY = 'reviewLog';
 const STREAK_KEY = 'streak';
+const IGNORED_KEY = 'ignored';
 const MAX_LOG_ENTRIES = 10000;
 const LOG_RETENTION_MS = 365 * 86400000;
 const LEVELS = new Set(['a1', 'a2', 'b1']);
@@ -105,6 +106,7 @@ export class StorageService {
         this.reviewDaily = {};
         this.reviewLog = [];
         this.streak = { ...DEFAULT_STREAK };
+        this.ignored = new Set();
     }
     async init() {
         const manifest = await fetch(assetUrl('challenges/manifest.json')).then((r) => r.json());
@@ -113,7 +115,7 @@ export class StorageService {
             return challenges.map((ch) => enrichChallenge(ch, f));
         }));
         this.deck = parts.flat();
-        const data = await storageGet([PROGRESS_KEY, REVIEW_DAILY_KEY, REVIEW_LOG_KEY, STREAK_KEY]);
+        const data = await storageGet([PROGRESS_KEY, REVIEW_DAILY_KEY, REVIEW_LOG_KEY, STREAK_KEY, IGNORED_KEY]);
         const stored = data[PROGRESS_KEY];
         this.progress =
             stored && typeof stored === 'object'
@@ -122,6 +124,8 @@ export class StorageService {
         this.reviewDaily = migrateReviewDaily(data[REVIEW_DAILY_KEY]);
         this.reviewLog = pruneReviewLog(migrateReviewLog(data[REVIEW_LOG_KEY]), Date.now());
         this.streak = migrateStreak(data[STREAK_KEY]);
+        const rawIgnored = data[IGNORED_KEY];
+        this.ignored = new Set(Array.isArray(rawIgnored) ? rawIgnored : []);
     }
     getDeck() {
         return this.deck;
@@ -137,6 +141,24 @@ export class StorageService {
     }
     getStreak() {
         return this.streak;
+    }
+    getIgnored() {
+        return Array.from(this.ignored);
+    }
+    async ignore(id) {
+        if (this.ignored.has(id))
+            return;
+        this.ignored.add(id);
+        await storageSet({ [IGNORED_KEY]: Array.from(this.ignored) });
+    }
+    async unignore(id) {
+        if (!this.ignored.has(id))
+            return;
+        this.ignored.delete(id);
+        await storageSet({ [IGNORED_KEY]: Array.from(this.ignored) });
+    }
+    isIgnored(id) {
+        return this.ignored.has(id);
     }
     async saveProgress(id, progress) {
         this.progress = { ...this.progress, [id]: progress };

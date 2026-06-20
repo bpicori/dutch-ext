@@ -5,10 +5,12 @@ export const DEFAULT_PROGRESS = {
     intervalIndex: 0,
     dontShowUntil: 0,
 };
-export function pickNext(deck, progress, now = Date.now()) {
-    if (deck.length === 0)
+export function pickNext(deck, progress, ignored = [], now = Date.now()) {
+    const ignoredSet = ignored instanceof Set ? ignored : new Set(ignored);
+    const active = deck.filter((ch) => !ignoredSet.has(ch.id));
+    if (active.length === 0)
         return null;
-    const eligible = deck.filter((ch) => {
+    const eligible = active.filter((ch) => {
         const p = progress[ch.id];
         if (!p)
             return true;
@@ -17,12 +19,12 @@ export function pickNext(deck, progress, now = Date.now()) {
     if (eligible.length > 0) {
         return eligible[Math.floor(Math.random() * eligible.length)];
     }
-    let best = deck[0];
+    let best = active[0];
     let bestDue = progress[best.id]?.dontShowUntil ?? 0;
-    for (let i = 1; i < deck.length; i++) {
-        const due = progress[deck[i].id]?.dontShowUntil ?? 0;
+    for (let i = 1; i < active.length; i++) {
+        const due = progress[active[i].id]?.dontShowUntil ?? 0;
         if (due < bestDue) {
-            best = deck[i];
+            best = active[i];
             bestDue = due;
         }
     }
