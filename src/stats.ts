@@ -217,8 +217,12 @@ export class StatsMode {
     if (this.open) return;
     this.open = true;
 
+    const deck = storage.getDeck();
+    const ignoredSet = new Set(storage.getIgnored());
+    const activeDeck = deck.filter((c) => !ignoredSet.has(c.id));
+
     const stats = computeStats(
-      storage.getDeck(),
+      activeDeck,
       storage.getProgress(),
       storage.getReviewDaily(),
       storage.getReviewLog(),

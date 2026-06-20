@@ -31,7 +31,7 @@ function tone(
   osc.stop(startTime + duration + 0.01);
 }
 
-export { escapeAttr, kbdChip, kbdFooter, skipLink } from '../ui/primitives.js';
+export { escapeAttr, ignoreLink, kbdChip, kbdFooter, skipLink } from '../ui/primitives.js';
 
 export function speak(text: string, lang = 'nl-NL'): void {
   if (!window.speechSynthesis) return;
@@ -176,8 +176,11 @@ export function bindChallengeSession(
 ): { done: (response: UserResponse) => void; isAnswered: () => boolean } {
   let answered = false;
 
+  let ignoreCleanup: (() => void) | null = null;
+
   const cleanup = () => {
     document.removeEventListener('keydown', onKey);
+    ignoreCleanup?.();
   };
 
   const done = (response: UserResponse) => {
@@ -208,6 +211,15 @@ export function bindChallengeSession(
   };
 
   document.addEventListener('keydown', onKey);
+
+  // Bind ignore link (always rendered via challengeLayout for most types)
+  const ignoreEl = document.querySelector('#ignore-link');
+  if (ignoreEl) {
+    const onIgnore = () => done({ kind: 'ignore' });
+    ignoreEl.addEventListener('click', onIgnore);
+    ignoreCleanup = () => ignoreEl.removeEventListener('click', onIgnore);
+  }
+
   return { done, isAnswered: () => answered };
 }
 
@@ -246,6 +258,7 @@ export function bindMcqPresent(container: HTMLElement): Promise<import('./types.
     const cleanup = () => {
       document.removeEventListener('keydown', onKey);
       skipLink?.removeEventListener('click', onSkip);
+      ignoreLink?.removeEventListener('click', onIgnore);
       buttons.forEach((btn) => btn.removeEventListener('click', onChoice));
       replayBtn?.removeEventListener('click', onReplay);
     };
@@ -258,6 +271,7 @@ export function bindMcqPresent(container: HTMLElement): Promise<import('./types.
     };
 
     const onSkip = () => done({ kind: 'skip' });
+    const onIgnore = () => done({ kind: 'ignore' });
     const onChoice = (e: Event) => {
       const answer = (e.currentTarget as HTMLElement).dataset.answer;
       if (answer) done({ kind: 'answer', value: answer });
@@ -288,10 +302,12 @@ export function bindMcqPresent(container: HTMLElement): Promise<import('./types.
     };
 
     const skipLink = container.querySelector('#skip-link');
+    const ignoreLink = container.querySelector('#ignore-link');
     const buttons = container.querySelectorAll('.choice-btn');
     const replayBtn = container.querySelector('#replay-audio');
 
     skipLink?.addEventListener('click', onSkip);
+    ignoreLink?.addEventListener('click', onIgnore);
     buttons.forEach((btn) => btn.addEventListener('click', onChoice));
     replayBtn?.addEventListener('click', onReplay);
     document.addEventListener('keydown', onKey);

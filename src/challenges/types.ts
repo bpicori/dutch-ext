@@ -3,7 +3,8 @@ import { Challenge } from '../types.js';
 export type UserResponse =
   | { kind: 'answer'; value: string }
   | { kind: 'skip' }
-  | { kind: 'dismiss' };
+  | { kind: 'dismiss' }
+  | { kind: 'ignore' };
 
 export interface ChallengeModule {
   present(container: HTMLElement, challenge: Challenge): Promise<UserResponse>;

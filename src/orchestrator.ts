@@ -65,7 +65,12 @@ export class Orchestrator {
   private stats: StatsMode;
 
   constructor(private storage: StorageService) {
-    this.debug = new DebugMode(() => this.storage.getDeck());
+    this.debug = new DebugMode(
+      () => this.storage.getDeck(),
+      () => this.storage.getIgnored(),
+      (id) => this.storage.ignore(id),
+      (id) => this.storage.unignore(id),
+    );
     this.stats = new StatsMode();
   }
 
@@ -104,6 +109,11 @@ export class Orchestrator {
       return 'exit';
     }
 
+    if (response.kind === 'ignore') {
+      await this.storage.ignore(challenge.id);
+      return 'next';
+    }
+
     const priorProgress = this.storage.getProgress()[challenge.id] ?? DEFAULT_PROGRESS;
     const { answer, correct, nextProgress } = gradeResponse(
       module,
@@ -130,10 +140,11 @@ export class Orchestrator {
 
   private pickChallengeForRound(): Challenge | null {
     const deck = this.storage.getDeck();
+    const ignored = this.storage.getIgnored();
     const debugChallenge = this.debug.pickChallenge(deck);
-    if (debugChallenge) return debugChallenge;
+    if (debugChallenge && !this.storage.isIgnored(debugChallenge.id)) return debugChallenge;
     if (this.debug.wantsTypeButEmpty()) return null;
-    return pickNext(deck, this.storage.getProgress());
+    return pickNext(deck, this.storage.getProgress(), ignored);
   }
 
   private requireChallengeArea(): HTMLElement {

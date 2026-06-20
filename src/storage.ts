@@ -13,6 +13,7 @@ const PROGRESS_KEY = 'progress' as const;
 const REVIEW_DAILY_KEY = 'reviewDaily' as const;
 const REVIEW_LOG_KEY = 'reviewLog' as const;
 const STREAK_KEY = 'streak' as const;
+const IGNORED_KEY = 'ignored' as const;
 
 const MAX_LOG_ENTRIES = 10_000;
 const LOG_RETENTION_MS = 365 * 86_400_000;
@@ -120,6 +121,7 @@ export class StorageService {
   private reviewDaily: Record<string, DailyReviewStat> = {};
   private reviewLog: ReviewEntry[] = [];
   private streak: StreakState = { ...DEFAULT_STREAK };
+  private ignored: Set<string> = new Set();
 
   async init(): Promise<void> {
     const manifest: string[] = await fetch(assetUrl('challenges/manifest.json')).then((r) =>
@@ -135,7 +137,7 @@ export class StorageService {
     );
     this.deck = parts.flat();
 
-    const data = await storageGet([PROGRESS_KEY, REVIEW_DAILY_KEY, REVIEW_LOG_KEY, STREAK_KEY]);
+    const data = await storageGet([PROGRESS_KEY, REVIEW_DAILY_KEY, REVIEW_LOG_KEY, STREAK_KEY, IGNORED_KEY]);
 
     const stored = data[PROGRESS_KEY];
     this.progress =
@@ -146,6 +148,9 @@ export class StorageService {
     this.reviewDaily = migrateReviewDaily(data[REVIEW_DAILY_KEY]);
     this.reviewLog = pruneReviewLog(migrateReviewLog(data[REVIEW_LOG_KEY]), Date.now());
     this.streak = migrateStreak(data[STREAK_KEY]);
+
+    const rawIgnored = data[IGNORED_KEY];
+    this.ignored = new Set(Array.isArray(rawIgnored) ? (rawIgnored as string[]) : []);
   }
 
   getDeck(): Challenge[] {
@@ -166,6 +171,26 @@ export class StorageService {
 
   getStreak(): StreakState {
     return this.streak;
+  }
+
+  getIgnored(): string[] {
+    return Array.from(this.ignored);
+  }
+
+  async ignore(id: string): Promise<void> {
+    if (this.ignored.has(id)) return;
+    this.ignored.add(id);
+    await storageSet({ [IGNORED_KEY]: Array.from(this.ignored) });
+  }
+
+  async unignore(id: string): Promise<void> {
+    if (!this.ignored.has(id)) return;
+    this.ignored.delete(id);
+    await storageSet({ [IGNORED_KEY]: Array.from(this.ignored) });
+  }
+
+  isIgnored(id: string): boolean {
+    return this.ignored.has(id);
   }
 
   async saveProgress(id: string, progress: ChallengeProgress): Promise<void> {

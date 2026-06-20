@@ -13,7 +13,12 @@ export class DebugMode {
   selectedType: ChallengeType | null =
     (sessionStorage.getItem(STORAGE_TYPE) as ChallengeType) || null;
 
-  constructor(private getDeck: () => Challenge[]) {}
+  constructor(
+    private getDeck: () => Challenge[],
+    private getIgnored: () => string[] = () => [],
+    private ignoreFn: (id: string) => Promise<void> = async () => {},
+    private unignoreFn: (id: string) => Promise<void> = async () => {},
+  ) {}
 
   mount(): void {
     document.addEventListener('keydown', this.onKey);
@@ -103,6 +108,10 @@ export class DebugMode {
           ).join('')}
         </select>
         <p id="debug-count" class="type-label-sm text-muted normal-case tracking-normal"></p>
+        <div class="pt-sm border-t border-border flex items-center justify-between">
+          <span class="type-label-sm text-muted">Ignored: <span id="debug-ignored-count">0</span></span>
+          <button id="debug-manage-ignored" type="button" class="type-label-sm text-accent hover:underline">Manage</button>
+        </div>
         <p class="type-label-sm text-muted normal-case tracking-normal opacity-60">⌘D to toggle</p>
       </div>`;
 
@@ -113,8 +122,67 @@ export class DebugMode {
       const value = (e.target as HTMLSelectElement).value;
       this.persistType(value ? (value as ChallengeType) : null);
     });
+    panel.querySelector('#debug-manage-ignored')?.addEventListener('click', () => this.showIgnoredManager(panel));
 
     this.updateCount();
+    this.updateIgnoredCount(panel);
+  }
+
+  private updateIgnoredCount(panel?: HTMLElement): void {
+    const root = panel || document.getElementById('debug-panel');
+    if (!root) return;
+    const el = root.querySelector('#debug-ignored-count');
+    if (el) el.textContent = String(this.getIgnored().length);
+  }
+
+  private showIgnoredManager(panel: HTMLElement): void {
+    const deck = this.getDeck();
+    const ignoredIds = this.getIgnored();
+    const ignoredCards = deck.filter((c) => ignoredIds.includes(c.id));
+
+    const listHtml = ignoredCards.length === 0
+      ? `<p class="type-label-sm text-muted">No ignored challenges.</p>`
+      : ignoredCards
+          .map((c) => {
+            const label = (c.prompt || c.id).slice(0, 42) + ((c.prompt || c.id).length > 42 ? '…' : '');
+            return `
+              <div class="flex items-center justify-between gap-xs py-px">
+                <span class="type-label-sm truncate" title="${c.id}">${label}</span>
+                <button type="button" class="type-label-sm text-accent hover:underline unignore-btn" data-id="${c.id}">Un-ignore</button>
+              </div>`;
+          })
+          .join('');
+
+    panel.innerHTML = `
+      <div class="flashcard p-md flex flex-col gap-sm border border-border">
+        <div class="flex items-center justify-between">
+          <span class="type-label-sm text-accent font-semibold">Ignored</span>
+          <button type="button" id="debug-ignored-back" class="type-label-sm text-muted hover:text-ink">Back</button>
+        </div>
+        <div class="max-h-48 overflow-auto pr-1">${listHtml}</div>
+        ${ignoredCards.length > 0 ? `<button id="debug-unignore-all" type="button" class="type-label-sm text-error hover:underline mt-1">Un-ignore all</button>` : ''}
+      </div>`;
+
+    panel.querySelector('#debug-ignored-back')?.addEventListener('click', () => {
+      this.renderPanel();
+    });
+
+    panel.querySelectorAll('.unignore-btn').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const id = (btn as HTMLElement).dataset.id!;
+        await this.unignoreFn(id);
+        this.showIgnoredManager(panel); // refresh list
+        this.updateIgnoredCount(); // if main panel visible later
+      });
+    });
+
+    panel.querySelector('#debug-unignore-all')?.addEventListener('click', async () => {
+      const all = [...this.getIgnored()];
+      for (const id of all) {
+        await this.unignoreFn(id);
+      }
+      this.showIgnoredManager(panel);
+    });
   }
 
   private removePanel(): void {

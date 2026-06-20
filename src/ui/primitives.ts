@@ -44,6 +44,10 @@ export function skipLink(): string {
   return `<button id="skip-link" type="button" class="skip-link">Ik weet het niet zeker</button>`;
 }
 
+export function ignoreLink(): string {
+  return `<button id="ignore-link" type="button" class="skip-link">Ignore</button>`;
+}
+
 export function kbdChip(label: string): string {
   return `<span class="kbd-chip">${label}</span>`;
 }
@@ -71,5 +75,5 @@ export function contextBlock(text: string): string {
 }
 
 export function challengeLayout(cardBody: string, footer = ''): string {
-  return challengeShell(`${challengeCard(cardBody)}${skipLink()}${footer}`);
+  return challengeShell(`${challengeCard(cardBody)}${skipLink()}${ignoreLink()}${footer}`);
 }
