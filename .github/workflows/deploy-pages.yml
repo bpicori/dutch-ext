@@ -25,7 +25,9 @@ jobs:
 
       - run: npm run build:web
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: peaceiris/actions-gh-pages@v4
         with:
-          commit_message: 'Deploy web app to docs/'
-          file_pattern: docs/**
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./web-dist
+          publish_branch: gh-pages
+          commit_message: 'Deploy web app'
