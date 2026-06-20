@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "build": "./build.sh",
-    "build:web": "./build-web.sh",
     "validate:challenges": "node scripts/validate-challenges.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
