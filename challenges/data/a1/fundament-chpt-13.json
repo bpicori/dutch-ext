@@ -1,0 +1,50 @@
+[
+  {
+    "id": "a1.fundament-chpt13.best.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Goed → onregelmatig overtredende trap: het ___",
+    "choices": ["best", "goedst", "bester"],
+    "correctAnswer": "best",
+    "tags": ["fundament", "chpt-13"]
+  },
+  {
+    "id": "a1.fundament-chpt13.beter.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Goed → onregelmatig vergrotende trap: ___",
+    "choices": ["beter", "goeder", "meer goed"],
+    "correctAnswer": "beter",
+    "tags": ["fundament", "chpt-13"]
+  },
+  {
+    "id": "a1.fundament-chpt13.grootst.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Groot → overtredende trap: het ___",
+    "choices": ["grootst", "groter", "grootste"],
+    "correctAnswer": "grootst",
+    "tags": ["fundament", "chpt-13"]
+  },
+  {
+    "id": "a1.fundament-chpt13.groter.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Groot → vergrotende trap: ___",
+    "choices": ["groter", "grootst", "meer groot"],
+    "correctAnswer": "groter",
+    "tags": ["fundament", "chpt-13"]
+  },
+  {
+    "id": "a1.fundament-chpt13.mooier.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Mooi → vergrotende trap: ___",
+    "choices": ["mooier", "mooist", "meer mooi"],
+    "correctAnswer": "mooier",
+    "tags": ["fundament", "chpt-13"]
+  },
+  {
+    "id": "a1.fundament-chpt13.mooist.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Mooi → overtredende trap: het ___",
+    "choices": ["mooist", "mooier", "mooiste"],
+    "correctAnswer": "mooist",
+    "tags": ["fundament", "chpt-13"]
+  }
+]

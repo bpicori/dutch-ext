@@ -1,0 +1,82 @@
+[
+  {
+    "id": "a1.fundament-chpt16.voltooide-stappen.read_order",
+    "type": "read_order",
+    "prompt": "Zet de stappen voor de voltooide tijd:",
+    "orderItems": ["helpwerkwoord hebben/zijn", "voltooid deelwoord"],
+    "correctAnswer": "helpwerkwoord hebben/zijn|voltooid deelwoord",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.ex-kofschip.fill_blank",
+    "type": "fill_blank",
+    "prompt": "'t ex kofschip → verleden tijd op -___",
+    "choices": ["te", "de", "en"],
+    "correctAnswer": "te",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.meervoud-inf.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Meervoud wij/jullie/zij: gebruik het ___",
+    "choices": ["infinitief", "stam", "deelwoord"],
+    "correctAnswer": "infinitief",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.stam-t.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Enkelvoud jij/hij: stam + ___",
+    "choices": ["t", "en", "de"],
+    "correctAnswer": "t",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.verleden-de.fill_blank",
+    "type": "fill_blank",
+    "prompt": "Andere stammen → verleden tijd op -___",
+    "choices": ["de", "te", "en"],
+    "correctAnswer": "de",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.praten.verb_form",
+    "type": "verb_form",
+    "prompt": "Hij ___ Nederlands.",
+    "choices": ["praat", "praten", "praatte"],
+    "correctAnswer": "praat",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.reizen.verb_form",
+    "type": "verb_form",
+    "prompt": "Lisa ___ naar Spanje.",
+    "choices": ["reist", "reizen", "reisde"],
+    "correctAnswer": "reist",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.rennen.verb_form",
+    "type": "verb_form",
+    "prompt": "Jij ___ hard.",
+    "choices": ["rent", "ren", "rennen"],
+    "correctAnswer": "rent",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.werken.verb_form",
+    "type": "verb_form",
+    "prompt": "Ik ___ elke dag.",
+    "choices": ["werk", "werken", "werkt"],
+    "correctAnswer": "werk",
+    "tags": ["fundament", "chpt-16"]
+  },
+  {
+    "id": "a1.fundament-chpt16.wonen.verb_form",
+    "type": "verb_form",
+    "prompt": "Wij ___ in Utrecht.",
+    "choices": ["wonen", "woon", "woont"],
+    "correctAnswer": "wonen",
+    "tags": ["fundament", "chpt-16"]
+  }
+]

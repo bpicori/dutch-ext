@@ -1,0 +1,122 @@
+[
+  {
+    "id": "a1.fundament-chpt02.acht.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "acht",
+    "choices": ["eight", "auto", "trein"],
+    "correctAnswer": "eight",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.alle.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "alle",
+    "choices": ["all", "auto", "trein"],
+    "correctAnswer": "all",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.derde.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "derde",
+    "choices": ["third", "auto", "trein"],
+    "correctAnswer": "third",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.drie.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "drie",
+    "choices": ["three", "auto", "trein"],
+    "correctAnswer": "three",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.duizend.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "duizend",
+    "choices": ["thousand", "auto", "trein"],
+    "correctAnswer": "thousand",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.eerste.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "eerste",
+    "choices": ["first", "auto", "trein"],
+    "correctAnswer": "first",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.elf.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "elf",
+    "choices": ["eleven", "auto", "trein"],
+    "correctAnswer": "eleven",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.honderd.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "honderd",
+    "choices": ["hundred", "auto", "trein"],
+    "correctAnswer": "hundred",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.n.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "één",
+    "choices": ["one", "auto", "trein"],
+    "correctAnswer": "one",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.negen.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "negen",
+    "choices": ["nine", "auto", "trein"],
+    "correctAnswer": "nine",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.niets.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "niets",
+    "choices": ["nothing", "auto", "trein"],
+    "correctAnswer": "nothing",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.nul.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "nul",
+    "choices": ["zero", "auto", "trein"],
+    "correctAnswer": "zero",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.tien.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "tien",
+    "choices": ["ten", "auto", "trein"],
+    "correctAnswer": "ten",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.tiende.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "tiende",
+    "choices": ["tenth", "auto", "trein"],
+    "correctAnswer": "tenth",
+    "tags": ["fundament", "chpt-02"]
+  },
+  {
+    "id": "a1.fundament-chpt02.twaalf.nl_to_en",
+    "type": "nl_to_en",
+    "prompt": "twaalf",
+    "choices": ["twelve", "auto", "trein"],
+    "correctAnswer": "twelve",
+    "tags": ["fundament", "chpt-02"]
+  }
+]

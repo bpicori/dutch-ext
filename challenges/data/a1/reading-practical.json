@@ -1,0 +1,30 @@
+[
+  {
+    "id": "a1.reading-practical.winkel-hours.read_mcq",
+    "type": "read_mcq",
+    "context": "De winkel is open van 9:00 tot 17:30.\nOp zondag is de winkel gesloten.",
+    "prompt": "Tot hoe laat is de winkel open op werkdagen?",
+    "choices": ["17:30", "9:00", "Gesloten"],
+    "correctAnswer": "17:30"
+  },
+  {
+    "id": "a1.reading-practical.afschrift.read_mcq",
+    "type": "read_mcq",
+    "context": "Beste mevrouw De Vries,\n\nUw afspraak is op dinsdag 14 maart om 10:30 uur.\n\nMet vriendelijke groet,\nHuisartsenpraktijk Centrum",
+    "prompt": "Wanneer is de afspraak?",
+    "choices": [
+      "Dinsdag 14 maart om 10:30",
+      "Maandag 14 maart om 14:00",
+      "Woensdag 14 maart om 10:30"
+    ],
+    "correctAnswer": "Dinsdag 14 maart om 10:30"
+  },
+  {
+    "id": "a1.reading-practical.brood-price.number_detail",
+    "type": "number_detail",
+    "context": "Korting: alle broden 2 euro.",
+    "prompt": "Hoeveel kost een brood?",
+    "choices": ["2 euro", "5 euro", "10 euro"],
+    "correctAnswer": "2 euro"
+  }
+]
